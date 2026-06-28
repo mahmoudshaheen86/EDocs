@@ -1,0 +1,1438 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="..\packages\EntityFramework.6.4.4\build\EntityFramework.props" Condition="Exists('..\packages\EntityFramework.6.4.4\build\EntityFramework.props')" />
+  <Import Project="..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.0\build\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props" Condition="Exists('..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.0\build\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props')" />
+  <Import Project="..\packages\Microsoft.Net.Compilers.1.0.0\build\Microsoft.Net.Compilers.props" Condition="Exists('..\packages\Microsoft.Net.Compilers.1.0.0\build\Microsoft.Net.Compilers.props')" />
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\TypeScript\Microsoft.TypeScript.Default.props" Condition="Exists('$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\TypeScript\Microsoft.TypeScript.Default.props')" />
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>
+    </ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{F45388B2-5E4D-4812-B71F-C8126ED56A75}</ProjectGuid>
+    <ProjectTypeGuids>{349c5851-65df-11da-9384-00065b846f21};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>edocs</RootNamespace>
+    <AssemblyName>edocs</AssemblyName>
+    <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
+    <UseIISExpress>true</UseIISExpress>
+    <IISExpressSSLPort />
+    <IISExpressAnonymousAuthentication />
+    <IISExpressWindowsAuthentication />
+    <IISExpressUseClassicPipelineMode />
+    <UseGlobalApplicationHostFile />
+    <NuGetPackageImportStamp>
+    </NuGetPackageImportStamp>
+    <Use64BitIISExpress />
+    <TypeScriptToolsVersion>1.8</TypeScriptToolsVersion>
+    <TargetFrameworkProfile />
+    <WebGreaseLibPath>..\packages\WebGrease.1.5.2\lib</WebGreaseLibPath>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>0</WarningLevel>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <Prefer32Bit>false</Prefer32Bit>
+    <LangVersion>Default</LangVersion>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
+    <LangVersion>Default</LangVersion>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="ADO.NET.Helper, Version=1.0.3.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\ADO.NET.Helper.1.0.3.0\lib\ADO.NET.Helper.dll</HintPath>
+    </Reference>
+    <Reference Include="Antlr3.Runtime, Version=3.4.1.9004, Culture=neutral, PublicKeyToken=eb42632606e9261f, processorArchitecture=MSIL">
+      <HintPath>..\packages\Antlr.3.4.1.9004\lib\Antlr3.Runtime.dll</HintPath>
+    </Reference>
+    <Reference Include="BouncyCastle.Crypto, Version=1.9.0.0, Culture=neutral, PublicKeyToken=0e99375e54769942, processorArchitecture=MSIL">
+      <HintPath>..\packages\Portable.BouncyCastle.1.9.0\lib\net40\BouncyCastle.Crypto.dll</HintPath>
+    </Reference>
+    <Reference Include="BouncyCastle.Cryptography, Version=2.0.0.0, Culture=neutral, PublicKeyToken=072edcf4a5328938, processorArchitecture=MSIL">
+      <HintPath>..\packages\BouncyCastle.Cryptography.2.6.2\lib\net461\BouncyCastle.Cryptography.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.4.4\lib\net45\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.4.4\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+    </Reference>
+    <Reference Include="Google.Protobuf, Version=3.32.0.0, Culture=neutral, PublicKeyToken=a7d26565bac4d604, processorArchitecture=MSIL">
+      <HintPath>..\packages\Google.Protobuf.3.32.0\lib\net45\Google.Protobuf.dll</HintPath>
+    </Reference>
+    <Reference Include="hashmakersol.pdfmaker, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\PDFMaker-HashMakerSol.1.0.6\lib\hashmakersol.pdfmaker.dll</HintPath>
+    </Reference>
+    <Reference Include="itextsharp, Version=5.5.10.0, Culture=neutral, PublicKeyToken=8354ae6d2174ddca, processorArchitecture=MSIL">
+      <HintPath>..\packages\iTextSharp.5.5.10\lib\itextsharp.dll</HintPath>
+    </Reference>
+    <Reference Include="itextsharp.xmlworker, Version=5.5.10.0, Culture=neutral, PublicKeyToken=8354ae6d2174ddca, processorArchitecture=MSIL">
+      <HintPath>..\packages\itextsharp.xmlworker.5.5.10\lib\itextsharp.xmlworker.dll</HintPath>
+    </Reference>
+    <Reference Include="K4os.Compression.LZ4, Version=1.3.8.0, Culture=neutral, PublicKeyToken=2186fa9121ef231d, processorArchitecture=MSIL">
+      <HintPath>..\packages\K4os.Compression.LZ4.1.3.8\lib\net462\K4os.Compression.LZ4.dll</HintPath>
+    </Reference>
+    <Reference Include="K4os.Compression.LZ4.Streams, Version=1.3.8.0, Culture=neutral, PublicKeyToken=2186fa9121ef231d, processorArchitecture=MSIL">
+      <HintPath>..\packages\K4os.Compression.LZ4.Streams.1.3.8\lib\net462\K4os.Compression.LZ4.Streams.dll</HintPath>
+    </Reference>
+    <Reference Include="K4os.Hash.xxHash, Version=1.0.8.0, Culture=neutral, PublicKeyToken=32cd54395057cec3, processorArchitecture=MSIL">
+      <HintPath>..\packages\K4os.Hash.xxHash.1.0.8\lib\net462\K4os.Hash.xxHash.dll</HintPath>
+    </Reference>
+    <Reference Include="log4net, Version=1.2.10.0, Culture=neutral, PublicKeyToken=1b44e1d426115821, processorArchitecture=MSIL">
+      <HintPath>..\packages\log4net.1.2.10\lib\2.0\log4net.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.AspNet.Identity.Core, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.Identity.Core.2.2.1\lib\net45\Microsoft.AspNet.Identity.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.AspNet.Identity.EntityFramework, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.Identity.EntityFramework.2.2.1\lib\net45\Microsoft.AspNet.Identity.EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.AspNet.Identity.Owin, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.Identity.Owin.2.2.1\lib\net45\Microsoft.AspNet.Identity.Owin.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Bcl.AsyncInterfaces, Version=5.0.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Bcl.AsyncInterfaces.5.0.0\lib\net461\Microsoft.Bcl.AsyncInterfaces.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.CodeDom.Providers.DotNetCompilerPlatform, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.0\lib\net45\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="Microsoft.Owin, Version=3.1.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Owin.3.1.0\lib\net45\Microsoft.Owin.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Host.SystemWeb, Version=3.1.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Owin.Host.SystemWeb.3.1.0\lib\net45\Microsoft.Owin.Host.SystemWeb.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Security, Version=3.1.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Owin.Security.3.1.0\lib\net45\Microsoft.Owin.Security.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Security.Cookies, Version=2.1.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Owin.Security.Cookies.2.1.0\lib\net45\Microsoft.Owin.Security.Cookies.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Security.Google, Version=3.1.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Owin.Security.Google.3.1.0\lib\net45\Microsoft.Owin.Security.Google.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Security.OAuth, Version=2.1.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Owin.Security.OAuth.2.1.0\lib\net45\Microsoft.Owin.Security.OAuth.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Web.Infrastructure, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Web.Infrastructure.1.0.0.0\lib\net40\Microsoft.Web.Infrastructure.dll</HintPath>
+    </Reference>
+    <Reference Include="MySql.Data, Version=8.0.33.0, Culture=neutral, PublicKeyToken=c5687fc88969c44d, processorArchitecture=MSIL">
+      <HintPath>..\packages\MySql.Data.8.0.33\lib\net48\MySql.Data.dll</HintPath>
+    </Reference>
+    <Reference Include="MySql.Data.EntityFramework, Version=8.0.33.0, Culture=neutral, PublicKeyToken=c5687fc88969c44d, processorArchitecture=MSIL">
+      <HintPath>..\packages\MySql.Data.EntityFramework.8.0.33\lib\net462\MySql.Data.EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="Newtonsoft.Json, Version=12.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.12.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="Owin, Version=1.0.0.0, Culture=neutral, PublicKeyToken=f0ebd12fd5e55cc5, processorArchitecture=MSIL">
+      <HintPath>..\packages\Owin.1.0\lib\net40\Owin.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Buffers, Version=4.0.3.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Buffers.4.5.1\lib\net461\System.Buffers.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Configuration.ConfigurationManager, Version=8.0.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Configuration.ConfigurationManager.8.0.0\lib\net462\System.Configuration.ConfigurationManager.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.IO.Pipelines, Version=5.0.0.2, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.IO.Pipelines.5.0.2\lib\net461\System.IO.Pipelines.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Linq.Dynamic, Version=1.0.6132.35681, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Linq.Dynamic.1.0.7\lib\net40\System.Linq.Dynamic.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Management" />
+    <Reference Include="System.Memory, Version=4.0.1.2, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Memory.4.5.5\lib\net461\System.Memory.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Net.Http.WebRequest" />
+    <Reference Include="System.Numerics" />
+    <Reference Include="System.Numerics.Vectors, Version=4.1.4.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Numerics.Vectors.4.5.0\lib\net46\System.Numerics.Vectors.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Runtime.CompilerServices.Unsafe, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Runtime.CompilerServices.Unsafe.6.0.0\lib\net461\System.Runtime.CompilerServices.Unsafe.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Security" />
+    <Reference Include="System.Threading.Tasks.Extensions, Version=4.2.0.1, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Threading.Tasks.Extensions.4.5.4\lib\net461\System.Threading.Tasks.Extensions.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Transactions" />
+    <Reference Include="System.Web.DynamicData" />
+    <Reference Include="System.Web.Entity" />
+    <Reference Include="System.Web.ApplicationServices" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Web.Extensions" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Web.Helpers, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.3\lib\net45\System.Web.Helpers.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Mvc, Version=5.2.3.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.Mvc.5.2.3\lib\net45\System.Web.Mvc.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Optimization, Version=1.1.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.Web.Optimization.1.1.3\lib\net40\System.Web.Optimization.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Razor, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.Razor.3.2.3\lib\net45\System.Web.Razor.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.3\lib\net45\System.Web.WebPages.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages.Deployment, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.3\lib\net45\System.Web.WebPages.Deployment.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages.Razor, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.3\lib\net45\System.Web.WebPages.Razor.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Web.Services" />
+    <Reference Include="System.EnterpriseServices" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="WebGrease, Version=1.5.2.14234, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\WebGrease.1.5.2\lib\WebGrease.dll</HintPath>
+    </Reference>
+    <Reference Include="ZstdSharp, Version=0.8.6.0, Culture=neutral, PublicKeyToken=8d151af33a4ad5cf, processorArchitecture=MSIL">
+      <HintPath>..\packages\ZstdSharp.Port.0.8.6\lib\net462\ZstdSharp.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="content\asprise_scan-legacy.jar" />
+    <Content Include="content\asprise_scan.jar" />
+    <Content Include="content\bootstrap-select.min.css" />
+    <Content Include="content\bootstrap-select.min.js" />
+    <Content Include="content\bootstrap.min.css" />
+    <Content Include="content\buttons.bootstrap.min.css" />
+    <Content Include="content\buttons.dataTables.min.css" />
+    <Content Include="content\dataTables.bootstrap.min.css" />
+    <Content Include="content\datatables\app-datatables.css" />
+    <Content Include="content\datatables\dataTables.bootstrap.js" />
+    <Content Include="content\datatables\datatables.js" />
+    <Content Include="content\datatables\datatables.min.css" />
+    <Content Include="content\datatables\datatables.min.js" />
+    <Content Include="content\datatables\jquery.dataTables.js" />
+    <Content Include="content\datatables\jquery.dataTables.min.css" />
+    <Content Include="content\datatables\jquery.dataTables.min.js" />
+    <Content Include="content\datatables\rwd-table.min.css" />
+    <Content Include="content\datatables\rwd-table.min.js" />
+    <Content Include="content\datepicker-ar.js" />
+    <Content Include="content\document-forms.css" />
+    <Content Include="content\dropzone\dropzone.css" />
+    <Content Include="content\dropzone\dropzone.min.js" />
+    <Content Include="content\font.css" />
+    <Content Include="content\font\fontawesome-webfont.svg" />
+    <Content Include="content\image\contactus2.png" />
+    <Content Include="content\image\homepage3.gif" />
+    <Content Include="content\image\loginpage.png" />
+    <Content Include="content\image\pdf.png" />
+    <Content Include="content\image\tiff.png" />
+    <Content Include="content\image\Word.png" />
+    <Content Include="content\jquery-ui-master\.gitattributes" />
+    <Content Include="content\jquery-ui-master\.gitignore" />
+    <Content Include="content\jquery-ui-master\AUTHORS.txt" />
+    <Content Include="content\jquery-ui-master\build\release-test.js" />
+    <Content Include="content\jquery-ui-master\build\release.js" />
+    <Content Include="content\jquery-ui-master\build\tasks\build.js" />
+    <Content Include="content\jquery-ui-master\build\tasks\testswarm.js" />
+    <Content Include="content\jquery-ui-master\demos\accordion\collapsible.html" />
+    <Content Include="content\jquery-ui-master\demos\accordion\custom-icons.html" />
+    <Content Include="content\jquery-ui-master\demos\accordion\default.html" />
+    <Content Include="content\jquery-ui-master\demos\accordion\fillspace.html" />
+    <Content Include="content\jquery-ui-master\demos\accordion\index.html" />
+    <Content Include="content\jquery-ui-master\demos\accordion\no-auto-height.html" />
+    <Content Include="content\jquery-ui-master\demos\accordion\sortable.html" />
+    <Content Include="content\jquery-ui-master\demos\autocomplete\categories.html" />
+    <Content Include="content\jquery-ui-master\demos\autocomplete\combobox.html" />
+    <Content Include="content\jquery-ui-master\demos\autocomplete\custom-data.html" />
+    <Content Include="content\jquery-ui-master\demos\autocomplete\default.html" />
+    <Content Include="content\jquery-ui-master\demos\autocomplete\folding.html" />
+    <Content Include="content\jquery-ui-master\demos\autocomplete\images\jqueryui_32x32.png" />
+    <Content Include="content\jquery-ui-master\demos\autocomplete\images\jquery_32x32.png" />
+    <Content Include="content\jquery-ui-master\demos\autocomplete\images\sizzlejs_32x32.png" />
+    <Content Include="content\jquery-ui-master\demos\autocomplete\images\transparent_1x1.png" />
+    <Content Include="content\jquery-ui-master\demos\autocomplete\images\ui-anim_basic_16x16.gif" />
+    <Content Include="content\jquery-ui-master\demos\autocomplete\index.html" />
+    <Content Include="content\jquery-ui-master\demos\autocomplete\london.xml" />
+    <Content Include="content\jquery-ui-master\demos\autocomplete\maxheight.html" />
+    <Content Include="content\jquery-ui-master\demos\autocomplete\multiple-remote.html" />
+    <Content Include="content\jquery-ui-master\demos\autocomplete\multiple.html" />
+    <Content Include="content\jquery-ui-master\demos\autocomplete\remote-jsonp.html" />
+    <Content Include="content\jquery-ui-master\demos\autocomplete\remote-with-cache.html" />
+    <Content Include="content\jquery-ui-master\demos\autocomplete\remote.html" />
+    <Content Include="content\jquery-ui-master\demos\autocomplete\xml.html" />
+    <Content Include="content\jquery-ui-master\demos\bootstrap.js" />
+    <Content Include="content\jquery-ui-master\demos\button\default.html" />
+    <Content Include="content\jquery-ui-master\demos\button\icons.html" />
+    <Content Include="content\jquery-ui-master\demos\button\index.html" />
+    <Content Include="content\jquery-ui-master\demos\checkboxradio\default.html" />
+    <Content Include="content\jquery-ui-master\demos\checkboxradio\images\jquery-mobile.png" />
+    <Content Include="content\jquery-ui-master\demos\checkboxradio\images\jquery-ui.png" />
+    <Content Include="content\jquery-ui-master\demos\checkboxradio\images\jquery.png" />
+    <Content Include="content\jquery-ui-master\demos\checkboxradio\images\qunit.png" />
+    <Content Include="content\jquery-ui-master\demos\checkboxradio\images\sizzle.png" />
+    <Content Include="content\jquery-ui-master\demos\checkboxradio\index.html" />
+    <Content Include="content\jquery-ui-master\demos\checkboxradio\no-icons.html" />
+    <Content Include="content\jquery-ui-master\demos\checkboxradio\product-selector.html" />
+    <Content Include="content\jquery-ui-master\demos\checkboxradio\radiogroup.html" />
+    <Content Include="content\jquery-ui-master\demos\controlgroup\default.html" />
+    <Content Include="content\jquery-ui-master\demos\controlgroup\index.html" />
+    <Content Include="content\jquery-ui-master\demos\controlgroup\splitbutton.html" />
+    <Content Include="content\jquery-ui-master\demos\controlgroup\toolbar.html" />
+    <Content Include="content\jquery-ui-master\demos\datepicker\alt-field.html" />
+    <Content Include="content\jquery-ui-master\demos\datepicker\animation.html" />
+    <Content Include="content\jquery-ui-master\demos\datepicker\buttonbar.html" />
+    <Content Include="content\jquery-ui-master\demos\datepicker\date-formats.html" />
+    <Content Include="content\jquery-ui-master\demos\datepicker\date-range.html" />
+    <Content Include="content\jquery-ui-master\demos\datepicker\default.html" />
+    <Content Include="content\jquery-ui-master\demos\datepicker\dropdown-month-year.html" />
+    <Content Include="content\jquery-ui-master\demos\datepicker\icon-trigger.html" />
+    <Content Include="content\jquery-ui-master\demos\datepicker\images\calendar.gif" />
+    <Content Include="content\jquery-ui-master\demos\datepicker\index.html" />
+    <Content Include="content\jquery-ui-master\demos\datepicker\inline.html" />
+    <Content Include="content\jquery-ui-master\demos\datepicker\localization.html" />
+    <Content Include="content\jquery-ui-master\demos\datepicker\min-max.html" />
+    <Content Include="content\jquery-ui-master\demos\datepicker\multiple-calendars.html" />
+    <Content Include="content\jquery-ui-master\demos\datepicker\other-months.html" />
+    <Content Include="content\jquery-ui-master\demos\datepicker\show-week.html" />
+    <Content Include="content\jquery-ui-master\demos\demos.css" />
+    <Content Include="content\jquery-ui-master\demos\dialog\animated.html" />
+    <Content Include="content\jquery-ui-master\demos\dialog\default.html" />
+    <Content Include="content\jquery-ui-master\demos\dialog\index.html" />
+    <Content Include="content\jquery-ui-master\demos\dialog\modal-confirmation.html" />
+    <Content Include="content\jquery-ui-master\demos\dialog\modal-form.html" />
+    <Content Include="content\jquery-ui-master\demos\dialog\modal-message.html" />
+    <Content Include="content\jquery-ui-master\demos\draggable\constrain-movement.html" />
+    <Content Include="content\jquery-ui-master\demos\draggable\cursor-style.html" />
+    <Content Include="content\jquery-ui-master\demos\draggable\default.html" />
+    <Content Include="content\jquery-ui-master\demos\draggable\events.html" />
+    <Content Include="content\jquery-ui-master\demos\draggable\handle.html" />
+    <Content Include="content\jquery-ui-master\demos\draggable\index.html" />
+    <Content Include="content\jquery-ui-master\demos\draggable\revert.html" />
+    <Content Include="content\jquery-ui-master\demos\draggable\scroll.html" />
+    <Content Include="content\jquery-ui-master\demos\draggable\snap-to.html" />
+    <Content Include="content\jquery-ui-master\demos\draggable\sortable.html" />
+    <Content Include="content\jquery-ui-master\demos\draggable\visual-feedback.html" />
+    <Content Include="content\jquery-ui-master\demos\droppable\accepted-elements.html" />
+    <Content Include="content\jquery-ui-master\demos\droppable\default.html" />
+    <Content Include="content\jquery-ui-master\demos\droppable\images\high_tatras.jpg" />
+    <Content Include="content\jquery-ui-master\demos\droppable\images\high_tatras2.jpg" />
+    <Content Include="content\jquery-ui-master\demos\droppable\images\high_tatras2_min.jpg" />
+    <Content Include="content\jquery-ui-master\demos\droppable\images\high_tatras3.jpg" />
+    <Content Include="content\jquery-ui-master\demos\droppable\images\high_tatras3_min.jpg" />
+    <Content Include="content\jquery-ui-master\demos\droppable\images\high_tatras4.jpg" />
+    <Content Include="content\jquery-ui-master\demos\droppable\images\high_tatras4_min.jpg" />
+    <Content Include="content\jquery-ui-master\demos\droppable\images\high_tatras_min.jpg" />
+    <Content Include="content\jquery-ui-master\demos\droppable\index.html" />
+    <Content Include="content\jquery-ui-master\demos\droppable\photo-manager.html" />
+    <Content Include="content\jquery-ui-master\demos\droppable\propagation.html" />
+    <Content Include="content\jquery-ui-master\demos\droppable\revert.html" />
+    <Content Include="content\jquery-ui-master\demos\droppable\visual-feedback.html" />
+    <Content Include="content\jquery-ui-master\demos\effect\addClass.html" />
+    <Content Include="content\jquery-ui-master\demos\effect\animate.html" />
+    <Content Include="content\jquery-ui-master\demos\effect\default.html" />
+    <Content Include="content\jquery-ui-master\demos\effect\easing.html" />
+    <Content Include="content\jquery-ui-master\demos\effect\hide.html" />
+    <Content Include="content\jquery-ui-master\demos\effect\index.html" />
+    <Content Include="content\jquery-ui-master\demos\effect\removeClass.html" />
+    <Content Include="content\jquery-ui-master\demos\effect\show.html" />
+    <Content Include="content\jquery-ui-master\demos\effect\switchClass.html" />
+    <Content Include="content\jquery-ui-master\demos\effect\toggle.html" />
+    <Content Include="content\jquery-ui-master\demos\effect\toggleClass.html" />
+    <Content Include="content\jquery-ui-master\demos\images\calendar.gif" />
+    <Content Include="content\jquery-ui-master\demos\images\demo-config-on-tile.gif" />
+    <Content Include="content\jquery-ui-master\demos\images\demo-config-on.gif" />
+    <Content Include="content\jquery-ui-master\demos\images\demo-spindown-closed.gif" />
+    <Content Include="content\jquery-ui-master\demos\images\demo-spindown-open.gif" />
+    <Content Include="content\jquery-ui-master\demos\images\icon-docs-info.gif" />
+    <Content Include="content\jquery-ui-master\demos\images\pbar-ani.gif" />
+    <Content Include="content\jquery-ui-master\demos\index.html" />
+    <Content Include="content\jquery-ui-master\demos\menu\categories.html" />
+    <Content Include="content\jquery-ui-master\demos\menu\default.html" />
+    <Content Include="content\jquery-ui-master\demos\menu\icons.html" />
+    <Content Include="content\jquery-ui-master\demos\menu\index.html" />
+    <Content Include="content\jquery-ui-master\demos\position\cycler.html" />
+    <Content Include="content\jquery-ui-master\demos\position\default.html" />
+    <Content Include="content\jquery-ui-master\demos\position\images\earth.jpg" />
+    <Content Include="content\jquery-ui-master\demos\position\images\flight.jpg" />
+    <Content Include="content\jquery-ui-master\demos\position\images\rocket.jpg" />
+    <Content Include="content\jquery-ui-master\demos\position\index.html" />
+    <Content Include="content\jquery-ui-master\demos\progressbar\default.html" />
+    <Content Include="content\jquery-ui-master\demos\progressbar\download.html" />
+    <Content Include="content\jquery-ui-master\demos\progressbar\images\pbar-ani.gif" />
+    <Content Include="content\jquery-ui-master\demos\progressbar\indeterminate.html" />
+    <Content Include="content\jquery-ui-master\demos\progressbar\index.html" />
+    <Content Include="content\jquery-ui-master\demos\progressbar\label.html" />
+    <Content Include="content\jquery-ui-master\demos\resizable\animate.html" />
+    <Content Include="content\jquery-ui-master\demos\resizable\aspect-ratio.html" />
+    <Content Include="content\jquery-ui-master\demos\resizable\constrain-area.html" />
+    <Content Include="content\jquery-ui-master\demos\resizable\default.html" />
+    <Content Include="content\jquery-ui-master\demos\resizable\helper.html" />
+    <Content Include="content\jquery-ui-master\demos\resizable\index.html" />
+    <Content Include="content\jquery-ui-master\demos\resizable\max-min.html" />
+    <Content Include="content\jquery-ui-master\demos\resizable\snap-to-grid.html" />
+    <Content Include="content\jquery-ui-master\demos\resizable\synchronous-resize.html" />
+    <Content Include="content\jquery-ui-master\demos\resizable\textarea.html" />
+    <Content Include="content\jquery-ui-master\demos\resizable\visual-feedback.html" />
+    <Content Include="content\jquery-ui-master\demos\selectable\default.html" />
+    <Content Include="content\jquery-ui-master\demos\selectable\display-grid.html" />
+    <Content Include="content\jquery-ui-master\demos\selectable\index.html" />
+    <Content Include="content\jquery-ui-master\demos\selectable\serialize.html" />
+    <Content Include="content\jquery-ui-master\demos\selectmenu\custom_render.html" />
+    <Content Include="content\jquery-ui-master\demos\selectmenu\default.html" />
+    <Content Include="content\jquery-ui-master\demos\selectmenu\images\24-podcast-square.png" />
+    <Content Include="content\jquery-ui-master\demos\selectmenu\images\24-rss-square.png" />
+    <Content Include="content\jquery-ui-master\demos\selectmenu\images\24-video-square.png" />
+    <Content Include="content\jquery-ui-master\demos\selectmenu\index.html" />
+    <Content Include="content\jquery-ui-master\demos\selectmenu\product-selection.html" />
+    <Content Include="content\jquery-ui-master\demos\slider\colorpicker.html" />
+    <Content Include="content\jquery-ui-master\demos\slider\custom-handle.html" />
+    <Content Include="content\jquery-ui-master\demos\slider\default.html" />
+    <Content Include="content\jquery-ui-master\demos\slider\hotelrooms.html" />
+    <Content Include="content\jquery-ui-master\demos\slider\index.html" />
+    <Content Include="content\jquery-ui-master\demos\slider\multiple-vertical.html" />
+    <Content Include="content\jquery-ui-master\demos\slider\range-vertical.html" />
+    <Content Include="content\jquery-ui-master\demos\slider\range.html" />
+    <Content Include="content\jquery-ui-master\demos\slider\rangemax.html" />
+    <Content Include="content\jquery-ui-master\demos\slider\rangemin.html" />
+    <Content Include="content\jquery-ui-master\demos\slider\slider-vertical.html" />
+    <Content Include="content\jquery-ui-master\demos\slider\steps.html" />
+    <Content Include="content\jquery-ui-master\demos\sortable\connect-lists.html" />
+    <Content Include="content\jquery-ui-master\demos\sortable\default.html" />
+    <Content Include="content\jquery-ui-master\demos\sortable\display-grid.html" />
+    <Content Include="content\jquery-ui-master\demos\sortable\empty-lists.html" />
+    <Content Include="content\jquery-ui-master\demos\sortable\index.html" />
+    <Content Include="content\jquery-ui-master\demos\sortable\items.html" />
+    <Content Include="content\jquery-ui-master\demos\sortable\placeholder.html" />
+    <Content Include="content\jquery-ui-master\demos\sortable\portlets.html" />
+    <Content Include="content\jquery-ui-master\demos\spinner\currency.html" />
+    <Content Include="content\jquery-ui-master\demos\spinner\decimal.html" />
+    <Content Include="content\jquery-ui-master\demos\spinner\default.html" />
+    <Content Include="content\jquery-ui-master\demos\spinner\index.html" />
+    <Content Include="content\jquery-ui-master\demos\spinner\latlong.html" />
+    <Content Include="content\jquery-ui-master\demos\spinner\overflow.html" />
+    <Content Include="content\jquery-ui-master\demos\spinner\time.html" />
+    <Content Include="content\jquery-ui-master\demos\tabs\ajax.html" />
+    <Content Include="content\jquery-ui-master\demos\tabs\ajax\content1.html" />
+    <Content Include="content\jquery-ui-master\demos\tabs\ajax\content2.html" />
+    <Content Include="content\jquery-ui-master\demos\tabs\collapsible.html" />
+    <Content Include="content\jquery-ui-master\demos\tabs\default.html" />
+    <Content Include="content\jquery-ui-master\demos\tabs\index.html" />
+    <Content Include="content\jquery-ui-master\demos\tabs\manipulation.html" />
+    <Content Include="content\jquery-ui-master\demos\tabs\mouseover.html" />
+    <Content Include="content\jquery-ui-master\demos\tabs\sortable.html" />
+    <Content Include="content\jquery-ui-master\demos\tabs\vertical.html" />
+    <Content Include="content\jquery-ui-master\demos\tooltip\ajax\content1.html" />
+    <Content Include="content\jquery-ui-master\demos\tooltip\ajax\content2.html" />
+    <Content Include="content\jquery-ui-master\demos\tooltip\custom-animation.html" />
+    <Content Include="content\jquery-ui-master\demos\tooltip\custom-content.html" />
+    <Content Include="content\jquery-ui-master\demos\tooltip\custom-style.html" />
+    <Content Include="content\jquery-ui-master\demos\tooltip\default.html" />
+    <Content Include="content\jquery-ui-master\demos\tooltip\forms.html" />
+    <Content Include="content\jquery-ui-master\demos\tooltip\images\st-stephens.jpg" />
+    <Content Include="content\jquery-ui-master\demos\tooltip\images\tower-bridge.jpg" />
+    <Content Include="content\jquery-ui-master\demos\tooltip\index.html" />
+    <Content Include="content\jquery-ui-master\demos\tooltip\tracking.html" />
+    <Content Include="content\jquery-ui-master\demos\tooltip\video-player.html" />
+    <Content Include="content\jquery-ui-master\demos\widget\default.html" />
+    <Content Include="content\jquery-ui-master\demos\widget\index.html" />
+    <Content Include="content\jquery-ui-master\external\globalize\globalize.culture.de-DE.js" />
+    <Content Include="content\jquery-ui-master\external\globalize\globalize.culture.ja-JP.js" />
+    <Content Include="content\jquery-ui-master\external\globalize\globalize.js" />
+    <Content Include="content\jquery-ui-master\external\jquery-1.10.0\jquery.js" />
+    <Content Include="content\jquery-ui-master\external\jquery-1.10.0\MIT-LICENSE.txt" />
+    <Content Include="content\jquery-ui-master\external\jquery-1.10.1\jquery.js" />
+    <Content Include="content\jquery-ui-master\external\jquery-1.10.1\MIT-LICENSE.txt" />
+    <Content Include="content\jquery-ui-master\external\jquery-1.10.2\jquery.js" />
+    <Content Include="content\jquery-ui-master\external\jquery-1.10.2\MIT-LICENSE.txt" />
+    <Content Include="content\jquery-ui-master\external\jquery-1.11.0\jquery.js" />
+    <Content Include="content\jquery-ui-master\external\jquery-1.11.0\MIT-LICENSE.txt" />
+    <Content Include="content\jquery-ui-master\external\jquery-1.11.1\jquery.js" />
+    <Content Include="content\jquery-ui-master\external\jquery-1.11.1\MIT-LICENSE.txt" />
+    <Content Include="content\jquery-ui-master\external\jquery-1.11.2\jquery.js" />
+    <Content Include="content\jquery-ui-master\external\jquery-1.11.2\MIT-LICENSE.txt" />
+    <Content Include="content\jquery-ui-master\external\jquery-1.11.3\jquery.js" />
+    <Content Include="content\jquery-ui-master\external\jquery-1.11.3\MIT-LICENSE.txt" />
+    <Content Include="content\jquery-ui-master\external\jquery-1.12.0\jquery.js" />
+    <Content Include="content\jquery-ui-master\external\jquery-1.12.0\LICENSE.txt" />
+    <Content Include="content\jquery-ui-master\external\jquery-1.12.1\jquery.js" />
+    <Content Include="content\jquery-ui-master\external\jquery-1.12.1\LICENSE.txt" />
+    <Content Include="content\jquery-ui-master\external\jquery-1.12.2\jquery.js" />
+    <Content Include="content\jquery-ui-master\external\jquery-1.12.2\LICENSE.txt" />
+    <Content Include="content\jquery-ui-master\external\jquery-1.12.3\jquery.js" />
+    <Content Include="content\jquery-ui-master\external\jquery-1.12.3\LICENSE.txt" />
+    <Content Include="content\jquery-ui-master\external\jquery-1.12.4\jquery.js" />
+    <Content Include="content\jquery-ui-master\external\jquery-1.12.4\LICENSE.txt" />
+    <Content Include="content\jquery-ui-master\external\jquery-1.8.0\jquery.js" />
+    <Content Include="content\jquery-ui-master\external\jquery-1.8.0\MIT-LICENSE.txt" />
+    <Content Include="content\jquery-ui-master\external\jquery-1.8.1\jquery.js" />
+    <Content Include="content\jquery-ui-master\external\jquery-1.8.1\MIT-LICENSE.txt" />
+    <Content Include="content\jquery-ui-master\external\jquery-1.8.2\jquery.js" />
+    <Content Include="content\jquery-ui-master\external\jquery-1.8.2\MIT-LICENSE.txt" />
+    <Content Include="content\jquery-ui-master\external\jquery-1.8.3\jquery.js" />
+    <Content Include="content\jquery-ui-master\external\jquery-1.8.3\MIT-LICENSE.txt" />
+    <Content Include="content\jquery-ui-master\external\jquery-1.9.0\jquery.js" />
+    <Content Include="content\jquery-ui-master\external\jquery-1.9.0\MIT-LICENSE.txt" />
+    <Content Include="content\jquery-ui-master\external\jquery-1.9.1\jquery.js" />
+    <Content Include="content\jquery-ui-master\external\jquery-1.9.1\MIT-LICENSE.txt" />
+    <Content Include="content\jquery-ui-master\external\jquery-2.0.0\jquery.js" />
+    <Content Include="content\jquery-ui-master\external\jquery-2.0.0\MIT-LICENSE.txt" />
+    <Content Include="content\jquery-ui-master\external\jquery-2.0.1\jquery.js" />
+    <Content Include="content\jquery-ui-master\external\jquery-2.0.1\MIT-LICENSE.txt" />
+    <Content Include="content\jquery-ui-master\external\jquery-2.0.2\jquery.js" />
+    <Content Include="content\jquery-ui-master\external\jquery-2.0.2\MIT-LICENSE.txt" />
+    <Content Include="content\jquery-ui-master\external\jquery-2.0.3\jquery.js" />
+    <Content Include="content\jquery-ui-master\external\jquery-2.0.3\MIT-LICENSE.txt" />
+    <Content Include="content\jquery-ui-master\external\jquery-2.1.0\jquery.js" />
+    <Content Include="content\jquery-ui-master\external\jquery-2.1.0\MIT-LICENSE.txt" />
+    <Content Include="content\jquery-ui-master\external\jquery-2.1.1\jquery.js" />
+    <Content Include="content\jquery-ui-master\external\jquery-2.1.1\MIT-LICENSE.txt" />
+    <Content Include="content\jquery-ui-master\external\jquery-2.1.2\jquery.js" />
+    <Content Include="content\jquery-ui-master\external\jquery-2.1.2\MIT-LICENSE.txt" />
+    <Content Include="content\jquery-ui-master\external\jquery-2.1.3\jquery.js" />
+    <Content Include="content\jquery-ui-master\external\jquery-2.1.3\MIT-LICENSE.txt" />
+    <Content Include="content\jquery-ui-master\external\jquery-2.1.4\jquery.js" />
+    <Content Include="content\jquery-ui-master\external\jquery-2.1.4\MIT-LICENSE.txt" />
+    <Content Include="content\jquery-ui-master\external\jquery-2.2.0\jquery.js" />
+    <Content Include="content\jquery-ui-master\external\jquery-2.2.0\LICENSE.txt" />
+    <Content Include="content\jquery-ui-master\external\jquery-2.2.1\jquery.js" />
+    <Content Include="content\jquery-ui-master\external\jquery-2.2.1\LICENSE.txt" />
+    <Content Include="content\jquery-ui-master\external\jquery-2.2.2\jquery.js" />
+    <Content Include="content\jquery-ui-master\external\jquery-2.2.2\LICENSE.txt" />
+    <Content Include="content\jquery-ui-master\external\jquery-2.2.3\jquery.js" />
+    <Content Include="content\jquery-ui-master\external\jquery-2.2.3\LICENSE.txt" />
+    <Content Include="content\jquery-ui-master\external\jquery-2.2.4\jquery.js" />
+    <Content Include="content\jquery-ui-master\external\jquery-2.2.4\LICENSE.txt" />
+    <Content Include="content\jquery-ui-master\external\jquery-3.0.0\jquery.js" />
+    <Content Include="content\jquery-ui-master\external\jquery-3.0.0\LICENSE.txt" />
+    <Content Include="content\jquery-ui-master\external\jquery-3.1.0\jquery.js" />
+    <Content Include="content\jquery-ui-master\external\jquery-3.1.0\LICENSE.txt" />
+    <Content Include="content\jquery-ui-master\external\jquery-3.1.1\jquery.js" />
+    <Content Include="content\jquery-ui-master\external\jquery-3.1.1\LICENSE.txt" />
+    <Content Include="content\jquery-ui-master\external\jquery-3.2.0\jquery.js" />
+    <Content Include="content\jquery-ui-master\external\jquery-3.2.0\LICENSE.txt" />
+    <Content Include="content\jquery-ui-master\external\jquery-3.2.1\jquery.js" />
+    <Content Include="content\jquery-ui-master\external\jquery-3.2.1\LICENSE.txt" />
+    <Content Include="content\jquery-ui-master\external\jquery-3.3.0\jquery.js" />
+    <Content Include="content\jquery-ui-master\external\jquery-3.3.0\LICENSE.txt" />
+    <Content Include="content\jquery-ui-master\external\jquery-3.3.1\jquery.js" />
+    <Content Include="content\jquery-ui-master\external\jquery-3.3.1\LICENSE.txt" />
+    <Content Include="content\jquery-ui-master\external\jquery-3.4.0\jquery.js" />
+    <Content Include="content\jquery-ui-master\external\jquery-3.4.0\LICENSE.txt" />
+    <Content Include="content\jquery-ui-master\external\jquery-3.4.1\jquery.js" />
+    <Content Include="content\jquery-ui-master\external\jquery-3.4.1\LICENSE.txt" />
+    <Content Include="content\jquery-ui-master\external\jquery-3.5.0\jquery.js" />
+    <Content Include="content\jquery-ui-master\external\jquery-3.5.0\LICENSE.txt" />
+    <Content Include="content\jquery-ui-master\external\jquery-3.5.1\jquery.js" />
+    <Content Include="content\jquery-ui-master\external\jquery-3.5.1\LICENSE.txt" />
+    <Content Include="content\jquery-ui-master\external\jquery-custom\jquery.js" />
+    <Content Include="content\jquery-ui-master\external\jquery-custom\MIT-LICENSE.txt" />
+    <Content Include="content\jquery-ui-master\external\jquery-migrate-1.4.1\jquery-migrate.js" />
+    <Content Include="content\jquery-ui-master\external\jquery-migrate-1.4.1\LICENSE.txt" />
+    <Content Include="content\jquery-ui-master\external\jquery-migrate-3.3.1\jquery-migrate.js" />
+    <Content Include="content\jquery-ui-master\external\jquery-migrate-3.3.1\LICENSE.txt" />
+    <Content Include="content\jquery-ui-master\external\jquery-mousewheel\jquery.mousewheel.js" />
+    <Content Include="content\jquery-ui-master\external\jquery-mousewheel\LICENSE.txt" />
+    <Content Include="content\jquery-ui-master\external\jquery-simulate\jquery.simulate.js" />
+    <Content Include="content\jquery-ui-master\external\jquery-simulate\LICENSE.txt" />
+    <Content Include="content\jquery-ui-master\external\jquery\jquery.js" />
+    <Content Include="content\jquery-ui-master\external\jquery\LICENSE.txt" />
+    <Content Include="content\jquery-ui-master\external\jquery\MIT-LICENSE.txt" />
+    <Content Include="content\jquery-ui-master\external\jshint\jshint.js" />
+    <Content Include="content\jquery-ui-master\external\qunit-assert-classes\LICENSE.txt" />
+    <Content Include="content\jquery-ui-master\external\qunit-assert-classes\qunit-assert-classes.js" />
+    <Content Include="content\jquery-ui-master\external\qunit-assert-close\MIT-LICENSE.txt" />
+    <Content Include="content\jquery-ui-master\external\qunit-assert-close\qunit-assert-close.js" />
+    <Content Include="content\jquery-ui-master\external\qunit-composite\LICENSE.txt" />
+    <Content Include="content\jquery-ui-master\external\qunit-composite\qunit-composite.css" />
+    <Content Include="content\jquery-ui-master\external\qunit-composite\qunit-composite.js" />
+    <Content Include="content\jquery-ui-master\external\qunit\LICENSE.txt" />
+    <Content Include="content\jquery-ui-master\external\qunit\MIT-LICENSE.txt" />
+    <Content Include="content\jquery-ui-master\external\qunit\qunit.css" />
+    <Content Include="content\jquery-ui-master\external\qunit\qunit.js" />
+    <Content Include="content\jquery-ui-master\external\requirejs\require.js" />
+    <Content Include="content\jquery-ui-master\Gruntfile.js" />
+    <Content Include="content\jquery-ui-master\LICENSE.txt" />
+    <Content Include="content\jquery-ui-master\tests\images\jqueryui_32x32.png" />
+    <Content Include="content\jquery-ui-master\tests\images\jquery_521x191.png" />
+    <Content Include="content\jquery-ui-master\tests\index.css" />
+    <Content Include="content\jquery-ui-master\tests\index.html" />
+    <Content Include="content\jquery-ui-master\tests\index.js" />
+    <Content Include="content\jquery-ui-master\tests\lib\bootstrap.js" />
+    <Content Include="content\jquery-ui-master\tests\lib\common.js" />
+    <Content Include="content\jquery-ui-master\tests\lib\css.js" />
+    <Content Include="content\jquery-ui-master\tests\lib\helper.js" />
+    <Content Include="content\jquery-ui-master\tests\lib\qunit-assert-domequal.js" />
+    <Content Include="content\jquery-ui-master\tests\lib\qunit.js" />
+    <Content Include="content\jquery-ui-master\tests\unit\accordion\accordion.html" />
+    <Content Include="content\jquery-ui-master\tests\unit\accordion\all.html" />
+    <Content Include="content\jquery-ui-master\tests\unit\accordion\common.js" />
+    <Content Include="content\jquery-ui-master\tests\unit\accordion\core.js" />
+    <Content Include="content\jquery-ui-master\tests\unit\accordion\events.js" />
+    <Content Include="content\jquery-ui-master\tests\unit\accordion\helper.js" />
+    <Content Include="content\jquery-ui-master\tests\unit\accordion\methods.js" />
+    <Content Include="content\jquery-ui-master\tests\unit\accordion\options.js" />
+    <Content Include="content\jquery-ui-master\tests\unit\all.html" />
+    <Content Include="content\jquery-ui-master\tests\unit\autocomplete\all.html" />
+    <Content Include="content\jquery-ui-master\tests\unit\autocomplete\autocomplete.html" />
+    <Content Include="content\jquery-ui-master\tests\unit\autocomplete\common.js" />
+    <Content Include="content\jquery-ui-master\tests\unit\autocomplete\core.js" />
+    <Content Include="content\jquery-ui-master\tests\unit\autocomplete\events.js" />
+    <Content Include="content\jquery-ui-master\tests\unit\autocomplete\methods.js" />
+    <Content Include="content\jquery-ui-master\tests\unit\autocomplete\options.js" />
+    <Content Include="content\jquery-ui-master\tests\unit\autocomplete\remote_object_array_labels.txt" />
+    <Content Include="content\jquery-ui-master\tests\unit\autocomplete\remote_object_array_values.txt" />
+    <Content Include="content\jquery-ui-master\tests\unit\autocomplete\remote_string_array.txt" />
+    <Content Include="content\jquery-ui-master\tests\unit\button\all.html" />
+    <Content Include="content\jquery-ui-master\tests\unit\button\button.html" />
+    <Content Include="content\jquery-ui-master\tests\unit\button\common-deprecated.js" />
+    <Content Include="content\jquery-ui-master\tests\unit\button\common.js" />
+    <Content Include="content\jquery-ui-master\tests\unit\button\core.js" />
+    <Content Include="content\jquery-ui-master\tests\unit\button\deprecated.html" />
+    <Content Include="content\jquery-ui-master\tests\unit\button\deprecated.js" />
+    <Content Include="content\jquery-ui-master\tests\unit\button\events.js" />
+    <Content Include="content\jquery-ui-master\tests\unit\button\methods.js" />
+    <Content Include="content\jquery-ui-master\tests\unit\button\options.js" />
+    <Content Include="content\jquery-ui-master\tests\unit\checkboxradio\all.html" />
+    <Content Include="content\jquery-ui-master\tests\unit\checkboxradio\checkboxradio.html" />
+    <Content Include="content\jquery-ui-master\tests\unit\checkboxradio\common.js" />
+    <Content Include="content\jquery-ui-master\tests\unit\checkboxradio\core.js" />
+    <Content Include="content\jquery-ui-master\tests\unit\checkboxradio\events.js" />
+    <Content Include="content\jquery-ui-master\tests\unit\checkboxradio\methods.js" />
+    <Content Include="content\jquery-ui-master\tests\unit\checkboxradio\options.js" />
+    <Content Include="content\jquery-ui-master\tests\unit\controlgroup\all.html" />
+    <Content Include="content\jquery-ui-master\tests\unit\controlgroup\common.js" />
+    <Content Include="content\jquery-ui-master\tests\unit\controlgroup\controlgroup.html" />
+    <Content Include="content\jquery-ui-master\tests\unit\controlgroup\core.js" />
+    <Content Include="content\jquery-ui-master\tests\unit\controlgroup\methods.js" />
+    <Content Include="content\jquery-ui-master\tests\unit\controlgroup\options.js" />
+    <Content Include="content\jquery-ui-master\tests\unit\core\all.html" />
+    <Content Include="content\jquery-ui-master\tests\unit\core\core.html" />
+    <Content Include="content\jquery-ui-master\tests\unit\core\core.js" />
+    <Content Include="content\jquery-ui-master\tests\unit\core\selector.js" />
+    <Content Include="content\jquery-ui-master\tests\unit\datepicker\all.html" />
+    <Content Include="content\jquery-ui-master\tests\unit\datepicker\common.js" />
+    <Content Include="content\jquery-ui-master\tests\unit\datepicker\core.js" />
+    <Content Include="content\jquery-ui-master\tests\unit\datepicker\datepicker.html" />
+    <Content Include="content\jquery-ui-master\tests\unit\datepicker\events.js" />
+    <Content Include="content\jquery-ui-master\tests\unit\datepicker\helper.js" />
+    <Content Include="content\jquery-ui-master\tests\unit\datepicker\images\calendar.gif" />
+    <Content Include="content\jquery-ui-master\tests\unit\datepicker\methods.js" />
+    <Content Include="content\jquery-ui-master\tests\unit\datepicker\options.js" />
+    <Content Include="content\jquery-ui-master\tests\unit\dialog\all.html" />
+    <Content Include="content\jquery-ui-master\tests\unit\dialog\common-deprecated.js" />
+    <Content Include="content\jquery-ui-master\tests\unit\dialog\common.js" />
+    <Content Include="content\jquery-ui-master\tests\unit\dialog\core.js" />
+    <Content Include="content\jquery-ui-master\tests\unit\dialog\deprecated.html" />
+    <Content Include="content\jquery-ui-master\tests\unit\dialog\deprecated.js" />
+    <Content Include="content\jquery-ui-master\tests\unit\dialog\dialog.html" />
+    <Content Include="content\jquery-ui-master\tests\unit\dialog\events.js" />
+    <Content Include="content\jquery-ui-master\tests\unit\dialog\helper.js" />
+    <Content Include="content\jquery-ui-master\tests\unit\dialog\methods.js" />
+    <Content Include="content\jquery-ui-master\tests\unit\dialog\options.js" />
+    <Content Include="content\jquery-ui-master\tests\unit\draggable\all.html" />
+    <Content Include="content\jquery-ui-master\tests\unit\draggable\common.js" />
+    <Content Include="content\jquery-ui-master\tests\unit\draggable\core.js" />
+    <Content Include="content\jquery-ui-master\tests\unit\draggable\draggable.html" />
+    <Content Include="content\jquery-ui-master\tests\unit\draggable\events.js" />
+    <Content Include="content\jquery-ui-master\tests\unit\draggable\helper.js" />
+    <Content Include="content\jquery-ui-master\tests\unit\draggable\methods.js" />
+    <Content Include="content\jquery-ui-master\tests\unit\draggable\options.js" />
+    <Content Include="content\jquery-ui-master\tests\unit\droppable\all.html" />
+    <Content Include="content\jquery-ui-master\tests\unit\droppable\common-deprecated.js" />
+    <Content Include="content\jquery-ui-master\tests\unit\droppable\common.js" />
+    <Content Include="content\jquery-ui-master\tests\unit\droppable\core.js" />
+    <Content Include="content\jquery-ui-master\tests\unit\droppable\deprecated.html" />
+    <Content Include="content\jquery-ui-master\tests\unit\droppable\deprecated.js" />
+    <Content Include="content\jquery-ui-master\tests\unit\droppable\droppable.html" />
+    <Content Include="content\jquery-ui-master\tests\unit\droppable\events.js" />
+    <Content Include="content\jquery-ui-master\tests\unit\droppable\helper.js" />
+    <Content Include="content\jquery-ui-master\tests\unit\droppable\methods.js" />
+    <Content Include="content\jquery-ui-master\tests\unit\droppable\options.js" />
+    <Content Include="content\jquery-ui-master\tests\unit\effects\all.html" />
+    <Content Include="content\jquery-ui-master\tests\unit\effects\core.js" />
+    <Content Include="content\jquery-ui-master\tests\unit\effects\effects.html" />
+    <Content Include="content\jquery-ui-master\tests\unit\effects\scale.js" />
+    <Content Include="content\jquery-ui-master\tests\unit\form-reset-mixin\all.html" />
+    <Content Include="content\jquery-ui-master\tests\unit\form-reset-mixin\core.js" />
+    <Content Include="content\jquery-ui-master\tests\unit\form-reset-mixin\form-reset-mixin.html" />
+    <Content Include="content\jquery-ui-master\tests\unit\index.html" />
+    <Content Include="content\jquery-ui-master\tests\unit\menu\all.html" />
+    <Content Include="content\jquery-ui-master\tests\unit\menu\common.js" />
+    <Content Include="content\jquery-ui-master\tests\unit\menu\core.js" />
+    <Content Include="content\jquery-ui-master\tests\unit\menu\events.js" />
+    <Content Include="content\jquery-ui-master\tests\unit\menu\helper.js" />
+    <Content Include="content\jquery-ui-master\tests\unit\menu\menu.html" />
+    <Content Include="content\jquery-ui-master\tests\unit\menu\methods.js" />
+    <Content Include="content\jquery-ui-master\tests\unit\menu\options.js" />
+    <Content Include="content\jquery-ui-master\tests\unit\position\all.html" />
+    <Content Include="content\jquery-ui-master\tests\unit\position\core.js" />
+    <Content Include="content\jquery-ui-master\tests\unit\position\position.html" />
+    <Content Include="content\jquery-ui-master\tests\unit\progressbar\all.html" />
+    <Content Include="content\jquery-ui-master\tests\unit\progressbar\common.js" />
+    <Content Include="content\jquery-ui-master\tests\unit\progressbar\core.js" />
+    <Content Include="content\jquery-ui-master\tests\unit\progressbar\events.js" />
+    <Content Include="content\jquery-ui-master\tests\unit\progressbar\methods.js" />
+    <Content Include="content\jquery-ui-master\tests\unit\progressbar\options.js" />
+    <Content Include="content\jquery-ui-master\tests\unit\progressbar\progressbar.html" />
+    <Content Include="content\jquery-ui-master\tests\unit\resizable\all.html" />
+    <Content Include="content\jquery-ui-master\tests\unit\resizable\common.js" />
+    <Content Include="content\jquery-ui-master\tests\unit\resizable\core.js" />
+    <Content Include="content\jquery-ui-master\tests\unit\resizable\events.js" />
+    <Content Include="content\jquery-ui-master\tests\unit\resizable\helper.js" />
+    <Content Include="content\jquery-ui-master\tests\unit\resizable\images\test.jpg" />
+    <Content Include="content\jquery-ui-master\tests\unit\resizable\methods.js" />
+    <Content Include="content\jquery-ui-master\tests\unit\resizable\options.js" />
+    <Content Include="content\jquery-ui-master\tests\unit\resizable\resizable.html" />
+    <Content Include="content\jquery-ui-master\tests\unit\selectable\all.html" />
+    <Content Include="content\jquery-ui-master\tests\unit\selectable\common.js" />
+    <Content Include="content\jquery-ui-master\tests\unit\selectable\core.js" />
+    <Content Include="content\jquery-ui-master\tests\unit\selectable\events.js" />
+    <Content Include="content\jquery-ui-master\tests\unit\selectable\methods.js" />
+    <Content Include="content\jquery-ui-master\tests\unit\selectable\options.js" />
+    <Content Include="content\jquery-ui-master\tests\unit\selectable\selectable.html" />
+    <Content Include="content\jquery-ui-master\tests\unit\selectmenu\all.html" />
+    <Content Include="content\jquery-ui-master\tests\unit\selectmenu\common.js" />
+    <Content Include="content\jquery-ui-master\tests\unit\selectmenu\core.js" />
+    <Content Include="content\jquery-ui-master\tests\unit\selectmenu\events.js" />
+    <Content Include="content\jquery-ui-master\tests\unit\selectmenu\methods.js" />
+    <Content Include="content\jquery-ui-master\tests\unit\selectmenu\options.js" />
+    <Content Include="content\jquery-ui-master\tests\unit\selectmenu\selectmenu.html" />
+    <Content Include="content\jquery-ui-master\tests\unit\slider\all.html" />
+    <Content Include="content\jquery-ui-master\tests\unit\slider\common.js" />
+    <Content Include="content\jquery-ui-master\tests\unit\slider\core.js" />
+    <Content Include="content\jquery-ui-master\tests\unit\slider\events.js" />
+    <Content Include="content\jquery-ui-master\tests\unit\slider\methods.js" />
+    <Content Include="content\jquery-ui-master\tests\unit\slider\options.js" />
+    <Content Include="content\jquery-ui-master\tests\unit\slider\slider.html" />
+    <Content Include="content\jquery-ui-master\tests\unit\sortable\all.html" />
+    <Content Include="content\jquery-ui-master\tests\unit\sortable\common.js" />
+    <Content Include="content\jquery-ui-master\tests\unit\sortable\core.js" />
+    <Content Include="content\jquery-ui-master\tests\unit\sortable\events.js" />
+    <Content Include="content\jquery-ui-master\tests\unit\sortable\helper.js" />
+    <Content Include="content\jquery-ui-master\tests\unit\sortable\methods.js" />
+    <Content Include="content\jquery-ui-master\tests\unit\sortable\options.js" />
+    <Content Include="content\jquery-ui-master\tests\unit\sortable\sortable.html" />
+    <Content Include="content\jquery-ui-master\tests\unit\spinner\all.html" />
+    <Content Include="content\jquery-ui-master\tests\unit\spinner\common-deprecated.js" />
+    <Content Include="content\jquery-ui-master\tests\unit\spinner\common.js" />
+    <Content Include="content\jquery-ui-master\tests\unit\spinner\core.js" />
+    <Content Include="content\jquery-ui-master\tests\unit\spinner\deprecated.html" />
+    <Content Include="content\jquery-ui-master\tests\unit\spinner\deprecated.js" />
+    <Content Include="content\jquery-ui-master\tests\unit\spinner\events.js" />
+    <Content Include="content\jquery-ui-master\tests\unit\spinner\helper.js" />
+    <Content Include="content\jquery-ui-master\tests\unit\spinner\methods.js" />
+    <Content Include="content\jquery-ui-master\tests\unit\spinner\options.js" />
+    <Content Include="content\jquery-ui-master\tests\unit\spinner\spinner.html" />
+    <Content Include="content\jquery-ui-master\tests\unit\subsuite.js" />
+    <Content Include="content\jquery-ui-master\tests\unit\tabs\all.html" />
+    <Content Include="content\jquery-ui-master\tests\unit\tabs\common.js" />
+    <Content Include="content\jquery-ui-master\tests\unit\tabs\core.js" />
+    <Content Include="content\jquery-ui-master\tests\unit\tabs\data\test.html" />
+    <Content Include="content\jquery-ui-master\tests\unit\tabs\events.js" />
+    <Content Include="content\jquery-ui-master\tests\unit\tabs\helper.js" />
+    <Content Include="content\jquery-ui-master\tests\unit\tabs\methods.js" />
+    <Content Include="content\jquery-ui-master\tests\unit\tabs\options.js" />
+    <Content Include="content\jquery-ui-master\tests\unit\tabs\tabs.html" />
+    <Content Include="content\jquery-ui-master\tests\unit\tooltip\all.html" />
+    <Content Include="content\jquery-ui-master\tests\unit\tooltip\common-deprecated.js" />
+    <Content Include="content\jquery-ui-master\tests\unit\tooltip\common.js" />
+    <Content Include="content\jquery-ui-master\tests\unit\tooltip\core.js" />
+    <Content Include="content\jquery-ui-master\tests\unit\tooltip\deprecated.html" />
+    <Content Include="content\jquery-ui-master\tests\unit\tooltip\deprecated.js" />
+    <Content Include="content\jquery-ui-master\tests\unit\tooltip\events.js" />
+    <Content Include="content\jquery-ui-master\tests\unit\tooltip\helper.js" />
+    <Content Include="content\jquery-ui-master\tests\unit\tooltip\methods.js" />
+    <Content Include="content\jquery-ui-master\tests\unit\tooltip\options.js" />
+    <Content Include="content\jquery-ui-master\tests\unit\tooltip\tooltip.html" />
+    <Content Include="content\jquery-ui-master\tests\unit\widget\all.html" />
+    <Content Include="content\jquery-ui-master\tests\unit\widget\animation.js" />
+    <Content Include="content\jquery-ui-master\tests\unit\widget\classes.js" />
+    <Content Include="content\jquery-ui-master\tests\unit\widget\core.js" />
+    <Content Include="content\jquery-ui-master\tests\unit\widget\extend.js" />
+    <Content Include="content\jquery-ui-master\tests\unit\widget\widget.html" />
+    <Content Include="content\jquery-ui-master\tests\visual\accordion\icons.html" />
+    <Content Include="content\jquery-ui-master\tests\visual\addClass\queue.html" />
+    <Content Include="content\jquery-ui-master\tests\visual\checkboxradio\checkboxradio.html" />
+    <Content Include="content\jquery-ui-master\tests\visual\compound\accordion_tabs.html" />
+    <Content Include="content\jquery-ui-master\tests\visual\compound\datepicker_dialog.html" />
+    <Content Include="content\jquery-ui-master\tests\visual\compound\dialog_widgets.html" />
+    <Content Include="content\jquery-ui-master\tests\visual\compound\draggable_accordion.html" />
+    <Content Include="content\jquery-ui-master\tests\visual\compound\draggable_accordion_accordion_tabs_draggable.html" />
+    <Content Include="content\jquery-ui-master\tests\visual\compound\draggable_resizable.html" />
+    <Content Include="content\jquery-ui-master\tests\visual\compound\sortable_accordion_sortable_tabs.html" />
+    <Content Include="content\jquery-ui-master\tests\visual\compound\tabs_selectmenu.html" />
+    <Content Include="content\jquery-ui-master\tests\visual\compound\tabs_tabs.html" />
+    <Content Include="content\jquery-ui-master\tests\visual\compound\tabs_tooltips.html" />
+    <Content Include="content\jquery-ui-master\tests\visual\dialog\animated.html" />
+    <Content Include="content\jquery-ui-master\tests\visual\dialog\complex-dialogs.html" />
+    <Content Include="content\jquery-ui-master\tests\visual\dialog\form.html" />
+    <Content Include="content\jquery-ui-master\tests\visual\dialog\performance.html" />
+    <Content Include="content\jquery-ui-master\tests\visual\dialog\stacking.html" />
+    <Content Include="content\jquery-ui-master\tests\visual\draggable\replaced.html" />
+    <Content Include="content\jquery-ui-master\tests\visual\effects\all.html" />
+    <Content Include="content\jquery-ui-master\tests\visual\effects\clip.html" />
+    <Content Include="content\jquery-ui-master\tests\visual\effects\effects.css" />
+    <Content Include="content\jquery-ui-master\tests\visual\effects\effects.js" />
+    <Content Include="content\jquery-ui-master\tests\visual\effects\image.png" />
+    <Content Include="content\jquery-ui-master\tests\visual\effects\scale.html" />
+    <Content Include="content\jquery-ui-master\tests\visual\effects\shake.html" />
+    <Content Include="content\jquery-ui-master\tests\visual\index.html" />
+    <Content Include="content\jquery-ui-master\tests\visual\menu\menu.html" />
+    <Content Include="content\jquery-ui-master\tests\visual\position\position.html" />
+    <Content Include="content\jquery-ui-master\tests\visual\position\position_feedback.html" />
+    <Content Include="content\jquery-ui-master\tests\visual\selectmenu\selectmenu.html" />
+    <Content Include="content\jquery-ui-master\tests\visual\slider\range_slider.html" />
+    <Content Include="content\jquery-ui-master\tests\visual\tooltip\animations.html" />
+    <Content Include="content\jquery-ui-master\tests\visual\tooltip\tooltip.html" />
+    <Content Include="content\jquery-ui-master\tests\visual\visual.css" />
+    <Content Include="content\jquery-ui-master\themes\base\accordion.css" />
+    <Content Include="content\jquery-ui-master\themes\base\all.css" />
+    <Content Include="content\jquery-ui-master\themes\base\autocomplete.css" />
+    <Content Include="content\jquery-ui-master\themes\base\base.css" />
+    <Content Include="content\jquery-ui-master\themes\base\button.css" />
+    <Content Include="content\jquery-ui-master\themes\base\checkboxradio.css" />
+    <Content Include="content\jquery-ui-master\themes\base\controlgroup.css" />
+    <Content Include="content\jquery-ui-master\themes\base\core.css" />
+    <Content Include="content\jquery-ui-master\themes\base\datepicker.css" />
+    <Content Include="content\jquery-ui-master\themes\base\dialog.css" />
+    <Content Include="content\jquery-ui-master\themes\base\draggable.css" />
+    <Content Include="content\jquery-ui-master\themes\base\images\ui-bg_flat_0_aaaaaa_40x100.png" />
+    <Content Include="content\jquery-ui-master\themes\base\images\ui-icons_444444_256x240.png" />
+    <Content Include="content\jquery-ui-master\themes\base\images\ui-icons_555555_256x240.png" />
+    <Content Include="content\jquery-ui-master\themes\base\images\ui-icons_777620_256x240.png" />
+    <Content Include="content\jquery-ui-master\themes\base\images\ui-icons_777777_256x240.png" />
+    <Content Include="content\jquery-ui-master\themes\base\images\ui-icons_cc0000_256x240.png" />
+    <Content Include="content\jquery-ui-master\themes\base\images\ui-icons_ffffff_256x240.png" />
+    <Content Include="content\jquery-ui-master\themes\base\jquery-ui.css" />
+    <Content Include="content\jquery-ui-master\themes\base\menu.css" />
+    <Content Include="content\jquery-ui-master\themes\base\progressbar.css" />
+    <Content Include="content\jquery-ui-master\themes\base\resizable.css" />
+    <Content Include="content\jquery-ui-master\themes\base\selectable.css" />
+    <Content Include="content\jquery-ui-master\themes\base\selectmenu.css" />
+    <Content Include="content\jquery-ui-master\themes\base\slider.css" />
+    <Content Include="content\jquery-ui-master\themes\base\sortable.css" />
+    <Content Include="content\jquery-ui-master\themes\base\spinner.css" />
+    <Content Include="content\jquery-ui-master\themes\base\tabs.css" />
+    <Content Include="content\jquery-ui-master\themes\base\theme.css" />
+    <Content Include="content\jquery-ui-master\themes\base\tooltip.css" />
+    <Content Include="content\jquery-ui-master\ui\core.js" />
+    <Content Include="content\jquery-ui-master\ui\data.js" />
+    <Content Include="content\jquery-ui-master\ui\disable-selection.js" />
+    <Content Include="content\jquery-ui-master\ui\effect.js" />
+    <Content Include="content\jquery-ui-master\ui\effects\effect-blind.js" />
+    <Content Include="content\jquery-ui-master\ui\effects\effect-bounce.js" />
+    <Content Include="content\jquery-ui-master\ui\effects\effect-clip.js" />
+    <Content Include="content\jquery-ui-master\ui\effects\effect-drop.js" />
+    <Content Include="content\jquery-ui-master\ui\effects\effect-explode.js" />
+    <Content Include="content\jquery-ui-master\ui\effects\effect-fade.js" />
+    <Content Include="content\jquery-ui-master\ui\effects\effect-fold.js" />
+    <Content Include="content\jquery-ui-master\ui\effects\effect-highlight.js" />
+    <Content Include="content\jquery-ui-master\ui\effects\effect-puff.js" />
+    <Content Include="content\jquery-ui-master\ui\effects\effect-pulsate.js" />
+    <Content Include="content\jquery-ui-master\ui\effects\effect-scale.js" />
+    <Content Include="content\jquery-ui-master\ui\effects\effect-shake.js" />
+    <Content Include="content\jquery-ui-master\ui\effects\effect-size.js" />
+    <Content Include="content\jquery-ui-master\ui\effects\effect-slide.js" />
+    <Content Include="content\jquery-ui-master\ui\effects\effect-transfer.js" />
+    <Content Include="content\jquery-ui-master\ui\escape-selector.js" />
+    <Content Include="content\jquery-ui-master\ui\focusable.js" />
+    <Content Include="content\jquery-ui-master\ui\form-reset-mixin.js" />
+    <Content Include="content\jquery-ui-master\ui\form.js" />
+    <Content Include="content\jquery-ui-master\ui\i18n\datepicker-af.js" />
+    <Content Include="content\jquery-ui-master\ui\i18n\datepicker-ar-DZ.js" />
+    <Content Include="content\jquery-ui-master\ui\i18n\datepicker-ar.js" />
+    <Content Include="content\jquery-ui-master\ui\i18n\datepicker-az.js" />
+    <Content Include="content\jquery-ui-master\ui\i18n\datepicker-be.js" />
+    <Content Include="content\jquery-ui-master\ui\i18n\datepicker-bg.js" />
+    <Content Include="content\jquery-ui-master\ui\i18n\datepicker-bs.js" />
+    <Content Include="content\jquery-ui-master\ui\i18n\datepicker-ca.js" />
+    <Content Include="content\jquery-ui-master\ui\i18n\datepicker-cs.js" />
+    <Content Include="content\jquery-ui-master\ui\i18n\datepicker-cy-GB.js" />
+    <Content Include="content\jquery-ui-master\ui\i18n\datepicker-da.js" />
+    <Content Include="content\jquery-ui-master\ui\i18n\datepicker-de-AT.js" />
+    <Content Include="content\jquery-ui-master\ui\i18n\datepicker-de.js" />
+    <Content Include="content\jquery-ui-master\ui\i18n\datepicker-el.js" />
+    <Content Include="content\jquery-ui-master\ui\i18n\datepicker-en-AU.js" />
+    <Content Include="content\jquery-ui-master\ui\i18n\datepicker-en-GB.js" />
+    <Content Include="content\jquery-ui-master\ui\i18n\datepicker-en-NZ.js" />
+    <Content Include="content\jquery-ui-master\ui\i18n\datepicker-eo.js" />
+    <Content Include="content\jquery-ui-master\ui\i18n\datepicker-es.js" />
+    <Content Include="content\jquery-ui-master\ui\i18n\datepicker-et.js" />
+    <Content Include="content\jquery-ui-master\ui\i18n\datepicker-eu.js" />
+    <Content Include="content\jquery-ui-master\ui\i18n\datepicker-fa.js" />
+    <Content Include="content\jquery-ui-master\ui\i18n\datepicker-fi.js" />
+    <Content Include="content\jquery-ui-master\ui\i18n\datepicker-fo.js" />
+    <Content Include="content\jquery-ui-master\ui\i18n\datepicker-fr-CA.js" />
+    <Content Include="content\jquery-ui-master\ui\i18n\datepicker-fr-CH.js" />
+    <Content Include="content\jquery-ui-master\ui\i18n\datepicker-fr.js" />
+    <Content Include="content\jquery-ui-master\ui\i18n\datepicker-gl.js" />
+    <Content Include="content\jquery-ui-master\ui\i18n\datepicker-he.js" />
+    <Content Include="content\jquery-ui-master\ui\i18n\datepicker-hi.js" />
+    <Content Include="content\jquery-ui-master\ui\i18n\datepicker-hr.js" />
+    <Content Include="content\jquery-ui-master\ui\i18n\datepicker-hu.js" />
+    <Content Include="content\jquery-ui-master\ui\i18n\datepicker-hy.js" />
+    <Content Include="content\jquery-ui-master\ui\i18n\datepicker-id.js" />
+    <Content Include="content\jquery-ui-master\ui\i18n\datepicker-is.js" />
+    <Content Include="content\jquery-ui-master\ui\i18n\datepicker-it-CH.js" />
+    <Content Include="content\jquery-ui-master\ui\i18n\datepicker-it.js" />
+    <Content Include="content\jquery-ui-master\ui\i18n\datepicker-ja.js" />
+    <Content Include="content\jquery-ui-master\ui\i18n\datepicker-ka.js" />
+    <Content Include="content\jquery-ui-master\ui\i18n\datepicker-kk.js" />
+    <Content Include="content\jquery-ui-master\ui\i18n\datepicker-km.js" />
+    <Content Include="content\jquery-ui-master\ui\i18n\datepicker-ko.js" />
+    <Content Include="content\jquery-ui-master\ui\i18n\datepicker-ky.js" />
+    <Content Include="content\jquery-ui-master\ui\i18n\datepicker-lb.js" />
+    <Content Include="content\jquery-ui-master\ui\i18n\datepicker-lt.js" />
+    <Content Include="content\jquery-ui-master\ui\i18n\datepicker-lv.js" />
+    <Content Include="content\jquery-ui-master\ui\i18n\datepicker-mk.js" />
+    <Content Include="content\jquery-ui-master\ui\i18n\datepicker-ml.js" />
+    <Content Include="content\jquery-ui-master\ui\i18n\datepicker-ms.js" />
+    <Content Include="content\jquery-ui-master\ui\i18n\datepicker-nb.js" />
+    <Content Include="content\jquery-ui-master\ui\i18n\datepicker-nl-BE.js" />
+    <Content Include="content\jquery-ui-master\ui\i18n\datepicker-nl.js" />
+    <Content Include="content\jquery-ui-master\ui\i18n\datepicker-nn.js" />
+    <Content Include="content\jquery-ui-master\ui\i18n\datepicker-no.js" />
+    <Content Include="content\jquery-ui-master\ui\i18n\datepicker-pl.js" />
+    <Content Include="content\jquery-ui-master\ui\i18n\datepicker-pt-BR.js" />
+    <Content Include="content\jquery-ui-master\ui\i18n\datepicker-pt.js" />
+    <Content Include="content\jquery-ui-master\ui\i18n\datepicker-rm.js" />
+    <Content Include="content\jquery-ui-master\ui\i18n\datepicker-ro.js" />
+    <Content Include="content\jquery-ui-master\ui\i18n\datepicker-ru.js" />
+    <Content Include="content\jquery-ui-master\ui\i18n\datepicker-sk.js" />
+    <Content Include="content\jquery-ui-master\ui\i18n\datepicker-sl.js" />
+    <Content Include="content\jquery-ui-master\ui\i18n\datepicker-sq.js" />
+    <Content Include="content\jquery-ui-master\ui\i18n\datepicker-sr-SR.js" />
+    <Content Include="content\jquery-ui-master\ui\i18n\datepicker-sr.js" />
+    <Content Include="content\jquery-ui-master\ui\i18n\datepicker-sv.js" />
+    <Content Include="content\jquery-ui-master\ui\i18n\datepicker-ta.js" />
+    <Content Include="content\jquery-ui-master\ui\i18n\datepicker-th.js" />
+    <Content Include="content\jquery-ui-master\ui\i18n\datepicker-tj.js" />
+    <Content Include="content\jquery-ui-master\ui\i18n\datepicker-tr.js" />
+    <Content Include="content\jquery-ui-master\ui\i18n\datepicker-uk.js" />
+    <Content Include="content\jquery-ui-master\ui\i18n\datepicker-vi.js" />
+    <Content Include="content\jquery-ui-master\ui\i18n\datepicker-zh-CN.js" />
+    <Content Include="content\jquery-ui-master\ui\i18n\datepicker-zh-HK.js" />
+    <Content Include="content\jquery-ui-master\ui\i18n\datepicker-zh-TW.js" />
+    <Content Include="content\jquery-ui-master\ui\ie.js" />
+    <Content Include="content\jquery-ui-master\ui\jquery-1.12.4.js" />
+    <Content Include="content\jquery-ui-master\ui\jquery-patch.js" />
+    <Content Include="content\jquery-ui-master\ui\jquery-ui.js" />
+    <Content Include="content\jquery-ui-master\ui\keycode.js" />
+    <Content Include="content\jquery-ui-master\ui\labels.js" />
+    <Content Include="content\jquery-ui-master\ui\plugin.js" />
+    <Content Include="content\jquery-ui-master\ui\position.js" />
+    <Content Include="content\jquery-ui-master\ui\safe-active-element.js" />
+    <Content Include="content\jquery-ui-master\ui\safe-blur.js" />
+    <Content Include="content\jquery-ui-master\ui\scroll-parent.js" />
+    <Content Include="content\jquery-ui-master\ui\tabbable.js" />
+    <Content Include="content\jquery-ui-master\ui\unique-id.js" />
+    <Content Include="content\jquery-ui-master\ui\vendor\jquery-color\jquery.color.js" />
+    <Content Include="content\jquery-ui-master\ui\vendor\jquery-color\LICENSE.txt" />
+    <Content Include="content\jquery-ui-master\ui\version.js" />
+    <Content Include="content\jquery-ui-master\ui\widget.js" />
+    <Content Include="content\jquery-ui-master\ui\widgets\accordion.js" />
+    <Content Include="content\jquery-ui-master\ui\widgets\autocomplete.js" />
+    <Content Include="content\jquery-ui-master\ui\widgets\button.js" />
+    <Content Include="content\jquery-ui-master\ui\widgets\checkboxradio.js" />
+    <Content Include="content\jquery-ui-master\ui\widgets\controlgroup.js" />
+    <Content Include="content\jquery-ui-master\ui\widgets\datepicker.js" />
+    <Content Include="content\jquery-ui-master\ui\widgets\dialog.js" />
+    <Content Include="content\jquery-ui-master\ui\widgets\draggable.js" />
+    <Content Include="content\jquery-ui-master\ui\widgets\droppable.js" />
+    <Content Include="content\jquery-ui-master\ui\widgets\menu.js" />
+    <Content Include="content\jquery-ui-master\ui\widgets\mouse.js" />
+    <Content Include="content\jquery-ui-master\ui\widgets\progressbar.js" />
+    <Content Include="content\jquery-ui-master\ui\widgets\resizable.js" />
+    <Content Include="content\jquery-ui-master\ui\widgets\selectable.js" />
+    <Content Include="content\jquery-ui-master\ui\widgets\selectmenu.js" />
+    <Content Include="content\jquery-ui-master\ui\widgets\slider.js" />
+    <Content Include="content\jquery-ui-master\ui\widgets\sortable.js" />
+    <Content Include="content\jquery-ui-master\ui\widgets\spinner.js" />
+    <Content Include="content\jquery-ui-master\ui\widgets\tabs.js" />
+    <Content Include="content\jquery-ui-master\ui\widgets\tooltip.js" />
+    <Content Include="content\jquery-ui.css" />
+    <Content Include="content\jquery-ui.min.css" />
+    <Content Include="content\login\css\main.css" />
+    <Content Include="content\login\fonts\font-awesome-4.7.0\css\font-awesome.css" />
+    <Content Include="content\login\fonts\font-awesome-4.7.0\css\font-awesome.min.css" />
+    <Content Include="content\login\fonts\font-awesome-4.7.0\fonts\fontawesome-webfont.svg" />
+    <Content Include="content\login\fonts\font-awesome-4.7.0\HELP-US-OUT.txt" />
+    <Content Include="content\login\fonts\montserrat\OFL.txt" />
+    <Content Include="content\login\vendor\animate\animate.css" />
+    <Content Include="content\login\vendor\bootstrap\css\bootstrap-grid.css" />
+    <Content Include="content\login\vendor\bootstrap\css\bootstrap-grid.min.css" />
+    <Content Include="content\login\vendor\bootstrap\css\bootstrap-reboot.css" />
+    <Content Include="content\login\vendor\bootstrap\css\bootstrap-reboot.min.css" />
+    <Content Include="content\login\vendor\bootstrap\css\bootstrap.css" />
+    <Content Include="content\login\vendor\bootstrap\css\bootstrap.min.css" />
+    <Content Include="content\login\vendor\bootstrap\js\bootstrap.js" />
+    <Content Include="content\login\vendor\bootstrap\js\bootstrap.min.js" />
+    <Content Include="content\login\vendor\bootstrap\js\popper.js" />
+    <Content Include="content\login\vendor\bootstrap\js\popper.min.js" />
+    <Content Include="content\login\vendor\bootstrap\js\tooltip.js" />
+    <Content Include="content\login\vendor\css-hamburgers\hamburgers.css" />
+    <Content Include="content\login\vendor\css-hamburgers\hamburgers.min.css" />
+    <Content Include="content\login\vendor\jquery\jquery-3.2.1.min.js" />
+    <Content Include="content\login\vendor\select2\select2.css" />
+    <Content Include="content\login\vendor\select2\select2.js" />
+    <Content Include="content\login\vendor\select2\select2.min.css" />
+    <Content Include="content\login\vendor\select2\select2.min.js" />
+    <Content Include="content\login\vendor\tilt\tilt.jquery.min.js" />
+    <Content Include="content\magnific-popup\magnific-popup.css" />
+    <Content Include="content\magnific-popup\magnific-popup.js" />
+    <Content Include="content\mark.js" />
+    <Content Include="content\menustyle.css" />
+    <Content Include="content\scanner.css" />
+    <Content Include="content\scanner.js" />
+    <Content Include="content\scannerjs\asprise_scan-legacy.jar" />
+    <Content Include="content\scannerjs\asprise_scan.jar" />
+    <Content Include="content\scannerjs\scanner.css" />
+    <Content Include="content\scannerjs\scanner.js" />
+    <Content Include="content\simple-crud.css" />
+    <Content Include="content\style.css" />
+    <Content Include="favicon.ico" />
+    <Content Include="fonts\font-awesome.css" />
+    <Content Include="fonts\font-awesome.min.css" />
+    <Content Include="fonts\fontawesome-webfont.svg" />
+    <Content Include="fonts\glyphicons-halflings-regular.svg" />
+    <Content Include="fonts\index.html" />
+    <Content Include="Global.asax" />
+    <Content Include="images\logo.jpg" />
+    <Content Include="scripts\bootstrap.min.js" />
+    <Content Include="scripts\buttons.html5.min.js" />
+    <Content Include="scripts\buttons.print.min.js" />
+    <Content Include="scripts\dataTables.buttons.min.js" />
+    <Content Include="scripts\fullscreen.js" />
+    <Content Include="scripts\jquery-1.12.4.js" />
+    <Content Include="scripts\jquery-1.7.2.min.js" />
+    <Content Include="scripts\jquery-ui.min.js" />
+    <Content Include="scripts\jquery.dataTables.min.js" />
+    <Content Include="scripts\jquery.smartmenus.min.js" />
+    <Content Include="scripts\jszip.min.js" />
+    <Content Include="scripts\pdfmake.min.js" />
+    <Content Include="scripts\rwd-table.min.js" />
+    <Content Include="scripts\jquery.js" />
+    <Content Include="scripts\jquery.min.js" />
+    <Content Include="scripts\shortcut.js" />
+    <Content Include="scripts\tiff.js" />
+    <Content Include="scripts\vfs_fonts.js" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="App_Start\BundleConfig.cs" />
+    <Compile Include="App_Start\FilterConfig.cs" />
+    <Compile Include="App_Start\IdentityConfig.cs" />
+    <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="App_Start\Startup.Auth.cs" />
+    <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\AttributeListController.cs" />
+    <Compile Include="Controllers\DocAttributeController.cs" />
+    <Compile Include="Controllers\BaseController.cs" />
+    <Compile Include="Controllers\CategoryController.cs" />
+    <Compile Include="Controllers\DocAttributesController.cs" />
+    <Compile Include="Controllers\MessagingController.cs" />
+    <Compile Include="Controllers\DocumentiController.cs" />
+    <Compile Include="Controllers\DocContentController.cs" />
+    <Compile Include="Controllers\DocFileController.cs" />
+    <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\Log.cs" />
+    <Compile Include="Controllers\LogController.cs" />
+    <Compile Include="Controllers\ManageController.cs" />
+    <Compile Include="Controllers\RolesController.cs" />
+    <Compile Include="Controllers\UserCategoryController.cs" />
+    <Compile Include="Controllers\UsersController.cs" />
+    <Compile Include="Global.asax.cs">
+      <DependentUpon>Global.asax</DependentUpon>
+    </Compile>
+    <Compile Include="helper\Encryption.cs" />
+    <Compile Include="helper\PathSecurityHelper.cs" />
+    <Compile Include="helper\StatusMessage.cs" />
+    <Compile Include="Migrations\202605041228519_InitialMySqlCreate.cs" />
+    <Compile Include="Migrations\202605041228519_InitialMySqlCreate.designer.cs">
+      <DependentUpon>202605041228519_InitialMySqlCreate.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\Configuration.cs" />
+    <Compile Include="Models\AttributeList.cs" />
+    <Compile Include="Models\DataTableColumn.cs" />
+    <Compile Include="Models\DocMessage.cs" />
+    <Compile Include="Models\DocContent.cs" />
+    <Compile Include="Models\UserFormViewModel.cs" />
+    <Compile Include="Models\Users.cs" />
+    <Compile Include="Models\AccountViewModels.cs" />
+    <Compile Include="Models\DocAttribute.cs" />
+    <Compile Include="Models\Category.cs" />
+    <Compile Include="Models\DocAttributes.cs" />
+    <Compile Include="Models\Documenti.cs" />
+    <Compile Include="Models\DocFile.cs" />
+    <Compile Include="Models\IdentityModels.cs" />
+    <Compile Include="Models\JQueryDataTableParams.cs" />
+    <Compile Include="Models\ManageViewModels.cs" />
+    <Compile Include="Models\RoleViewModels.cs" />
+    <Compile Include="Models\UserCategory.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Services\DocumentRowDto.cs" />
+    <Compile Include="Services\IDocumentService.cs" />
+    <Compile Include="Startup.cs" />
+    <Compile Include="ViewModels\DocumentCreatData.cs" />
+    <Compile Include="ViewModels\DocumentIndexData.cs" />
+    <!-- New Architecture: Models, Repositories, Services, Infrastructure -->
+    <Compile Include="Repositories\IRepository.cs" />
+    <Compile Include="Repositories\IDocumentRepository.cs" />
+    <Compile Include="Repositories\ICategoryRepository.cs" />
+    <Compile Include="Repositories\IAttributeRepository.cs" />
+    <Compile Include="Repositories\IAttributeListRepository.cs" />
+    <Compile Include="Repositories\IDocAttributeRepository.cs" />
+    <Compile Include="Repositories\IFileRepository.cs" />
+    <Compile Include="Repositories\IDocSentRepository.cs" />
+    <Compile Include="Repositories\IUserCategoryRepository.cs" />
+    <Compile Include="Implementations\Repositories\Repository.cs" />
+    <Compile Include="Implementations\Repositories\DocumentRepository.cs" />
+    <Compile Include="Implementations\Repositories\CategoryRepository.cs" />
+    <Compile Include="Implementations\Repositories\AttributeRepository.cs" />
+    <Compile Include="Implementations\Repositories\AttributeListRepository.cs" />
+    <Compile Include="Implementations\Repositories\DocAttributeRepository.cs" />
+    <Compile Include="Implementations\Repositories\FileRepository.cs" />
+    <Compile Include="Implementations\Repositories\DocSentRepository.cs" />
+    <Compile Include="Implementations\Repositories\UserCategoryRepository.cs" />
+    <Compile Include="Services\IServices.cs" />
+    <Compile Include="Services\DocumentService.cs" />
+    <Compile Include="Services\CategoryService.cs" />
+    <Compile Include="Services\AttributeService.cs" />
+    <Compile Include="Services\AttributeListService.cs" />
+    <Compile Include="Services\DocAttributeService.cs" />
+    <Compile Include="Services\FileService.cs" />
+    <Compile Include="Services\DocSentService.cs" />
+    <Compile Include="Services\UserCategoryService.cs" />
+    <Compile Include="Infrastructure\SimpleDependencyResolver.cs" />
+    <Compile Include="ViewModels\DocumentIndexViewModel.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\web.config" />
+    <Content Include="fonts\DroidKufi-Regular.ttf" />
+    <Content Include="fonts\DroidNaskh-Bold.ttf" />
+    <Content Include="fonts\DroidNaskh-Regular.ttf" />
+    <Content Include="fonts\fontawesome-webfont.eot" />
+    <Content Include="fonts\fontawesome-webfont.ttf" />
+    <Content Include="fonts\fontawesome-webfont.woff" />
+    <Content Include="fonts\fontawesome-webfont.woff2" />
+    <Content Include="fonts\FontAwesome.otf" />
+    <Content Include="fonts\GE_SS_Two_Bold.eot" />
+    <Content Include="fonts\GE_SS_Two_Bold.otf" />
+    <Content Include="fonts\GE_SS_Two_Bold.woff" />
+    <Content Include="fonts\GE_SS_Two_Light.eot" />
+    <Content Include="fonts\GE_SS_Two_Light.otf" />
+    <Content Include="fonts\GE_SS_Two_Light.woff" />
+    <Content Include="fonts\GE_SS_Two_Medium.eot" />
+    <Content Include="fonts\GE_SS_Two_Medium.otf" />
+    <Content Include="fonts\GE_SS_Two_Medium.woff" />
+    <Content Include="fonts\glyphicons-halflings-regular.eot" />
+    <Content Include="fonts\glyphicons-halflings-regular.ttf" />
+    <Content Include="fonts\glyphicons-halflings-regular.woff" />
+    <Content Include="fonts\glyphicons-halflings-regular.woff2" />
+    <Content Include="fonts\HelveticaNeueW23-Reg.ttf" />
+    <Content Include="fonts\iconic_stroke.eot" />
+    <Content Include="fonts\TanseekModernProArabic-Bold1.eot" />
+    <Content Include="fonts\TanseekModernProArabic-Bold2.woff" />
+    <Content Include="fonts\TanseekModernProArabic-Bold3.ttf" />
+    <Content Include="fonts\TanseekModernProArabic1.eot" />
+    <Content Include="fonts\TanseekModernProArabic2.woff" />
+    <Content Include="fonts\TanseekModernProArabic3.ttf" />
+    <Content Include="fonts\trado.ttf" />
+    <Content Include="Views\shared\_MainLayout.cshtml" />
+    <Content Include="Views\Account\_ExternalLoginsListPartial.cshtml" />
+    <Content Include="Views\Account\ConfirmEmail.cshtml" />
+    <Content Include="Views\Account\ExternalLoginConfirmation.cshtml" />
+    <Content Include="Views\Account\ExternalLoginFailure.cshtml" />
+    <Content Include="Views\Account\ForgotPassword.cshtml" />
+    <Content Include="Views\Account\ForgotPasswordConfirmation.cshtml" />
+    <Content Include="Views\Account\Login.cshtml" />
+    <Content Include="Views\Account\Adduser.cshtml" />
+    <Content Include="Views\Account\ResetPassword.cshtml" />
+    <Content Include="Views\Account\ResetPasswordConfirmation.cshtml" />
+    <Content Include="Views\Account\SendCode.cshtml" />
+    <Content Include="Views\Account\VerifyCode.cshtml" />
+    <Content Include="Views\Home\About.cshtml" />
+    <Content Include="Views\Home\Contact.cshtml" />
+    <Content Include="Views\Home\Index.cshtml" />
+    <Content Include="Views\Manage\AddPhoneNumber.cshtml" />
+    <Content Include="Views\Manage\ChangePassword.cshtml" />
+    <Content Include="Views\Manage\Index.cshtml" />
+    <Content Include="Views\Manage\ManageLogins.cshtml" />
+    <Content Include="Views\Manage\SetPassword.cshtml" />
+    <Content Include="Views\Manage\VerifyPhoneNumber.cshtml" />
+    <Content Include="Views\_ViewStart.cshtml" />
+    <Content Include="Views\shared\Error.cshtml" />
+    <Content Include="Views\shared\Lockout.cshtml" />
+    <Content Include="Views\shared\_LoginPartial.cshtml" />
+    <Content Include="Views\shared\_Login.cshtml" />
+    <Content Include="Views\Category\Create.cshtml" />
+    <Content Include="Views\Category\Delete.cshtml" />
+    <Content Include="Views\Category\Details.cshtml" />
+    <Content Include="Views\Category\Edit.cshtml" />
+    <Content Include="Views\Category\Index.cshtml" />
+    <Content Include="Views\DocAttribute\Create.cshtml" />
+    <Content Include="Views\DocAttribute\Delete.cshtml" />
+    <Content Include="Views\DocAttribute\Details.cshtml" />
+    <Content Include="Views\DocAttribute\Edit.cshtml" />
+    <Content Include="Views\DocAttribute\Index.cshtml" />
+    <Content Include="Views\Documenti\Create.cshtml" />
+    <Content Include="Views\Documenti\Delete.cshtml" />
+    <Content Include="Views\Documenti\Details.cshtml" />
+    <Content Include="Views\Documenti\Edit.cshtml" />
+    <Content Include="Views\Documenti\Index.cshtml" />
+    <Content Include="Views\DocAttributes\Create.cshtml" />
+    <Content Include="Views\DocAttributes\Delete.cshtml" />
+    <Content Include="Views\DocAttributes\Details.cshtml" />
+    <Content Include="Views\DocAttributes\Edit.cshtml" />
+    <Content Include="Views\DocAttributes\Index.cshtml" />
+    <Content Include="Views\DocFile\Create.cshtml" />
+    <Content Include="Views\DocFile\Delete.cshtml" />
+    <Content Include="Views\DocFile\Details.cshtml" />
+    <Content Include="Views\DocFile\Edit.cshtml" />
+    <Content Include="Views\DocFile\Index.cshtml" />
+    <Content Include="content\font\fontawesome-webfont.eot" />
+    <Content Include="content\font\fontawesome-webfont.ttf" />
+    <Content Include="content\font\fontawesome-webfont.woff" />
+    <Content Include="content\font\fontawesome-webfont.woff2" />
+    <Content Include="content\font\FontAwesome.otf" />
+    <Content Include="content\font\HelveticaNeueW23-Reg.ttf" />
+    <Content Include="content\font\iconic_stroke.eot" />
+    <Content Include="content\font\trado.ttf" />
+    <Content Include="Views\shared\_PartialAddFile.cshtml" />
+    <Content Include="Views\shared\_PartialAddAttribute.cshtml" />
+    <Content Include="Views\UserCategory\Create.cshtml" />
+    <Content Include="Views\UserCategory\Delete.cshtml" />
+    <Content Include="Views\UserCategory\Details.cshtml" />
+    <Content Include="Views\UserCategory\Edit.cshtml" />
+    <Content Include="Views\UserCategory\Index.cshtml" />
+    <Content Include="Views\Documenti\Search.cshtml" />
+    <Content Include="Views\shared\_PartialUpdateFiles.cshtml" />
+    <Content Include="Views\Roles\Create.cshtml" />
+    <Content Include="Views\Roles\Delete.cshtml" />
+    <Content Include="Views\Roles\Details.cshtml" />
+    <Content Include="Views\Roles\Edit.cshtml" />
+    <Content Include="Views\Roles\Index.cshtml" />
+    <Content Include="Views\Manage\Roles.cshtml" />
+    <Content Include="Views\Manage\CreateRole.cshtml" />
+    <Content Include="Views\Category\_PartialCatIndex.cshtml" />
+    <Content Include="content\login\fonts\font-awesome-4.7.0\fonts\fontawesome-webfont.eot" />
+    <Content Include="content\login\fonts\font-awesome-4.7.0\fonts\fontawesome-webfont.ttf" />
+    <Content Include="content\login\fonts\font-awesome-4.7.0\fonts\fontawesome-webfont.woff" />
+    <Content Include="content\login\fonts\font-awesome-4.7.0\fonts\fontawesome-webfont.woff2" />
+    <Content Include="content\login\fonts\font-awesome-4.7.0\fonts\FontAwesome.otf" />
+    <Content Include="content\login\fonts\font-awesome-4.7.0\less\animated.less" />
+    <Content Include="content\login\fonts\font-awesome-4.7.0\less\bordered-pulled.less" />
+    <Content Include="content\login\fonts\font-awesome-4.7.0\less\core.less" />
+    <Content Include="content\login\fonts\font-awesome-4.7.0\less\fixed-width.less" />
+    <Content Include="content\login\fonts\font-awesome-4.7.0\less\font-awesome.less" />
+    <Content Include="content\login\fonts\font-awesome-4.7.0\less\icons.less" />
+    <Content Include="content\login\fonts\font-awesome-4.7.0\less\larger.less" />
+    <Content Include="content\login\fonts\font-awesome-4.7.0\less\list.less" />
+    <Content Include="content\login\fonts\font-awesome-4.7.0\less\mixins.less" />
+    <Content Include="content\login\fonts\font-awesome-4.7.0\less\path.less" />
+    <Content Include="content\login\fonts\font-awesome-4.7.0\less\rotated-flipped.less" />
+    <Content Include="content\login\fonts\font-awesome-4.7.0\less\screen-reader.less" />
+    <Content Include="content\login\fonts\font-awesome-4.7.0\less\stacked.less" />
+    <Content Include="content\login\fonts\font-awesome-4.7.0\less\variables.less" />
+    <Content Include="content\login\fonts\font-awesome-4.7.0\scss\font-awesome.scss" />
+    <Content Include="content\login\fonts\font-awesome-4.7.0\scss\_animated.scss" />
+    <Content Include="content\login\fonts\font-awesome-4.7.0\scss\_bordered-pulled.scss" />
+    <Content Include="content\login\fonts\font-awesome-4.7.0\scss\_core.scss" />
+    <Content Include="content\login\fonts\font-awesome-4.7.0\scss\_fixed-width.scss" />
+    <Content Include="content\login\fonts\font-awesome-4.7.0\scss\_icons.scss" />
+    <Content Include="content\login\fonts\font-awesome-4.7.0\scss\_larger.scss" />
+    <Content Include="content\login\fonts\font-awesome-4.7.0\scss\_list.scss" />
+    <Content Include="content\login\fonts\font-awesome-4.7.0\scss\_mixins.scss" />
+    <Content Include="content\login\fonts\font-awesome-4.7.0\scss\_path.scss" />
+    <Content Include="content\login\fonts\font-awesome-4.7.0\scss\_rotated-flipped.scss" />
+    <Content Include="content\login\fonts\font-awesome-4.7.0\scss\_screen-reader.scss" />
+    <Content Include="content\login\fonts\font-awesome-4.7.0\scss\_stacked.scss" />
+    <Content Include="content\login\fonts\font-awesome-4.7.0\scss\_variables.scss" />
+    <Content Include="content\login\fonts\montserrat\Montserrat-Black.ttf" />
+    <Content Include="content\login\fonts\montserrat\Montserrat-BlackItalic.ttf" />
+    <Content Include="content\login\fonts\montserrat\Montserrat-Bold.ttf" />
+    <Content Include="content\login\fonts\montserrat\Montserrat-BoldItalic.ttf" />
+    <Content Include="content\login\fonts\montserrat\Montserrat-ExtraBold.ttf" />
+    <Content Include="content\login\fonts\montserrat\Montserrat-ExtraBoldItalic.ttf" />
+    <Content Include="content\login\fonts\montserrat\Montserrat-ExtraLight.ttf" />
+    <Content Include="content\login\fonts\montserrat\Montserrat-ExtraLightItalic.ttf" />
+    <Content Include="content\login\fonts\montserrat\Montserrat-Italic.ttf" />
+    <Content Include="content\login\fonts\montserrat\Montserrat-Light.ttf" />
+    <Content Include="content\login\fonts\montserrat\Montserrat-LightItalic.ttf" />
+    <Content Include="content\login\fonts\montserrat\Montserrat-Medium.ttf" />
+    <Content Include="content\login\fonts\montserrat\Montserrat-MediumItalic.ttf" />
+    <Content Include="content\login\fonts\montserrat\Montserrat-Regular.ttf" />
+    <Content Include="content\login\fonts\montserrat\Montserrat-SemiBold.ttf" />
+    <Content Include="content\login\fonts\montserrat\Montserrat-SemiBoldItalic.ttf" />
+    <Content Include="content\login\fonts\montserrat\Montserrat-Thin.ttf" />
+    <Content Include="content\login\fonts\montserrat\Montserrat-ThinItalic.ttf" />
+    <Content Include="content\login\fonts\poppins\Poppins-Black.ttf" />
+    <Content Include="content\login\fonts\poppins\Poppins-BlackItalic.ttf" />
+    <Content Include="content\login\fonts\poppins\Poppins-Bold.ttf" />
+    <Content Include="content\login\fonts\poppins\Poppins-BoldItalic.ttf" />
+    <Content Include="content\login\fonts\poppins\Poppins-ExtraBold.ttf" />
+    <Content Include="content\login\fonts\poppins\Poppins-ExtraBoldItalic.ttf" />
+    <Content Include="content\login\fonts\poppins\Poppins-ExtraLight.ttf" />
+    <Content Include="content\login\fonts\poppins\Poppins-ExtraLightItalic.ttf" />
+    <Content Include="content\login\fonts\poppins\Poppins-Italic.ttf" />
+    <Content Include="content\login\fonts\poppins\Poppins-Light.ttf" />
+    <Content Include="content\login\fonts\poppins\Poppins-LightItalic.ttf" />
+    <Content Include="content\login\fonts\poppins\Poppins-Medium.ttf" />
+    <Content Include="content\login\fonts\poppins\Poppins-MediumItalic.ttf" />
+    <Content Include="content\login\fonts\poppins\Poppins-Regular.ttf" />
+    <Content Include="content\login\fonts\poppins\Poppins-SemiBold.ttf" />
+    <Content Include="content\login\fonts\poppins\Poppins-SemiBoldItalic.ttf" />
+    <Content Include="content\login\fonts\poppins\Poppins-Thin.ttf" />
+    <Content Include="content\login\fonts\poppins\Poppins-ThinItalic.ttf" />
+    <Content Include="content\login\vendor\bootstrap\css\bootstrap-grid.css.map" />
+    <Content Include="content\login\vendor\bootstrap\css\bootstrap-grid.min.css.map" />
+    <Content Include="content\login\vendor\bootstrap\css\bootstrap-reboot.css.map" />
+    <Content Include="content\login\vendor\bootstrap\css\bootstrap-reboot.min.css.map" />
+    <Content Include="content\login\vendor\bootstrap\css\bootstrap.css.map" />
+    <Content Include="content\login\vendor\bootstrap\css\bootstrap.min.css.map" />
+    <Content Include="content\jquery-ui-master\.csslintrc" />
+    <Content Include="content\jquery-ui-master\.editorconfig" />
+    <Content Include="content\jquery-ui-master\.jscsrc" />
+    <Content Include="content\jquery-ui-master\.jshintignore" />
+    <Content Include="content\jquery-ui-master\.jshintrc" />
+    <Content Include="content\jquery-ui-master\.mailmap" />
+    <Content Include="content\jquery-ui-master\.npmignore" />
+    <Content Include="content\jquery-ui-master\.travis.yml" />
+    <Content Include="content\jquery-ui-master\bower.json" />
+    <Content Include="content\jquery-ui-master\build\themes" />
+    <Content Include="content\jquery-ui-master\CONTRIBUTING.md" />
+    <Content Include="content\jquery-ui-master\demos\autocomplete\search.php" />
+    <Content Include="content\jquery-ui-master\demos\tabs\ajax\content3-slow.php" />
+    <Content Include="content\jquery-ui-master\demos\tabs\ajax\content4-broken.php" />
+    <Content Include="content\jquery-ui-master\external\globalize\LICENSE" />
+    <Content Include="content\jquery-ui-master\external\jshint\LICENSE\LICENSE" />
+    <Content Include="content\jquery-ui-master\package.json" />
+    <Content Include="content\jquery-ui-master\README.md" />
+    <Content Include="content\jquery-ui-master\tests\.jshintrc" />
+    <Content Include="content\jquery-ui-master\ui\.jshintrc" />
+    <None Include="packages.config" />
+    <None Include="Properties\PublishProfiles\archivesite.pubxml" />
+    <Content Include="Views\Users\Create.cshtml" />
+    <Content Include="Views\Users\Delete.cshtml" />
+    <Content Include="Views\Users\Details.cshtml" />
+    <Content Include="Views\Users\Edit.cshtml" />
+    <Content Include="Views\Users\Index.cshtml" />
+    <Content Include="Views\AttributeList\Create.cshtml" />
+    <Content Include="Views\AttributeList\Delete.cshtml" />
+    <Content Include="Views\AttributeList\Details.cshtml" />
+    <Content Include="Views\AttributeList\Edit.cshtml" />
+    <Content Include="Views\AttributeList\Index.cshtml" />
+    <Content Include="Views\DocContent\Create.cshtml" />
+    <Content Include="Views\DocContent\Delete.cshtml" />
+    <Content Include="Views\DocContent\Details.cshtml" />
+    <Content Include="Views\DocContent\Edit.cshtml" />
+    <Content Include="Views\DocContent\Index.cshtml" />
+    <Content Include="Views\Messaging\Create.cshtml" />
+    <Content Include="Views\Messaging\Delete.cshtml" />
+    <Content Include="Views\Messaging\Details.cshtml" />
+    <Content Include="Views\Messaging\Edit.cshtml" />
+    <Content Include="Views\Messaging\Index.cshtml" />
+    <Content Include="Views\Messaging\outbox.cshtml" />
+    <Content Include="Views\Messaging\Inbox.cshtml" />
+    <Content Include="Views\Messaging\DocMessages.cshtml" />
+    <Content Include="Views\Messaging\SearchResult.cshtml" />
+    <Content Include="Views\Messaging\replyperson.cshtml" />
+    <Content Include="Views\Messaging\myreply.cshtml" />
+    <Content Include="Views\shared\_UserSearchResults.cshtml" />
+    <Content Include="Views\shared\_Navbar.cshtml" />
+    <Content Include="Views\shared\_MessagingMenu.cshtml" />
+    <Content Include="Views\shared\_CategoriesMenu.cshtml" />
+    <Content Include="Views\shared\_AdminMenu.cshtml" />
+    <Content Include="Views\shared\_Footer.cshtml" />
+    <Content Include="Views\shared\_Header.cshtml" />
+    <None Include="Web.Debug.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </None>
+    <None Include="Web.Release.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="App_Data\" />
+    <Folder Include="temp\" />
+    <Folder Include="uploads\" />
+    <Folder Include="Views\Base\" />
+    <Folder Include="Views\Log\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{4A0DDDB5-7A95-4FBF-97CC-616D07737A77}" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Migrations\202605041228519_InitialMySqlCreate.resx">
+      <DependentUpon>202605041228519_InitialMySqlCreate.cs</DependentUpon>
+    </EmbeddedResource>
+  </ItemGroup>
+  <PropertyGroup>
+    <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
+    <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
+  </PropertyGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\TypeScript\Microsoft.TypeScript.targets" Condition="Exists('$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\TypeScript\Microsoft.TypeScript.targets')" />
+  <Import Project="$(VSToolsPath)\WebApplications\Microsoft.WebApplication.targets" Condition="'$(VSToolsPath)' != ''" />
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" Condition="false" />
+  <ProjectExtensions>
+    <VisualStudio>
+      <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
+        <WebProjectProperties>
+          <UseIIS>True</UseIIS>
+          <AutoAssignPort>True</AutoAssignPort>
+          <DevelopmentServerPort>50122</DevelopmentServerPort>
+          <DevelopmentServerVPath>/</DevelopmentServerVPath>
+          <IISUrl>http://localhost:50122/</IISUrl>
+          <NTLMAuthentication>False</NTLMAuthentication>
+          <UseCustomServer>False</UseCustomServer>
+          <CustomServerUrl>
+          </CustomServerUrl>
+          <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
+        </WebProjectProperties>
+      </FlavorProperties>
+    </VisualStudio>
+  </ProjectExtensions>
+  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
+    <PropertyGroup>
+      <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
+    </PropertyGroup>
+    <Error Condition="!Exists('..\packages\Microsoft.Net.Compilers.1.0.0\build\Microsoft.Net.Compilers.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.Net.Compilers.1.0.0\build\Microsoft.Net.Compilers.props'))" />
+    <Error Condition="!Exists('..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.0\build\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.0\build\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props'))" />
+    <Error Condition="!Exists('..\packages\EntityFramework.6.4.4\build\EntityFramework.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\EntityFramework.6.4.4\build\EntityFramework.props'))" />
+    <Error Condition="!Exists('..\packages\EntityFramework.6.4.4\build\EntityFramework.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\EntityFramework.6.4.4\build\EntityFramework.targets'))" />
+  </Target>
+  <Import Project="..\packages\EntityFramework.6.4.4\build\EntityFramework.targets" Condition="Exists('..\packages\EntityFramework.6.4.4\build\EntityFramework.targets')" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>
