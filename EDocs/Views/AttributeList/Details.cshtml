@@ -1,0 +1,40 @@
+﻿@model edocs.Models.AttributeList
+
+@{
+    ViewBag.Title = "استعراض بيانات واصفة";
+    Layout = "~/Views/shared/_MainLayout.cshtml";
+}
+
+@section addtolbar{
+    <li><a href="~/AttributeList/index">الواصفات</a></li>
+    <li class="active">استعراض بيانات واصفة</li>
+}
+<h2>استعراض بيانات واصفة</h2>
+
+<div>
+    <h4> بيانات واصفة</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.AttributeFk.NAME)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.AttributeFk.NAME)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.VALUE)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.VALUE)
+        </dd>
+
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("تعديل", "Edit", new { id = Model.ID }) |
+    @Html.ActionLink("العودة إلى صفحة الواصفات", "Index", new { id = Model.ATTRID }))
+</p>

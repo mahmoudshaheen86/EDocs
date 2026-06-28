@@ -1,0 +1,120 @@
+@using edocs.Models
+@model LoginViewModel
+@{
+    ViewBag.Title = "تسجيل الدخول";
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>@ViewBag.Title - نظام أرشفة الوثائق</title>
+
+    <link rel="stylesheet" type="text/css" href="@Url.Content("~/content/login/vendor/bootstrap/css/bootstrap.min.css")" />
+    <link rel="stylesheet" type="text/css" href="@Url.Content("~/content/login/fonts/font-awesome-4.7.0/css/font-awesome.min.css")" />
+    <link rel="stylesheet" type="text/css" href="@Url.Content("~/content/login/css/main.css")" />
+</head>
+
+<body class="auth-body">
+    <main class="login-page">
+        <section class="login-shell">
+
+            <aside class="login-hero">
+                <div class="hero-overlay"></div>
+
+                <div class="hero-content">
+                    <div class="system-badge">
+                        <i class="fa fa-archive" aria-hidden="true"></i>
+                    </div>
+
+                    <h1>نظام أرشفة الوثائق</h1>
+                    <p>
+                        منصة آمنة لإدارة الوثائق، أصناف الوثائق، الملفات، والمراسلات 
+                        بطريقة منظمة وسهلة الاستخدام.
+                    </p>
+
+                    <div class="hero-features">
+                        <div>
+                            <i class="fa fa-shield" aria-hidden="true"></i>
+                            دخول آمن
+                        </div>
+                        <div>
+                            <i class="fa fa-folder-open" aria-hidden="true"></i>
+                            إدارة الوثائق
+                        </div>
+                        <div>
+                            <i class="fa fa-paper-plane" aria-hidden="true"></i>
+                            مراسلات داخلية
+                        </div>
+                    </div>
+                </div>
+            </aside>
+
+            <section class="login-card" aria-label="تسجيل الدخول">
+                <div class="mobile-brand">
+                    <div class="mobile-logo">
+                        <i class="fa fa-archive" aria-hidden="true"></i>
+                    </div>
+                    <h1>نظام أرشفة الوثائق</h1>
+                </div>
+
+                <div class="login-header">
+                    <span class="eyebrow">بوابة الدخول</span>
+                    <h2>تسجيل الدخول</h2>
+                    <p>أدخل بيانات المستخدم ثم اختر عام الأرشفة عند الحاجة.</p>
+                </div>
+
+                @using (Html.BeginForm("Login", "Account", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { role = "form", @class = "login-form", autocomplete = "off" }))
+                {
+                    @Html.AntiForgeryToken()
+
+                    @Html.ValidationSummary(true, "", new { @class = "validation-summary" })
+
+                    <div class="form-group">
+                        <label for="UserName">اسم المستخدم</label>
+                        <div class="field-box">
+                            <i class="fa fa-user field-icon" aria-hidden="true"></i>
+                            @Html.TextBoxFor(m => m.UserName, new { @class = "form-control", @placeholder = "مثال: admin", autocomplete = "username" })
+                        </div>
+                        @Html.ValidationMessageFor(m => m.UserName, "", new { @class = "field-validation" })
+                    </div>
+
+                    <div class="form-group">
+                        <label for="Password">كلمة المرور</label>
+                        <div class="field-box">
+                            <i class="fa fa-lock field-icon" aria-hidden="true"></i>
+                            @Html.PasswordFor(m => m.Password, new { @class = "form-control", @placeholder = "أدخل كلمة المرور", autocomplete = "current-password" })
+                        </div>
+                        @Html.ValidationMessageFor(m => m.Password, "", new { @class = "field-validation" })
+                    </div>
+
+                    <div class="form-group">
+                        <label for="yearchose">عام الأرشفة</label>
+                        <div class="field-box select-box">
+                            <i class="fa fa-calendar field-icon" aria-hidden="true"></i>
+                            @Html.DropDownList("yearchose",
+                                     Enumerable.Range(2001, ((int)DateTime.Now.Year - 2000)).Select(x =>
+                                         new SelectListItem { Text = x.ToString(), Value = x.ToString() }),
+                                     "اختر العام",
+                                     new { @class = "form-control" })
+                        </div>
+                    </div>
+
+                    <button type="submit" class="login-button">
+                        <span>تسجيل الدخول</span>
+                        <i class="fa fa-sign-in" aria-hidden="true"></i>
+                    </button>
+                }
+
+                <footer class="login-footer">
+                    <span>© @DateTime.Now.Year</span>
+                    <span>نظام أرشفة الوثائق</span>
+                </footer>
+            </section>
+        </section>
+    </main>
+</body>
+</html>

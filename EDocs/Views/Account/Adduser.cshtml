@@ -1,0 +1,70 @@
+﻿@model edocs.Models.RegisterViewModel
+
+@section addcss{
+<link rel="icon" type="image/png" href="~/content/login/images/icons/login.png" />
+}
+@{
+    ViewBag.Title = " إضافة مستخدم";
+}
+
+@section addtolbar{
+    <li class="active">إضافة مستخدم</li>
+}
+<h2>@ViewBag.Title</h2>
+@using (Html.BeginForm("Adduser", "Account", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+{
+    @Html.AntiForgeryToken()
+    <h4>إنشاء حساب مستخدم جديد</h4>
+    <hr />
+    @Html.ValidationSummary("", new { @class = "text-danger" })
+
+    <div class="form-group">
+        @Html.LabelFor(m => m.FullName, new { @class = "col-md-2 control-label" })
+        <div class="col-md-10">
+            @Html.TextBoxFor(m => m.FullName, new { @class = "form-control" })
+
+        </div>
+    </div>
+
+
+    <div class="form-group">
+        @Html.LabelFor(m => m.Username, new { @class = "col-md-2 control-label" })
+        <div class="col-md-10">
+            @Html.TextBoxFor(m => m.Username, new { @class = "form-control" })
+        </div>
+    </div>
+
+
+    <div class="form-group" data-validate="يجب اختيار نوع الحساب">
+        @Html.LabelFor(m => m.RoleName, new { @class = "col-md-2 control-label" })
+        <div class="col-md-10">
+            @Html.DropDownListFor(m => m.RoleName, new SelectList(ViewBag.Roles, "Value", "Text", 1), "أختر نوع الحساب", new { @class = "form-control" })
+        </div>
+    </div>
+
+
+    <div class="form-group">
+        @Html.LabelFor(m => m.Email, new { @class = "col-md-2 control-label" })
+        <div class="col-md-10">
+            @Html.TextBoxFor(m => m.Email, new { @class = "form-control" })
+        </div>
+    </div>
+    <div class="form-group" data-validate="يجب أن يكون عدد محارف كلمة المرور أكبر من 8">
+        @Html.LabelFor(m => m.Password, new { @class = "col-md-2 control-label" })
+        <div class="col-md-10">
+            @Html.PasswordFor(m => m.Password, new { @class = "form-control" })
+        </div>
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(m => m.ConfirmPassword, new { @class = "col-md-2 control-label" })
+        <div class="col-md-10">
+            @Html.PasswordFor(m => m.ConfirmPassword, new { @class = "form-control" })
+        </div>
+    </div>
+    <div class="form-group">
+        <div class="col-md-offset-2 col-md-10">
+            <input type="submit" class="btn btn-default" value="تسجيل" />
+        </div>
+    </div>
+}
+

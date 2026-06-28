@@ -1,0 +1,81 @@
+﻿@model edocs.Models.Category
+
+@{
+    ViewBag.Title = "إضافة تصنيف جديد";
+    Layout = "~/Views/shared/_MainLayout.cshtml";
+}
+
+@section addcss{
+    <link href="@Url.Content("~/content/simple-crud.css")" rel="stylesheet" type="text/css" />
+}
+
+@section addtolbar{
+    <li class="breadcrumb-item"><a href="@Url.Action("Index", "Category")">الاصناف</a></li>
+    <li class="breadcrumb-item active">إضافة تصنيف جديد</li>
+}
+
+
+<section class="records-module">
+    <div class="records-heading">
+        <div>
+            <span class="records-eyebrow">
+                <i class="fa fa-plus"></i>
+                إضافة تصنيف جديد
+            </span>
+            <p>أدخل اسم التصنيف الجديد ليتم استخدامه لاحقًا في إدارة الوثائق وصلاحيات الوصول.</p>
+        </div>
+    </div>
+
+    <div class="records-card">
+        <div class="records-card-header">
+            <div>
+                <h3>بيانات التصنيف</h3>
+                <span>يرجى اختيار اسم واضح ومختصر للتصنيف.</span>
+            </div>
+        </div>
+
+        <div class="records-card-body">
+            @using (Html.BeginForm(null, null, FormMethod.Post, new { @class = "records-form" }))
+            {
+                @Html.AntiForgeryToken()
+                @Html.ValidationSummary(true, "", new { @class = "validation-summary" })
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.PARENT_NAME)
+                    @Html.DropDownList("PARENT_NAME", null, htmlAttributes: new { @class = "form-control" })
+                    @Html.ValidationMessageFor(model => model.PARENT_NAME, "", new { @class = "text-danger" })
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.NAME)
+                    @Html.EditorFor(model => model.NAME, new { htmlAttributes = new { @class = "form-control", placeholder = "" } })
+                    @Html.ValidationMessageFor(model => model.NAME, "", new { @class = "field-validation-error" })
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.DESCR)
+                    @Html.EditorFor(model => model.DESCR, new { htmlAttributes = new { @class = "form-control", placeholder = "" } })
+                    @Html.ValidationMessageFor(model => model.DESCR, "", new { @class = "field-validation-error" })
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.FOLDER_NAME)
+                    @Html.EditorFor(model => model.FOLDER_NAME, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.FOLDER_NAME, "", new { @class = "text-danger" })
+                </div>
+
+                <div class="records-actions">
+                    <button type="submit" class="btn-app-primary">
+                        <i class="fa fa-save"></i>
+                        حفظ التصنيف
+                    </button>
+
+                    <a href="@Url.Action("Index", "Category")" class="btn-app-secondary">
+                        <i class="fa fa-arrow-right"></i>
+                        العودة للقائمة
+                    </a>
+                </div>
+            }
+        </div>
+    </div>
+</section>

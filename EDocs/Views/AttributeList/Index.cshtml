@@ -1,0 +1,146 @@
+﻿@model IEnumerable<edocs.Models.AttributeList>
+
+@section addcss{
+    <!-- DataTables -->
+    <link href="~/content/datatables/rwd-table.min.css" rel="stylesheet" type="text/css" media="screen" />
+    <link href="~/content/datatables/jquery.dataTables.min.css" rel="stylesheet" type="text/css" />
+    <link href="~/content/buttons.dataTables.min.css" rel="stylesheet" type="text/css" />
+}
+
+@{
+    ViewBag.Title = "الحقول";
+    Layout = "~/Views/shared/_MainLayout.cshtml";
+}
+
+@section addtolbar{
+    <li class="active">الحقول</li>
+}
+<a href="@ViewBag.AttId"><h2>الحقول</h2></a>
+
+
+@Html.Raw(ViewBag.StatusMessage)
+
+
+<p>
+    @Html.ActionLink("إضافة قيمة واصفة جديدة", "Create", new { id = ViewBag.AttId })
+</p>
+<div class="content">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="panel panel-border panel-primary">
+                    <div class="panel-heading">
+                        <a href="@ViewBag.AttId"><h3 class="panel-title">@ViewBag.Title</h3></a>
+
+                    </div>
+                    <div class="panel-body table-rep-plugin">
+                        <div class="table-responsive" data-pattern="priority-columns" style="padding-top: 15px;">
+                            <table id="datatable" class="table table-striped table-hover table-bordered table-small-font table-striped">
+                                <thead>
+                                    <tr>
+                                        <th>
+                                            @Html.DisplayNameFor(model => model.AttributeFk.NAME)
+                                        </th>
+                                        <th>
+                                            @Html.DisplayNameFor(model => model.VALUE)
+                                        </th>
+
+                                        <th> العمليات</th>
+                                    </tr>
+                                    </thead>
+                                <tbody>
+                                    @foreach (var item in Model)
+                                    {
+                                        <tr>
+                                            <td>
+                                                @Html.DisplayFor(modelItem => item.AttributeFk.NAME)
+                                            </td>
+                                            <td>
+                                                @Html.DisplayFor(modelItem => item.VALUE)
+                                            </td>
+
+                                            <td class="actions">
+                                                @Html.ActionLink("تعديل", "Edit", new { id = item.ID }) |
+                                                @Html.ActionLink("استعراض", "Details", new { id = item.ID }) |
+                                                @Html.ActionLink("حذف", "Delete", new { id = item.ID })
+                                            </td>
+                                        </tr>
+                                    }
+
+                                    </tbody>
+
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div> <!-- End Row -->
+
+
+
+
+@section addjs{
+    <script type="text/javascript" charset="utf-8" language="javascript" src="~/scripts/jquery-1.12.4.js"></script>
+    <script type="text/javascript" charset="utf-8" language="javascript" src="~/content/datatables/jquery.dataTables.min.js"></script>
+    <script type="text/javascript" charset="utf-8" language="javascript" src="~/content/datatables/dataTables.bootstrap.js"></script>
+    <script type="text/javascript" charset="utf-8" language="javascript" src="~/scripts/rwd-table.min.js"></script>
+    <script type="text/javascript" charset="utf-8" language="javascript" src="~/scripts/dataTables.buttons.min.js"></script>
+    <script type="text/javascript" charset="utf-8" language="javascript" src="~/scripts/jszip.min.js"></script>
+    <script type="text/javascript" charset="utf-8" language="javascript" src="~/scripts/pdfmake.min.js"></script>
+    <script type="text/javascript" charset="utf-8" language="javascript" src="~/scripts/vfs_fonts.js"></script>
+    <script type="text/javascript" charset="utf-8" language="javascript" src="~/scripts/buttons.html5.min.js"></script>
+    <script type="text/javascript" charset="utf-8" language="javascript" src="~/scripts/buttons.print.min.js"></script>
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $('#datatable').DataTable({
+                dom: '<"col-md-4"l><"col-md-4"f><"#dombutn.col-md-4"B>rt<"col-md-6"i><"col-md-6"p><"clear">',
+                buttons: [
+                    {
+                        extend: 'copyHtml5',
+                        exportOptions: {
+                            columns: [0, ':visible']
+                        }
+                    },
+                    {
+                        extend: 'excelHtml5',
+                        exportOptions: {
+                            columns: ':visible'
+                        }
+                    },
+                    {
+                        extend: 'pdfHtml5',
+                        exportOptions: {
+                            columns: ':visible',
+                            pagesize: 'A4'
+                        }
+                    },
+                    {
+                        extend: 'print',
+                        exportOptions: {
+                            columns: ':visible'
+                        }
+                    },
+                ],
+                language: {
+                    paginate: {
+                        previous: ' <i class="glyphicon glyphicon-arrow-right"></i> قبل  ',
+                        next: 'بعد <i class="glyphicon glyphicon-arrow-left">',
+
+                    },
+                }
+
+            });
+
+            $('div.dataTables_filter input').attr('placeholder', 'بحث ...');
+            $('div.dataTables_filter').append('<span class="glyphicon glyphicon-search"></span>');
+
+
+        });
+
+    </script>
+
+}

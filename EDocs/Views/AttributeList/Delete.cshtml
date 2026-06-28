@@ -1,0 +1,51 @@
+﻿@model edocs.Models.AttributeList
+
+@{
+
+    ViewBag.Title = "حذف";
+    Layout = "~/Views/shared/_MainLayout.cshtml";
+}
+
+
+@section addtolbar{
+    <li><a href="~/AttributeList/index">خيارات الواصفة</a></li>
+    <li class="active">حذف واصفة</li>
+}
+<h2>حذف حقل</h2>
+
+<div class="alert alert-danger">
+    <strong>تحذير!</strong> هل أنت متأكد من أنك تريد حذف الواصفة ؟
+</div>
+<div>
+    <h4>الواصفة</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.AttributeFk.NAME)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.AttributeFk.NAME)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.VALUE)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.VALUE)
+        </dd>
+
+
+    </dl>
+
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            <button type="submit" value="حذف" class="btn btn-danger btn-lg"> حذف <span class="glyphicon glyphicon-trash"></span></button> |
+            @Html.ActionLink("العودة إلى صفحة الواصفات", "Index", new { id = Model.ATTRID }))
+        </div>
+    }
+</div>

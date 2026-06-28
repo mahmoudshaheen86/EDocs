@@ -1,0 +1,82 @@
+﻿@model edocs.Models.Category
+
+@{
+    ViewBag.Title = "حذف صنف";
+    Layout = "~/Views/shared/_MainLayout.cshtml";
+}
+
+@section addcss{
+    <link href="@Url.Content("~/content/simple-crud.css")" rel="stylesheet" type="text/css" />
+}
+
+@section addtolbar{
+    <li class="breadcrumb-item"><a href="@Url.Action("Index", "Category")">الاصناف</a></li>
+    <li class="breadcrumb-item active">حذف صنف</li>
+}
+
+
+<section class="records-module">
+    <div class="records-heading">
+        <div>
+            <span class="records-eyebrow">
+                <i class="fa fa-trash"></i>
+                حذف صنف
+            </span>
+            <p>تأكد من أن الصنف غير مستخدم قبل تنفيذ الحذف.</p>
+        </div>
+    </div>
+
+    <div class="records-card">
+        <div class="records-card-header">
+            <div>
+                <h3>تأكيد الحذف</h3>
+                <span>هذه العملية قد لا يمكن التراجع عنها.</span>
+            </div>
+        </div>
+
+        <div class="records-card-body">
+            <div class="delete-warning">
+                <i class="fa fa-exclamation-triangle"></i>
+                هل أنت متأكد أنك تريد حذف هذا الصنف؟
+            </div>
+
+            <dl class="details-list">
+                <div class="details-row">
+                    <dt>@Html.DisplayNameFor(model => model.NAME)</dt>
+                    <dd>
+                        <span class="record-name-badge">
+                            <i class="fa fa-address-card"></i>
+                            @Html.DisplayFor(model => model.NAME)
+                        </span>
+                    </dd>
+                </div>
+                <div class="details-row">
+                    <dt>@Html.DisplayNameFor(model => model.PARENT_NAME)</dt>
+                    <dd>
+                        <span class="record-name-badge">
+                            <i class="fa fa-level-up"></i>
+                            @Html.DisplayFor(model => model.ParentCategory.NAME)
+                        </span>
+                    </dd>
+                </div>
+            </dl>
+
+            @using (Html.BeginForm())
+            {
+                @Html.AntiForgeryToken()
+
+                <div class="records-actions">
+                    <button type="submit" class="btn-app-danger">
+                        <i class="fa fa-trash"></i>
+                        تأكيد الحذف
+                    </button>
+
+                    <a href="@Url.Action("Index", "Category")" class="btn-app-secondary">
+                        <i class="fa fa-arrow-right"></i>
+                        إلغاء والعودة
+                    </a>
+                </div>
+            }
+        </div>
+    </div>
+</section>
