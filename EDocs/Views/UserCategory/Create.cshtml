@@ -1,0 +1,68 @@
+﻿@model edocs.Models.UserCategory
+
+@{
+    ViewBag.Title = "إضافة صلاحية جديدة";
+    Layout = "~/Views/shared/_MainLayout.cshtml";
+}
+
+@section addcss{
+    <link href="@Url.Content("~/content/simple-crud.css")" rel="stylesheet" type="text/css" />
+}
+
+@section addtolbar{
+    <li class="breadcrumb-item"><a href="@Url.Action("Index", "UserCategory")">الصلاحيات</a></li>
+    <li class="breadcrumb-item active">إضافة صلاحية جديدة</li>
+}
+
+
+<section class="records-module">
+    <div class="records-heading">
+        <div>
+            <span class="records-eyebrow">
+                <i class="fa fa-plus"></i>
+                إضافة صلاحية جديدة
+            </span>
+            <p>أدخل الصلاحية الجديدة ليتم استخدامها لاحقًا في إدارة الوثائق وصلاحيات الوصول.</p>
+        </div>
+    </div>
+
+    <div class="records-card">
+        <div class="records-card-header">
+            <div>
+                <h3>بيانات الصلاحية</h3>
+            </div>
+        </div>
+
+        <div class="records-card-body">
+            @using (Html.BeginForm(null, null, FormMethod.Post, new { @class = "records-form" }))
+            {
+                @Html.AntiForgeryToken()
+                @Html.ValidationSummary(true, "", new { @class = "validation-summary" })
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.USERID, "اسم المستخدم")
+                @Html.DropDownList("USERID", null, htmlAttributes: new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.UserFK.UserName, "", new { @class = "text-danger" })
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.CATEGORYID, "الصنف")
+                @Html.DropDownList("CATEGORYID", null, htmlAttributes: new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.CategoryFK.NAME, "", new { @class = "text-danger" })
+            </div>
+
+                <div class="records-actions">
+                    <button type="submit" class="btn-app-primary">
+                        <i class="fa fa-save"></i>
+                        حفظ الصلاحية
+                    </button>
+
+                    <a href="@Url.Action("Index", "UserCategory")" class="btn-app-secondary">
+                        <i class="fa fa-arrow-right"></i>
+                        العودة للقائمة
+                    </a>
+                </div>
+            }
+        </div>
+    </div>
+</section>

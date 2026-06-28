@@ -1,0 +1,77 @@
+﻿<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>@ViewBag.Title - نظام أرشفة الوثائق</title>
+
+    <link href="@Url.Content("~/content/bootstrap.min.css")" rel="stylesheet" />
+    <link href="@Url.Content("~/content/login/fonts/font-awesome-4.7.0/css/font-awesome.min.css")" rel="stylesheet" />
+    <link href="@Url.Content("~/content/style.css")" rel="stylesheet" />
+
+    @RenderSection("addcss", required: false)
+</head>
+
+<body class="app-body">
+    @Html.Partial("_Navbar")
+
+    <main class="app-main">
+        <div class="container-fluid app-container">
+            @RenderSection("pagehero", required: false)
+
+            <section class="page-toolbar">
+                <ol class="breadcrumb app-breadcrumb">
+                    <li class="breadcrumb-item">
+                        <a href="@Url.Action("Index", "Home")">
+                            <i class="fa fa-home"></i>
+                            الرئيسية
+                        </a>
+                    </li>
+                    @RenderSection("addtolbar", required: false)
+                </ol>
+            </section>
+
+            <section class="content-card">
+                @RenderBody()
+            </section>
+
+        </div>
+    </main>
+
+    @Html.Partial("_Footer")
+
+    <script src="@Url.Content("~/scripts/jquery.js")"></script>
+    <script src="@Url.Content("~/scripts/bootstrap.min.js")"></script>
+
+    <script>
+        $(function () {
+            $("#appNavbarToggle").on("click", function (e) {
+                e.preventDefault();
+
+                var $menu = $("#mainNavigation");
+                var isOpen = $menu.hasClass("is-open");
+
+                if (isOpen) {
+                    $menu.removeClass("is-open");
+                    $(this).attr("aria-expanded", "false");
+                } else {
+                    $menu.addClass("is-open");
+                    $(this).attr("aria-expanded", "true");
+                }
+            });
+
+            $("#mainNavigation .nav-link:not(.dropdown-toggle)").on("click", function () {
+                if ($(window).width() < 992) {
+                    $("#mainNavigation").removeClass("is-open");
+                    $("#appNavbarToggle").attr("aria-expanded", "false");
+                }
+            });
+        });
+    </script>
+
+
+    @RenderSection("addjs", required: false)
+</body>
+</html>

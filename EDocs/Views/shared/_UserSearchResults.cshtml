@@ -1,0 +1,26 @@
+﻿@{
+    ViewBag.Title = "_UserSearchResults";
+    Layout = null;
+}
+
+<div id="users" class="user-search-results">
+    @if (Model != null && Model.Count > 0)
+    {
+        <ul>
+            @foreach (var user in Model)
+            {
+                <li>
+                    <i class="fa fa-user"></i>
+                    @user.UserName
+                </li>
+            }
+        </ul>
+    }
+    else
+    {
+        <p>
+            <i class="fa fa-info-circle"></i>
+            لا يوجد تطابق
+        </p>
+    }
+</div>

@@ -1,0 +1,109 @@
+﻿@model edocs.Models.ApplicationUser
+
+@{
+    ViewBag.Title = "حذف مستخدم";
+    Layout = "~/Views/shared/_MainLayout.cshtml";
+    var roles = ViewBag.UserRoles as IEnumerable<string>;
+}
+
+@section addcss{
+    <link href="@Url.Content("~/content/simple-crud.css")" rel="stylesheet" type="text/css" />
+}
+
+@section addtolbar{
+    <li class="breadcrumb-item"><a href="@Url.Action("Index", "Users")">المستخدمون</a></li>
+    <li class="breadcrumb-item active">حذف مستخدم</li>
+}
+
+<section class="records-module">
+    <div class="records-heading">
+        <div>
+            <span class="records-eyebrow">
+                <i class="fa fa-trash"></i>
+                حذف
+            </span>
+            <h2>حذف مستخدم</h2>
+            <p>تأكد من أن حذف المستخدم لن يؤثر على البيانات المرتبطة به داخل النظام.</p>
+        </div>
+    </div>
+
+    <div class="records-card">
+        <div class="records-card-header">
+            <div>
+                <h3>تأكيد الحذف</h3>
+                <span>هذه العملية قد لا يمكن التراجع عنها.</span>
+            </div>
+        </div>
+
+        <div class="records-card-body">
+            <div class="delete-warning">
+                <i class="fa fa-exclamation-triangle"></i>
+                هل أنت متأكد أنك تريد حذف هذا المستخدم؟
+            </div>
+
+            <dl class="details-list">
+                <div class="details-row">
+                    <dt>اسم المستخدم</dt>
+                    <dd>@Model.UserName</dd>
+                </div>
+
+                <div class="details-row">
+                    <dt>الاسم الكامل</dt>
+                    <dd>@Model.FULLNAME</dd>
+                </div>
+
+                <div class="details-row">
+                    <dt>البريد الإلكتروني</dt>
+                    <dd>@Model.Email</dd>
+                </div>
+
+                <div class="details-row">
+                    <dt>نوع المستخدم</dt>
+                    <dd>
+                        <span class="record-type-badge">
+                            <i class="fa fa-id-card"></i>
+                            @(string.IsNullOrWhiteSpace(Model.USERTYPE) ? "غير محدد" : Model.USERTYPE)
+                        </span>
+                    </dd>
+                </div>
+
+                <div class="details-row">
+                    <dt>الصلاحيات</dt>
+                    <dd>
+                        @if (roles != null && roles.Any())
+                        {
+                            foreach (var role in roles)
+                            {
+                                <span class="user-role-badge">
+                                    <i class="fa fa-shield"></i>
+                                    @role
+                                </span>
+                            }
+                        }
+                        else
+                        {
+                            <span class="user-role-badge">لا توجد صلاحية</span>
+                        }
+                    </dd>
+                </div>
+            </dl>
+
+            @using (Html.BeginForm())
+            {
+                @Html.AntiForgeryToken()
+
+                <div class="records-actions">
+                    <button type="submit" class="btn-app-danger">
+                        <i class="fa fa-trash"></i>
+                        تأكيد الحذف
+                    </button>
+
+                    <a href="@Url.Action("Index", "Users")" class="btn-app-secondary">
+                        <i class="fa fa-arrow-right"></i>
+                        إلغاء والعودة
+                    </a>
+                </div>
+            }
+        </div>
+    </div>
+</section>

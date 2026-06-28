@@ -1,0 +1,39 @@
+﻿@if (Session["UserName"] != null)
+{
+    using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new { id = "logoutForm", @class = "d-inline" }))
+    {
+        @Html.AntiForgeryToken()
+
+        <ul class="navbar-nav ms-auto d-flex flex-row align-items-center gap-3">
+
+            <!-- Username -->
+            <li class="nav-item">
+                <span class="nav-link text-dark fw-bold">
+                    👋 مرحباً، @Session["UserName"]
+                </span>
+            </li>
+
+            <!-- Logout -->
+            <li class="nav-item">
+                <a href="javascript:document.getElementById('logoutForm').submit()"
+                   class="btn btn-outline-danger btn-sm">
+                    تسجيل الخروج
+                </a>
+            </li>
+
+        </ul>
+    }
+}
+else
+{
+    <ul class="navbar-nav ms-auto">
+
+        <li class="nav-item">
+            <a href="@Url.Action("Login", "Account")"
+               class="btn btn-primary btn-sm">
+                تسجيل الدخول
+            </a>
+        </li>
+
+    </ul>
+}

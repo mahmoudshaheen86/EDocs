@@ -1,0 +1,39 @@
+﻿@{
+    var user = Session["Users"] as edocs.Models.ApplicationUser;
+    var isAdminUser = user != null && (user.USERTYPE == "admin" || user.USERTYPE == "manager");
+}
+
+@if (isAdminUser)
+{
+    <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle" href="#" id="adminMenu" role="button" data-toggle="dropdown"
+           aria-haspopup="true" aria-expanded="false">
+            <i class="fa fa-cog"></i>
+            الإدارة
+        </a>
+
+        <div class="dropdown-menu dropdown-menu-right app-dropdown" aria-labelledby="adminMenu">
+            <a class="dropdown-item" href="@Url.Action("Index", "Category")">
+                <i class="fa fa-folder"></i>
+                إدارة أصناف الوثائق
+            </a>
+            <a class="dropdown-item" href="@Url.Action("Index", "Roles")">
+                <i class="fa fa-id-badge"></i>
+                إدارة الأدوار
+            </a>
+            <a class="dropdown-item" href="@Url.Action("Index", "Attributes")">
+                <i class="fa fa-list-alt"></i>
+                إدارة واصفات أصناف الوثائق
+            </a>
+            <a class="dropdown-item" href="@Url.Action("Index", "UserCategory")">
+                <i class="fa fa-shield"></i>
+                إدارة الصلاحيات
+            </a>
+            <div class="dropdown-divider"></div>
+            <a class="dropdown-item" href="@Url.Action("Index", "Users")">
+                <i class="fa fa-users"></i>
+                إدارة المستخدمين
+            </a>
+        </div>
+    </li>
+}

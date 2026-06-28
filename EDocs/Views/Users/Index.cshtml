@@ -1,0 +1,113 @@
+﻿@model IEnumerable<edocs.Models.ApplicationUser>
+
+@{
+    ViewBag.Title = "إدارة المستخدمين";
+    Layout = "~/Views/shared/_MainLayout.cshtml";
+}
+
+@section addcss{
+    <link href="@Url.Content("~/content/simple-crud.css")" rel="stylesheet" type="text/css" />
+}
+
+@section addtolbar{
+    <li class="breadcrumb-item active">إدارة المستخدمين</li>
+}
+
+<section class="records-module">
+    <div class="records-heading">
+        <div>
+            <span class="records-eyebrow">
+                <i class="fa fa-users"></i>
+                المستخدمون
+            </span>
+            <h2>إدارة المستخدمين</h2>
+            <p>استعرض المستخدمين، أضف حسابات جديدة، وعدّل بيانات الوصول والصلاحيات.</p>
+        </div>
+
+        <div class="records-actions">
+            <a href="@Url.Action("Create", "Users")" class="btn-app-primary">
+                <i class="fa fa-record-plus"></i>
+                إضافة مستخدم جديد
+            </a>
+        </div>
+    </div>
+
+    <div class="records-card">
+        <div class="records-card-header">
+            <div>
+                <h3>قائمة المستخدمين</h3>
+                <span>جميع حسابات المستخدمين المسجلة في النظام.</span>
+            </div>
+        </div>
+
+        <div class="records-table-wrapper">
+            <table class="records-table">
+                <thead>
+                    <tr>
+                        <th>المستخدم</th>
+                        <th>البريد الإلكتروني</th>
+                        <th>نوع المستخدم</th>
+                        <th>رقم الهاتف</th>
+                        <th class="actions-cell">العمليات</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @if (Model != null && Model.Any())
+                    {
+                        foreach (var item in Model)
+                        {
+                            <tr>
+                                <td>
+                                    <div class="record-name-cell">
+                                        <span class="record-avatar-sm">
+                                            <i class="fa fa-user"></i>
+                                        </span>
+                                        <span>
+                                            <strong>@item.UserName</strong>
+                                            <small>@item.FULLNAME</small>
+                                        </span>
+                                    </div>
+                                </td>
+                                <td>@item.Email</td>
+                                <td>
+                                    <span class="record-type-badge">
+                                        <i class="fa fa-id-card"></i>
+                                        @(string.IsNullOrWhiteSpace(item.USERTYPE) ? "غير محدد" : item.USERTYPE)
+                                    </span>
+                                </td>
+                                <td>@item.PhoneNumber</td>
+                                <td class="actions-cell">
+                                    <div class="records-actions">
+                                        <a class="btn-app-secondary" href="@Url.Action("Edit", "Users", new { id = item.Id })">
+                                            <i class="fa fa-pencil"></i>
+                                            تعديل
+                                        </a>
+                                        <a class="btn-app-secondary" href="@Url.Action("Details", "Users", new { id = item.Id })">
+                                            <i class="fa fa-eye"></i>
+                                            تفاصيل
+                                        </a>
+                                        <a class="btn-app-danger" href="@Url.Action("Delete", "Users", new { id = item.Id })">
+                                            <i class="fa fa-trash"></i>
+                                            حذف
+                                        </a>
+                                    </div>
+                                </td>
+                            </tr>
+                        }
+                    }
+                    else
+                    {
+                        <tr>
+                            <td colspan="5">
+                                <div class="empty-state">
+                                    <i class="fa fa-info-circle"></i>
+                                    لا يوجد مستخدمون حتى الآن.
+                                </div>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</section>

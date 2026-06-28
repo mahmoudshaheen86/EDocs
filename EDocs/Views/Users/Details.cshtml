@@ -1,0 +1,104 @@
+﻿@model edocs.Models.ApplicationUser
+
+@{
+    ViewBag.Title = "تفاصيل المستخدم";
+    Layout = "~/Views/shared/_MainLayout.cshtml";
+    var roles = ViewBag.UserRoles as IEnumerable<string>;
+}
+
+@section addcss{
+    <link href="@Url.Content("~/content/simple-crud.css")" rel="stylesheet" type="text/css" />
+}
+
+@section addtolbar{
+    <li class="breadcrumb-item"><a href="@Url.Action("Index", "Users")">المستخدمون</a></li>
+    <li class="breadcrumb-item active">تفاصيل المستخدم</li>
+}
+
+<section class="records-module">
+    <div class="records-heading">
+        <div>
+            <span class="records-eyebrow">
+                <i class="fa fa-eye"></i>
+                تفاصيل
+            </span>
+            <h2>تفاصيل المستخدم</h2>
+            <p>عرض بيانات الحساب والصلاحيات المرتبطة به.</p>
+        </div>
+    </div>
+
+    <div class="records-card">
+        <div class="records-card-header">
+            <div>
+                <h3>معلومات المستخدم</h3>
+                <span>البيانات الأساسية لحساب المستخدم.</span>
+            </div>
+        </div>
+
+        <div class="records-card-body">
+            <dl class="details-list">
+                <div class="details-row">
+                    <dt>اسم المستخدم</dt>
+                    <dd>@Model.UserName</dd>
+                </div>
+
+                <div class="details-row">
+                    <dt>الاسم الكامل</dt>
+                    <dd>@Model.FULLNAME</dd>
+                </div>
+
+                <div class="details-row">
+                    <dt>البريد الإلكتروني</dt>
+                    <dd>@Model.Email</dd>
+                </div>
+
+                <div class="details-row">
+                    <dt>رقم الهاتف</dt>
+                    <dd>@Model.PhoneNumber</dd>
+                </div>
+
+                <div class="details-row">
+                    <dt>نوع المستخدم</dt>
+                    <dd>
+                        <span class="user-type-badge">
+                            <i class="fa fa-id-card"></i>
+                            @(string.IsNullOrWhiteSpace(Model.USERTYPE) ? "غير محدد" : Model.USERTYPE)
+                        </span>
+                    </dd>
+                </div>
+
+                <div class="details-row">
+                    <dt>الصلاحيات</dt>
+                    <dd>
+                        @if (roles != null && roles.Any())
+                        {
+                            foreach (var role in roles)
+                            {
+                                <span class="user-role-badge">
+                                    <i class="fa fa-shield"></i>
+                                    @role
+                                </span>
+                            }
+                        }
+                        else
+                        {
+                            <span class="user-role-badge">لا توجد صلاحية</span>
+                        }
+                    </dd>
+                </div>
+            </dl>
+
+            <div class="records-actions">
+                <a href="@Url.Action("Edit", "Users", new { id = Model.Id })" class="btn-app-primary">
+                    <i class="fa fa-pencil"></i>
+                    تعديل
+                </a>
+
+                <a href="@Url.Action("Index", "Users")" class="btn-app-secondary">
+                    <i class="fa fa-arrow-right"></i>
+                    العودة للقائمة
+                </a>
+            </div>
+        </div>
+    </div>
+</section>

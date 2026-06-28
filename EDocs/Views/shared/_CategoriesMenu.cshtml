@@ -1,0 +1,71 @@
+﻿@{
+    var categories = Session["categorys"] as List<edocs.Models.UserCategory>;
+}
+
+@if (Session["UserName"] != null && categories != null && categories.Any())
+{
+    var allItems = categories
+        .Where(x => x != null && x.CategoryFK != null)
+        .GroupBy(x => x.CATEGORYID)
+        .Select(g => g.First())
+        .ToList();
+
+    var rootItems = allItems
+        .Where(x => x.CategoryFK.PARENT_NAME == 0 || x.CategoryFK.PARENT_NAME == null)
+        .ToList();
+
+    if (!rootItems.Any())
+    {
+        rootItems = allItems;
+    }
+
+    <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle" href="#" id="categoriesMenu" role="button" data-toggle="dropdown"
+           aria-haspopup="true" aria-expanded="false">
+            <i class="fa fa-folder-open"></i>
+            الوثائق
+        </a>
+
+        <div class="dropdown-menu dropdown-menu-right app-dropdown app-dropdown-large" aria-labelledby="categoriesMenu">
+            @foreach (var item in rootItems)
+            {
+                <a class="dropdown-item"
+                   href="@Url.Action("Index", "Document", new { categoryID = item.CATEGORYID, ID = Request.Params["ID"] })">
+                    <i class="fa fa-folder"></i>
+                    @item.CategoryFK.NAME
+                </a>
+
+                var firstLevelItems = allItems
+                    .Where(x => x.CategoryFK.PARENT_NAME == item.CATEGORYID)
+                    .ToList();
+
+                if (firstLevelItems.Any())
+                {
+                    <div class="dropdown-divider"></div>
+
+                    foreach (var firstItem in firstLevelItems)
+                    {
+                        <a class="dropdown-item child-item"
+                           href="@Url.Action("Index", "Document", new { categoryID = firstItem.CATEGORYID, ID = Request.Params["ID"] })">
+                            <i class="fa fa-angle-left"></i>
+                            @firstItem.CategoryFK.NAME
+                        </a>
+
+                        var secondLevelItems = allItems
+                            .Where(x => x.CategoryFK.PARENT_NAME == firstItem.CATEGORYID)
+                            .ToList();
+
+                        foreach (var secondItem in secondLevelItems)
+                        {
+                            <a class="dropdown-item grand-child-item"
+                               href="@Url.Action("Index", "Document", new { categoryID = secondItem.CATEGORYID, ID = Request.Params["ID"] })">
+                                <i class="fa fa-circle"></i>
+                                @secondItem.CategoryFK.NAME
+                            </a>
+                        }
+                    }
+                }
+            }
+        </div>
+    </li>
+}

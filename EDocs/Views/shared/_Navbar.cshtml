@@ -1,0 +1,53 @@
+﻿<nav class="navbar app-navbar fixed-top">
+    <div class="container-fluid nav-container">
+
+        <a class="navbar-brand app-brand" href="@Url.Action("Index", "Home")">
+            <span class="brand-logo">
+                <img src="@Url.Content("~/images/logo.jpg")" alt="شعار النظام" />
+            </span>
+
+            <span class="brand-text">
+                <strong>نظام أرشفة الوثائق</strong>
+                <small>إدارة الوثائق والمراسلات</small>
+            </span>
+        </a>
+
+        <button class="app-toggler"
+                type="button"
+                id="appNavbarToggle"
+                aria-controls="mainNavigation"
+                aria-expanded="false"
+                aria-label="فتح القائمة">
+            <i class="fa fa-bars"></i>
+        </button>
+
+        <div class="app-nav-collapse" id="mainNavigation">
+            <ul class="navbar-nav nav-menu">
+
+                <li class="nav-item">
+                    <a class="nav-link" href="@Url.Action("Index", "Home")">
+                        <i class="fa fa-home"></i>
+                        <span>الرئيسية</span>
+                    </a>
+                </li>
+
+                @Html.Partial("_CategoriesMenu")
+
+                @Html.Partial("_MessagingMenu")
+
+                @Html.Partial("_AdminMenu")
+
+                <li class="nav-item">
+                    <a class="nav-link" href="@Url.Action("Contact", "Home")">
+                        <i class="fa fa-phone"></i>
+                        <span>اتصل بنا</span>
+                    </a>
+                </li>
+            </ul>
+
+            <div class="nav-user-area">
+                @Html.Partial("_Login")
+            </div>
+        </div>
+    </div>
+</nav>

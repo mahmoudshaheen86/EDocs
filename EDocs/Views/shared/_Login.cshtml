@@ -1,0 +1,29 @@
+﻿@if (Session["UserName"] != null)
+{
+    using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new { id = "logoutForm", @class = "user-form" }))
+    {
+        @Html.AntiForgeryToken()
+
+        <a href="@Url.Action("Index", "Manage")" class="user-chip">
+            <span class="user-avatar">
+                <i class="fa fa-user"></i>
+            </span>
+            <span>
+                <small>مرحباً</small>
+                <strong>@Session["UserName"]</strong>
+            </span>
+        </a>
+
+        <button type="submit" class="btn-logout">
+            <i class="fa fa-sign-out"></i>
+            تسجيل الخروج
+        </button>
+    }
+}
+else
+{
+    <a href="@Url.Action("Login", "Account")" class="btn-login-nav">
+        <i class="fa fa-sign-in"></i>
+        تسجيل الدخول
+    </a>
+}

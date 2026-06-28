@@ -1,0 +1,26 @@
+﻿@if (Session["UserName"] != null)
+{
+    <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle" href="#" id="messagingMenu" role="button" data-toggle="dropdown"
+           aria-haspopup="true" aria-expanded="false">
+            <i class="fa fa-paper-plane"></i>
+            المراسلة
+        </a>
+
+        <div class="dropdown-menu dropdown-menu-right app-dropdown" aria-labelledby="messagingMenu">
+            <a class="dropdown-item" href="@Url.Action("Outbox", "Messaging")">
+                <i class="fa fa-send"></i>
+                الوثائق الصادرة
+            </a>
+            <a class="dropdown-item" href="@Url.Action("Inbox", "Messaging")">
+                <i class="fa fa-inbox"></i>
+                الوثائق الواردة
+            </a>
+            <div class="dropdown-divider"></div>
+            <a class="dropdown-item" href="@Url.Action("DocMessages", "Messaging")">
+                <i class="fa fa-search"></i>
+                 استعلام برقم الوثيقة
+            </a>
+        </div>
+    </li>
+}
