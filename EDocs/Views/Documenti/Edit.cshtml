@@ -1,0 +1,357 @@
+﻿@model edocs.Models.Documenti
+
+@{
+    edocs.Models.Category catInfo = Model.CategoryFk;
+    ViewBag.Title = "تعديل بيانات وثيقة";
+    Layout = "~/Views/shared/_MainLayout.cshtml";
+}
+
+@section addcss{
+    <link href="@Url.Content("~/content/document-forms.css")" rel="stylesheet" type="text/css" />
+
+    <link rel="stylesheet" href="~/content/magnific-popup/magnific-popup.css" type="text/css" />
+    <link href="~/content/dropzone/dropzone.css" rel="stylesheet" type="text/css" />
+    <link rel="stylesheet" href="~/content/jquery-ui-master/themes/base/jquery-ui.css" />
+    <link href="~/content/bootstrap-select.min.css" rel="stylesheet" type="text/css" />
+}
+
+@section addtolbar{
+    @{
+        var breadcrumbCat = Model.CategoryFk;
+
+        while (breadcrumbCat != null)
+        {
+            <li class="breadcrumb-item">
+                <a href="@Url.Action("Index", "Documenti", new { categoryID = breadcrumbCat.ID })">
+                    @breadcrumbCat.NAME
+                </a>
+            </li>
+
+            if (breadcrumbCat.ParentCategory == null || breadcrumbCat.ParentCategory.PARENT_NAME == 0)
+            {
+                break;
+            }
+
+            breadcrumbCat = breadcrumbCat.ParentCategory;
+        }
+    }
+    <li class="breadcrumb-item active">@ViewBag.Title</li>
+}
+
+<h2>تعديل بيانات وثيقة في : <strong>@Model.CategoryFk.NAME</strong></h2>
+@Html.Raw(ViewBag.StatusMessage)
+@using (Html.BeginForm("edit", "Documenti", FormMethod.Post, new { enctype = "multipart/form-data", }))
+{
+    @Html.AntiForgeryToken();
+
+    <div class="form-horizontal professional-form-card">
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        @Html.HiddenFor(model => model.ID)
+
+        @Html.HiddenFor(model => model.DATEIN)
+
+
+        <div class="row">
+
+
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.NUMBEROF, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.NUMBEROF, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.NUMBEROF, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.DATEOFDOC, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class='col-sm-10'>
+                    <div class='input-group date' style="display:inline-table" id='datetimepicker1'>
+                        <span class="input-group-addon">
+                            <span class="glyphicon glyphicon-calendar"></span>
+                        </span>
+                        @Html.TextBoxFor(model => model.DATEOFDOC, "{0:yyyy-MM-dd}", new
+                        {
+                            @class = "form-control datepicker"
+                        })
+                        @Html.ValidationMessageFor(model => model.DATEOFDOC, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+            </div>
+
+
+        </div>
+
+
+        @Html.HiddenFor(model => model.Category)
+        @Html.HiddenFor(model => model.USERID)
+
+
+        @{
+            for (int i = 0; i < Model.DOCATTRIBUTEs.Count; i++)
+            {
+                <div class="form-group">
+                    @Html.Label(Model.DOCATTRIBUTEs[i].AttributeFk.NAME, htmlAttributes: new { @class = "control-label col-md-2" })
+                    @Html.HiddenFor(model => Model.DOCATTRIBUTEs[i].ID)
+                    @Html.HiddenFor(model => Model.DOCATTRIBUTEs[i].DOCUMENTID)
+                    @Html.HiddenFor(model => Model.DOCATTRIBUTEs[i].ATTRIBUTEID)
+                    @{
+                        if (Model.DOCATTRIBUTEs[i].AttributeFk.TYPE == "تاريخ")
+                        {
+                            <div class="col-md-10">
+                                <div class='input-group date'>
+                                    <span class="input-group-addon">
+                                        <span class="glyphicon glyphicon-calendar"></span>
+                                    </span>
+                                    @Html.TextBoxFor(model => model.DOCATTRIBUTEs[i].VALUEOF, new
+                                    {
+                                        @Value = Model.DOCATTRIBUTEs[i].VALUEOF,
+                                        @class = "form-control datepicker"
+                                    })
+                                </div>
+                            </div>
+                        }
+
+
+
+                        else if (Model.DOCATTRIBUTEs[i].AttributeFk.TYPE == "رقم")
+                        {
+                            <div class="col-md-10">
+                                @Html.EditorFor(model => model.DOCATTRIBUTEs[i].VALUEOF, new { htmlAttributes = new { @type = "number", @min = "0", @step = "1", @value = "0", @class = "form-control" } })
+                            </div>
+                        }
+                        else if (Model.DOCATTRIBUTEs[i].AttributeFk.TYPE == "مساحة")
+                        {
+                            <div class="col-md-10" style="font-size:large">
+                                @Html.TextAreaFor(model => model.DOCATTRIBUTEs[i].VALUEOF, new { cols = 35, rows = 3, @class = "form-control col-md-10", style = "font-size: large " })
+                                @*<textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>*@
+                            </div>
+                        }
+                        else if (Model.DOCATTRIBUTEs[i].AttributeFk.TYPE == "قائمة")
+                        {
+                            {
+                                List<SelectListItem> listitems = new List<SelectListItem>();
+                                foreach (var ite in Model.DOCATTRIBUTEs[i].AttributeFk.AttributeList.OrderBy(a => a.VALUE))
+                                {
+                                    if (ite.VALUE == Model.DOCATTRIBUTEs[i].VALUEOF)
+                                    {
+                                        listitems.Add(new SelectListItem
+                                        {
+                                            Text = ite.VALUE,
+                                            Value = ite.VALUE,
+                                            Selected = true
+
+                                        });
+                                    }
+                                    else
+                                    {
+                                        listitems.Add(new SelectListItem
+                                        {
+                                            Text = ite.VALUE,
+                                            Value = ite.VALUE
+
+                                        });
+                                    }
+
+                                }
+                                <div class="col-md-10" style="font-size:large">
+                                    @Html.DropDownListFor(model => model.DOCATTRIBUTEs[i].VALUEOF, listitems, "----  اختر من القائمة  ----", htmlAttributes: new { @class = " form-control selectpicker", style = " text-align: inherit; " })
+                                    @* @Html.TextAreaFor(model => model.DOCATTRIBUTEs[i].VALUEOF, new { cols = 35, rows = 3, @class = "form-control col-md-10", style = "font-size: large " })
+                                        <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>*@
+                                </div>
+                            }
+
+                        }
+                        else
+                        {
+                            <div class="col-md-10">
+                                @Html.EditorFor(model => model.DOCATTRIBUTEs[i].VALUEOF, new { htmlAttributes = new { @class = "form-control" } })
+                            </div>
+                        }
+                    }
+                </div>
+            }
+        }
+        @{
+            if (ViewBag.files != null)
+            {
+                <div class="portfolioContainer" style="height:50%;">
+                    @{
+                        var tem = new List<edocs.Models.DocFile>();
+                        tem = ViewBag.files;
+                        foreach (var item in tem)
+                        {
+                            string a = Session["UserId"] + "/" + item.NAME;
+
+                            string[] fileType = item.NAME.Split('.');
+                            int indexExtenstion = fileType.Length - 1;
+
+                            string[] fileType1 = item.NAME.Split('\\');
+                            int indexExtenstion1 = fileType1.Length - 1;
+
+                            <div class="col-sm-6 col-lg-2 col-md-3">
+                                <div class="gal-detail thumb">
+                                    @{
+                                        if (fileType[indexExtenstion].ToUpper() == "PDF")
+                                        {
+                                            <a href="~/temp/@a" class="image-popup" title="@Html.DisplayFor(modelItem => item.NAME)" target="_blank">
+                                                <img src="~/content/image/pdf.png" class="thumb-img" height="100" width="75" />
+                                            </a>
+                                            <h4 target="_blank" href="~/temp/@a"><a target="_blank" href="~/temp/@a">@item.NAME</a></h4>
+                                        }
+                                        else if (fileType[indexExtenstion].ToUpper() == "TIFF" || fileType[indexExtenstion].ToUpper() == "TIF")
+                                        {
+                                            <a href="~/temp/@a" class="image-popup" title="@Html.DisplayFor(modelItem => item.NAME)" target="_blank">
+                                                <img src="~/content/image/tiff.png" href="~/temp/@a" class="thumb-img" height="100" width="75" />
+                                            </a>
+                                            <h4 target="_blank" href="~/temp/@a"><a target="_blank" href="~/temp/@a">@item.NAME</a></h4>
+                                        }
+                                        else if (fileType[indexExtenstion].ToUpper() == "DOC" || fileType[indexExtenstion].ToUpper() == "DOCX")
+                                        {
+                                            <a href="~/temp/@a" class="image-popup" title="@Html.DisplayFor(modelItem => item.NAME)" target="_blank">
+                                                <img src="~/content/image/Word.png" class="thumb-img" height="100" width="75" />
+                                            </a>
+                                            <h4 target="_blank" href="~/temp/@a"><a target="_blank" href="~/temp/@a">@item.NAME</a></h4>
+                                        }
+                                        else
+                                        {
+                                            <a href="~/temp/@a" class="image-popup" title="@Html.DisplayFor(modelItem => item.NAME)" target="_blank">
+                                                <img src="~/temp/@a" class="thumb-img" />
+                                            </a>
+                                            <h4>@item.NAME</h4>
+                                        }
+
+                                    }
+                                    <div>
+                                        <input type="button" value="حذف الملف" style="padding-right: 25px;" class="btn btn-danger center-block" onclick="location.href='@Url.Action("Delete", "DocFile")?id=@item.ID'" />
+                                        <span class="glyphicon glyphicon-trash" style="margin-right: 40px;margin-top: -25px;color: white;"></span>
+                                    </div>
+
+
+                                </div>
+                            </div>
+                        }
+                    }
+                </div>
+            }
+            else
+            {
+
+            }
+        }
+
+
+        @Html.Partial("_PartialAddFile")
+
+
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <button type="submit" value="إضافة" class="btn btn-success btn-lg"> تعديل <i class="fa fa-edit"></i></button>
+            </div>
+        </div>
+    </div>
+}
+
+<div>
+    @Html.ActionLink("العودة إلى صفحة الوثائق", "Index", new { categoryID = Model.Category })
+</div>
+
+
+
+@section addjs{
+    <script src="~/content/dropzone/dropzone.min.js"></script>
+
+
+
+    <script type="text/javascript">function LaunchURLScript() { var url = "basselscanapp:"; window.open(url); self.focus(); }</script>
+
+    <script type="text/javascript">
+            function startscan(){
+                $.ajax({
+                    type : 'post',
+                    url: '@Url.Action("scanner", "Documenti")',
+                    success : function(){}
+                });
+            }
+    </script>
+    <script type="text/javascript">
+        function endscan(){
+            var res = "";
+                $.ajax({
+                    type : 'post',
+                    url: '@Url.Action("endscan", "Documenti",new{ catId = Model.Category })',
+                    success: function (_data) {
+                        var returnedData = _data.data;
+                        res =   returnedData ;
+                        //document.getElementById(result).valueOf = "تم مسح "+ returnedData + "وثائق";
+                        document.getElementById("fileCount").style.display = "block";
+                        document.getElementById("fileCount").innerHTML = "تم مسح <strong>  "+ res +"  </strong>وثيقة ";
+                    }
+
+
+                });
+
+
+           // $("scanId1").appendChild("<input type='button' id='result' class='btn btn-danger btn-lg fa-align-center' style='margin-right: 50;' value="+ res  +"  />");
+            }
+    </script>
+
+    <script type="text/javascript">
+        //File Upload response from the server
+        var c = @Model.Category;
+        Dropzone.options.dropzoneForm = {
+            maxFiles: 10,
+            url: '@Url.Action("SaveDropzoneJsUploadedFiles", "Documenti")',
+            params: {
+                CategoryId: c
+            },
+            init: function () {
+                this.on("maxfilesexceeded", function () {
+                    alert("لا يمكن تحميل ملفات أكثر تجاوزت الحد المسموح به");
+                });
+            }
+        };
+
+    </script>
+    <script src="~/content/magnific-popup/magnific-popup.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $('.selectpicker').selectpicker({
+                liveSearch: true,
+                showSubtext: true
+            });
+            $('.image-popup').magnificPopup({
+                type: 'image',
+                closeOnContentClick: true,
+                mainClass: 'mfp-fade',
+                gallery: {
+                    enabled: true,
+                    navigateByImgClick: true,
+                    preload: [0, 1] // Will preload 0 - before current, and 1 after the current image
+                }
+            });
+
+        });
+
+
+    </script>
+
+    <script src="~/content/bootstrap-select.min.js"></script>
+
+    <script src="~/content/jquery-ui-master/ui/jquery-ui.js"></script>
+    <script src="~/content/jquery-ui-master/ui/i18n/datepicker-ar.js"></script>
+
+    <script>
+        $(function () {
+            $(".datepicker").datepicker($.datepicker.regional["ar"]);
+            $(".datepicker").datepicker("option", "dateFormat", "yy-mm-dd");
+            $(".datepicker").datepicker({
+                showButtonPanel: true
+            });
+        });
+    </script>
+
+}

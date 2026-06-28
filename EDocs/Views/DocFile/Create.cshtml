@@ -1,0 +1,118 @@
+﻿@model edocs.Models.DocFile
+
+@{
+    ViewBag.Title = "إضافة ملف جديد";
+    Layout = "~/Views/shared/_MainLayout.cshtml";
+}
+
+<h2>إضافة ملف جديد</h2>
+
+@using (Html.BeginForm("create", "DocFile", FormMethod.Post, new { enctype = "multipart/form-data" })) 
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-horizontal">
+        <h4>الملف</h4>
+
+
+        <div class="alert alert-danger" id="error" style="display:none;">
+            <span id="view-error">
+
+            </span>
+        </div>
+
+
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        <div class="form-group">
+            @Html.LabelFor(model => model.NAME, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                <input type="file" name="uploadfile" id="uploadfile"/>
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.DATEOF, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.DATEOF, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.DATEOF, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.STATUS, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.STATUS, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.STATUS, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.DOCUMENTID, "اسم الوثيقة", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DropDownList("DOCUMENTID", null, htmlAttributes: new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.DOCUMENTID, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.USERID, "اسم المستخدم", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DropDownList("USERID", null, htmlAttributes: new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.USERID, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <button type="submit" value="إضافة" class="btn btn-info btn-lg"> إضافة <span class="glyphicon glyphicon-floppy-disk"></span></button>
+            </div>
+        </div>
+    </div>
+}
+
+<div>
+    @Html.ActionLink("العودة إلى الملفات", "Index")
+</div>
+
+
+
+
+@section addjs{
+    <script>
+        $(function () {
+            $("#save").click(function () {
+                //check in file inpute empty
+                if ($("#uploadfile").val() == "") {
+                    $("#error").fadeIn();
+                    $("#view-error").remove();
+                    $("#error").append('<span id="view-error">"قم باختيار صورة من فضلك"</span>');
+                    return false;
+                }
+                else {
+                    //check if the image extentions is valid
+                    var filename = document.getElementById("uploadfile").value;
+                    var extentionfilet = filename.substr(filename.lastIndexOf('.') + 1);
+                    var extentionfile = extentionfilet.toLowerCase();
+                    var validExtintions = ['jpg', 'png', 'gif', 'bmp', 'tif'];
+                    if ($.inArray(extentionfile, validExtintions) == -1) {
+                        $("#error").fadeIn();
+                        $("#view-error").remove();
+                        $("#error").append('<span id="view-error">"قم باختيار صورة بامتداد صحيح من فضلك"</span>');
+                        return false;
+                    }
+                    //check if the image size is valid (5m)
+                    var myfilesize = document.getElementById("uploadfile").files[0].size / 1024 / 1024;
+
+                    if (myfilesize > 5) {
+                        $("#error").fadeIn();
+                        $("#view-error").remove();
+                        $("#error").append('<span id="view-error">"قم باختيار صورة حجمها أقل من 5 ميغا بايت من فضلك"</span>');
+                        return false;
+                    }
+                }
+
+            });
+        });
+    </script>
+}

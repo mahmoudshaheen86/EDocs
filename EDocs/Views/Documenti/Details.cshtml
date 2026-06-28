@@ -1,0 +1,215 @@
+﻿@model edocs.Models.Documenti
+
+
+@section addcss{
+    <link href="@Url.Content("~/content/document-forms.css")" rel="stylesheet" type="text/css" />
+
+    <link rel="stylesheet" href="~/content/magnific-popup/magnific-popup.css" type="text/css" />
+}
+
+@{
+    edocs.Models.Category catInfo = Model.CategoryFk;
+    ViewBag.Title = "استعراض بيانات وثيقة";
+    Layout = "~/Views/shared/_MainLayout.cshtml";
+}
+
+
+@section addtolbar{
+    @{
+        var breadcrumbCat = Model.CategoryFk;
+
+        while (breadcrumbCat != null)
+        {
+            <li class="breadcrumb-item">
+                <a href="@Url.Action("Index", "Documenti", new { categoryID = breadcrumbCat.ID })">
+                    @breadcrumbCat.NAME
+                </a>
+            </li>
+
+            if (breadcrumbCat.ParentCategory == null || breadcrumbCat.ParentCategory.PARENT_NAME == 0)
+            {
+                break;
+            }
+
+            breadcrumbCat = breadcrumbCat.ParentCategory;
+        }
+    }
+    <li class="breadcrumb-item active">@ViewBag.Title</li>
+}
+
+
+<h2>استعراض بيانات وثيقة</h2>
+<div class="row">
+    <div class="col-sm-6 col-lg-3 col-md-4">
+        <h4> بيانات وثيقة</h4>
+        <h3>
+            @ViewBag.userrole
+        </h3>
+    </div>
+</div>
+
+
+<div class="row">
+    <table class="table table-bordered document-info-table">
+        <thead class="thead-dark">
+            <tr>
+                <th class="col-md-3" scope="col">الحقل</th>
+                <th scope="col">المحتوى</th>
+            </tr>
+        </thead>
+        <tbody>
+
+
+            @*<tr>
+                    <td class="col-md-3">@Html.DisplayNameFor(model => model.SEQUENCEOF)</td>
+                    <td>@Html.DisplayFor(model => model.SEQUENCEOF)</td>
+                </tr>*@
+
+
+            <tr>
+                <td class="col-md-3">@Html.DisplayNameFor(model => model.NUMBEROF)</td>
+                <td>@Html.DisplayFor(model => model.NUMBEROF)</td>
+            </tr>
+
+            <tr>
+                <td class="col-md-3">@Html.DisplayNameFor(model => model.DATEOFDOC)</td>
+                <td>@Html.DisplayFor(model => model.DATEOFDOC)</td>
+            </tr>
+            <tr>
+                <td class="col-md-3">@Html.DisplayNameFor(model => model.DATEIN)</td>
+                <td>@Convert.ToDateTime(Model.DATEIN).ToString("yyyy-MM-dd")</td>
+            </tr>
+
+            <tr>
+                <td class="col-md-3">@Html.DisplayNameFor(model => model.CategoryFk.NAME)</td>
+                <td>@Html.DisplayFor(model => model.CategoryFk.NAME)</td>
+            </tr>
+            <tr>
+                <td class="col-md-3">@Html.DisplayNameFor(model => model.USERID)</td>
+                <td>@Html.DisplayFor(model => model.USERFk.UserName)</td>
+            </tr>
+            @{
+                if (Model.DOCATTRIBUTEs.Count() > 0 && Model.DOCATTRIBUTEs != null)
+                {
+                    foreach (var docAtt in Model.DOCATTRIBUTEs.OrderBy(a => a.AttributeFk.COLM_ORDER))
+                    {
+                        <tr>
+                            <td class="col-md-3">@Html.DisplayFor(model => docAtt.AttributeFk.NAME)</td>
+                            <td>@Html.DisplayFor(model => docAtt.VALUEOF)</td>
+                        </tr>
+                    }
+                }
+            }
+            <tr>
+                <td class="col-md-3">الوثائق</td>
+                <td>
+                    @{
+                        if (ViewBag.files != null)
+                        {
+                            <div class="portfolioContainer">
+                                @{
+                                    var tem = new List<edocs.Models.DocFile>();
+                                    tem = ViewBag.files;
+                                    foreach (var item in tem)
+                                    {
+                                        string a = Session["UserId"] + "/" + item.NAME;
+                                        // string a = @item.DOCFk.CategoryFk.FOLDER_NAME.ToString() + "/" + @Convert.ToString(int.Parse(item.DATEOF.Year.ToString()), 16) + "/" + @Convert.ToString(int.Parse(item.DATEOF.Month.ToString()), 16) + "/" + @Convert.ToString(int.Parse(item.DATEOF.Day.ToString()), 16) + "/" + item.NAME;
+                                        string[] fileType = item.NAME.Split('.');
+                                        int indexExtenstion = fileType.Length - 1;
+
+
+                                        <div class="col-sm-6 col-lg-2 col-md-3">
+                                            <div class="gal-detail thumb">
+                                                @{
+                                                    if (fileType[indexExtenstion].ToUpper() == "PDF")
+                                                    {
+                                                        <a href="~/temp/@a" class="image-popup" title="@Html.DisplayFor(modelItem => item.NAME)" target="_blank">
+                                                            <img src="~/content/image/pdf.png" class="thumb-img" height="100" width="75" />
+                                                        </a>
+                                                        <h4 target="_blank" href="~/temp/@a"><a target="_blank" href="~/temp/@a">@item.NAME</a></h4>
+                                                    }
+                                                    else if (fileType[indexExtenstion].ToUpper() == "TIFF" || fileType[indexExtenstion].ToUpper() == "TIF")
+                                                    {
+                                                        <a href="~/temp/@a" class="image-popup" title="@Html.DisplayFor(modelItem => item.NAME)" target="_blank">
+                                                            <img src="~/content/image/tiff.png" class="thumb-img" height="100" width="75" />
+                                                        </a>
+                                                        <h4 target="_blank" href="~/temp/@a"><a target="_blank" href="~/temp/@a">@item.NAME</a></h4>
+                                                    }
+                                                    else if (fileType[indexExtenstion].ToUpper() == "DOC" || fileType[indexExtenstion].ToUpper() == "DOCX")
+                                                    {
+                                                        <a href="~/temp/@a" class="image-popup" title="@Html.DisplayFor(modelItem => item.NAME)" target="_blank">
+                                                            <img src="~/content/image/Word.png" class="thumb-img" height="100" width="75" />
+                                                        </a>
+                                                        <h4 target="_blank" href="~/temp/@a"><a target="_blank" href="~/temp/@a">@item.NAME</a></h4>
+                                                    }
+                                                    else
+                                                    {
+                                                        <a href="~/temp/@a" class="image-popup" title="@Html.DisplayFor(modelItem => item.NAME)" target="_blank">
+                                                            <img src="~/temp/@a" class="thumb-img" />
+                                                        </a>
+                                                        <h4>@item.NAME</h4>
+                                                    }
+
+                                                }
+                                                @{ if (ViewBag.userrole != "قراءة")
+                                                    {
+                                                        <div>
+                                                            <input type="button" value="حذف الملف" style="padding-right: 25px;" class="btn btn-danger center-block" onclick="location.href='@Url.Action("Delete", "DocFile")?id=@item.ID'" />
+                                                            <span class="glyphicon glyphicon-trash" style="margin-right: 40px;margin-top: -25px;color: white;"></span>
+                                                        </div>}
+                                                }
+
+                                            </div>
+                                        </div>
+                                    }
+                                }
+                            </div>
+                        }
+                        else
+                        {
+
+                        }
+                    }
+                </td>
+            </tr>
+        </tbody>
+    </table>
+
+</div>
+
+
+<div class="row">
+    <p>
+        @{ if (ViewBag.userrole != "قراءة")
+            {
+                @Html.ActionLink("تعديل", "Edit", new { id = Model.ID })
+                <span>|</span>
+            }
+
+        }
+
+        @Html.ActionLink("العودة إلى صفحة الوثائق", "Index", new { categoryID = Model.Category })
+    </p>
+</div>
+
+
+@section addjs{
+    <script src="~/content/magnific-popup/magnific-popup.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $('.image-popup').magnificPopup({
+                type: 'image',
+                closeOnContentClick: true,
+                mainClass: 'mfp-fade',
+                gallery: {
+                    enabled: true,
+                    navigateByImgClick: true,
+                    preload: [0, 1] // Will preload 0 - before current, and 1 after the current image
+                }
+            });
+        });
+
+
+    </script>
+}
+

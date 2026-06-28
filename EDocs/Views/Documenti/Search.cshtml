@@ -1,0 +1,131 @@
+﻿@model edocs.Models.Documenti
+
+@{
+    ViewBag.Title = "البحث عن وثيقة";
+    Layout = "~/Views/shared/_MainLayout.cshtml";
+}
+
+@section addcss{
+    <link href="@Url.Content("~/content/datatables/app-datatables.css")" rel="stylesheet" type="text/css" />
+}
+
+@section addtolbar{
+    <li class="breadcrumb-item active">البحث عن وثيقة</li>
+}
+
+<section class="table-module">
+    <div class="module-heading">
+        <div>
+            <span class="module-eyebrow">
+                <i class="fa fa-search"></i>
+                البحث
+            </span>
+
+            <h2>البحث عن وثيقة</h2>
+
+            <p>
+                استخدم المعايير التالية للوصول إلى الوثائق المطلوبة بسرعة، ثم استعرض النتائج في الجدول أدناه.
+            </p>
+        </div>
+    </div>
+
+    <div id="dialog1" title="استعراض" style="overflow: hidden;" class="popup">
+        <div id="divImageHolder" class="content"></div>
+    </div>
+
+    <div id="dialog" title="استعراض" style="overflow: hidden;"></div>
+
+    @using (Html.BeginForm("Search", "Documenti", FormMethod.Post, new { enctype = "multipart/form-data", @class = "professional-form" }))
+    {
+        @Html.AntiForgeryToken()
+        @Html.ValidationSummary(true, "", new { @class = "validation-summary" })
+
+        <div class="search-card">
+            <div class="search-card-header">
+                <div>
+                    <h3>معايير البحث</h3>
+                    <span>حدد التاريخ أو رقم الوثيقة أو بيانات التصنيف حسب الحاجة.</span>
+                </div>
+            </div>
+
+            <div class="search-grid">
+                <div class="form-field">
+                    @Html.Label("من تاريخ")
+                    <div class="input-with-icon">
+                        <i class="fa fa-calendar"></i>
+                        @Html.EditorFor(model => model.DATEOFDOC, new { htmlAttributes = new { @class = "form-control", placeholder = "من تاريخ" } })
+                    </div>
+                    @Html.ValidationMessageFor(model => model.DATEOFDOC, "", new { @class = "field-validation" })
+                </div>
+
+                <div class="form-field">
+                    @Html.Label("إلى تاريخ")
+                    <div class="input-with-icon">
+                        <i class="fa fa-calendar"></i>
+                        @Html.EditorFor(model => model.DATEIN, new { htmlAttributes = new { @class = "form-control", placeholder = "إلى تاريخ" } })
+                    </div>
+                    @Html.ValidationMessageFor(model => model.DATEIN, "", new { @class = "field-validation" })
+                </div>
+
+                <div class="form-field">
+                    @Html.LabelFor(model => model.NAME)
+                    <div class="input-with-icon">
+                        <i class="fa fa-tag"></i>
+                        @Html.EditorFor(model => model.NAME, new { htmlAttributes = new { @class = "form-control", placeholder = "اسم الوثيقة" } })
+                    </div>
+                    @Html.ValidationMessageFor(model => model.NAME, "", new { @class = "field-validation" })
+                </div>
+
+                <div class="form-field">
+                    @Html.LabelFor(model => model.DESCR)
+                    <div class="input-with-icon">
+                        <i class="fa fa-align-right"></i>
+                        @Html.EditorFor(model => model.DESCR, new { htmlAttributes = new { @class = "form-control", placeholder = "الوصف" } })
+                    </div>
+                    @Html.ValidationMessageFor(model => model.DESCR, "", new { @class = "field-validation" })
+                </div>
+
+                <div class="form-field">
+                    @Html.LabelFor(model => model.NUMBEROF)
+                    <div class="input-with-icon">
+                        <i class="fa fa-hashtag"></i>
+                        @Html.EditorFor(model => model.NUMBEROF, new { htmlAttributes = new { @class = "form-control", placeholder = "رقم الوثيقة" } })
+                    </div>
+                    @Html.ValidationMessageFor(model => model.NUMBEROF, "", new { @class = "field-validation" })
+                </div>
+            </div>
+
+            <div class="search-actions">
+                <button id="searchbtn1" type="submit" class="btn-app-primary">
+                    <i class="fa fa-search"></i>
+                    بحث
+                </button>
+
+                <a class="btn-app-secondary" href="@Url.Action("Index", "Document")">
+                    <i class="fa fa-arrow-right"></i>
+                    العودة للقائمة
+                </a>
+            </div>
+
+            <div class="progress app-progress">
+                <div class="progress-bar" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="width: 0%;">
+                    <span class="sr-only">0% complete</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="data-card results-card">
+            <div class="data-card-header">
+                <div>
+                    <h3>نتائج البحث</h3>
+                    <span>سيتم عرض الوثائق المطابقة لمعايير البحث هنا.</span>
+                </div>
+            </div>
+
+            <div class="table-responsive app-table-responsive">
+                <table id="jqGrid" class="table app-data-table"></table>
+                <div id="jqGridPager" class="app-grid-pager"></div>
+            </div>
+        </div>
+    }
+</section>

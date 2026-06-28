@@ -1,0 +1,70 @@
+﻿@model edocs.Models.DocFile
+
+@{
+    ViewBag.Title = "استعراض بيانات ملف";
+    Layout = "~/Views/shared/_MainLayout.cshtml";
+}
+<div class="row">
+    <div class="col-md-6">
+        <h2 class="text-primary">استعراض بيانات ملف</h2>
+
+        <hr />
+        <dl class="dl-horizontal">
+
+
+            <dt>
+                @Html.DisplayNameFor(model => model.NAME)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.NAME)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.DATEOF)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.DATEOF)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.STATUS)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.STATUS)
+            </dd>
+
+
+            <dt>
+                @Html.DisplayNameFor(model => model.DOCUMENTID)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.DOCFk.NAME)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.USERID)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.USERFk.UserName)
+            </dd>
+
+        </dl>
+    </div>
+    <div class="col-md-4">
+        <div class="gal-detail thumb">
+            <a href="~/uploads/@Html.DisplayFor(model => model.NAME)" class="image-popup" title="@Html.DisplayFor(model => model.NAME)">
+                <img src="~/uploads/@Html.DisplayFor(model => model.NAME)" class="thumb-img" alt="@Html.DisplayFor(model => model.NAME)">
+            </a>
+            <h4>@Html.DisplayFor(model => model.NAME)</h4>
+        </div>
+    </div>
+</div>
+<p>
+    @Html.ActionLink("تعديل", "Edit", new { id = Model.ID }) |
+    @Html.ActionLink("العودة إلى الملفات", "Index")
+</p>

@@ -1,0 +1,73 @@
+﻿@model edocs.Models.DocContent
+
+@{
+    ViewBag.Title = "Delete";
+    Layout = "~/Views/shared/_MainLayout.cshtml";
+}
+
+<h2>Delete</h2>
+
+<h3>Are you sure you want to delete this?</h3>
+<div>
+    <h4>DocContent</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.DOCFk.NUMBEROF)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DOCFk.NUMBEROF)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.TYPE)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.TYPE)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.CONTENT)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.CONTENT)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.NOTES)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.NOTES)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.DESCRIPTION)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DESCRIPTION)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.DATEDOC)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DATEDOC)
+        </dd>
+
+    </dl>
+
+    @using (Html.BeginForm()) {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            <input type="submit" value="Delete" class="btn btn-default" /> |
+            @Html.ActionLink("Back to List", "Index")
+        </div>
+    }
+</div>

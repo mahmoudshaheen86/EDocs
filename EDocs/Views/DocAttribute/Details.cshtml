@@ -1,0 +1,83 @@
+﻿@model edocs.Models.DocAttribute
+
+@{
+    ViewBag.Title = "استعراض بيانات واصفة";
+    Layout = "~/Views/shared/_MainLayout.cshtml";
+}
+
+@section addcss{
+    <link href="@Url.Content("~/content/simple-crud.css")" rel="stylesheet" type="text/css" />
+}
+
+@section addtolbar{
+    <li class="breadcrumb-item"><a href="@Url.Action("Index", "DocAttribute")">الواصفات</a></li>
+    <li class="breadcrumb-item active">استعراض بيانات واصفة</li>
+}
+
+<section class="records-module">
+    <div class="records-heading">
+        <div>
+            <span class="records-eyebrow">
+                <i class="fa fa-eye"></i>
+                تفاصيل
+            </span>
+            <h2>استعراض بيانات واصفة</h2>
+            <p>عرض بيانات الواصفة المحددة والتصنيف المرتبط بها.</p>
+        </div>
+    </div>
+
+    <div class="records-card">
+        <div class="records-card-header">
+            <div>
+                <h3>بيانات الواصفة</h3>
+                <span>البيانات الأساسية للحقل.</span>
+            </div>
+        </div>
+
+        <div class="records-card-body">
+            <dl class="details-list">
+                <div class="details-row">
+                    <dt>@Html.DisplayNameFor(model => model.Category)</dt>
+                    <dd>
+                        <span class="record-name-badge">
+                            <i class="fa fa-folder"></i>
+                            @(Model.CategoryFk != null ? Model.CategoryFk.NAME : "")
+                        </span>
+                    </dd>
+                </div>
+
+                <div class="details-row">
+                    <dt>@Html.DisplayNameFor(model => model.NAME)</dt>
+                    <dd>@Html.DisplayFor(model => model.NAME)</dd>
+                </div>
+
+                <div class="details-row">
+                    <dt>@Html.DisplayNameFor(model => model.TYPE)</dt>
+                    <dd>
+                        <span class="user-type-badge">
+                            <i class="fa fa-sliders"></i>
+                            @Html.DisplayFor(model => model.TYPE)
+                        </span>
+                    </dd>
+                </div>
+
+                <div class="details-row">
+                    <dt>@Html.DisplayNameFor(model => model.COLM_ORDER)</dt>
+                    <dd>@Html.DisplayFor(model => model.COLM_ORDER)</dd>
+                </div>
+            </dl>
+
+            <div class="records-actions">
+                <a href="@Url.Action("Edit", "DocAttribute", new { id = Model.ID })" class="btn-app-primary">
+                    <i class="fa fa-pencil"></i>
+                    تعديل
+                </a>
+
+                <a href="@Url.Action("Index", "DocAttribute", new { id = Model.Category })" class="btn-app-secondary">
+                    <i class="fa fa-arrow-right"></i>
+                    العودة إلى صفحة الواصفات
+                </a>
+            </div>
+        </div>
+    </div>
+</section>

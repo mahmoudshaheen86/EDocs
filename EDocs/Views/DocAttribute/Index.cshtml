@@ -1,0 +1,218 @@
+﻿@model IEnumerable<edocs.Models.DocAttribute>
+
+@{
+    var users = Session["Users"] as edocs.Models.ApplicationUser;
+    ViewBag.Title = "الواصفات";
+    Layout = "~/Views/shared/_MainLayout.cshtml";
+}
+
+@section addcss{
+    <link href="@Url.Content("~/content/simple-crud.css")" rel="stylesheet" type="text/css" />
+    <link href="@Url.Content("~/content/datatables/app-datatables.css")" rel="stylesheet" type="text/css" />
+
+    <link href="@Url.Content("~/content/datatables/rwd-table.min.css")" rel="stylesheet" type="text/css" media="screen" />
+    <link href="@Url.Content("~/content/datatables/jquery.dataTables.min.css")" rel="stylesheet" type="text/css" />
+    <link href="@Url.Content("~/content/buttons.dataTables.min.css")" rel="stylesheet" type="text/css" />
+}
+
+@section addtolbar{
+    <li class="breadcrumb-item active">الواصفات</li>
+}
+
+<section class="table-module records-module">
+    <div class="module-heading records-heading">
+        <div>
+            <span class="module-eyebrow records-eyebrow">
+                <i class="fa fa-list-alt"></i>
+                الواصفات
+            </span>
+
+            <p>إدارة حقول التصنيف والواصفات المرتبطة بالوثائق مثل الاسم، النوع، التصنيف، وترتيب الظهور.</p>
+        </div>
+
+        <div class="module-actions records-actions">
+            <a href="@Url.Action("Create", "DocAttribute", new { id = ViewBag.CatID })" class="btn-app-primary">
+                <i class="fa fa-plus"></i>
+                إضافة واصفة جديدة
+            </a>
+        </div>
+    </div>
+
+    @if (ViewBag.StatusMessage != null)
+    {
+        <div class="status-message-wrapper">
+            @Html.Raw(ViewBag.StatusMessage)
+        </div>
+    }
+
+    <div class="data-card records-card">
+
+        <div class="table-responsive app-table-responsive records-table-wrapper">
+            <table id="datatable" class="table app-data-table records-table table-hover">
+                <thead>
+                    <tr>
+                        <th>اسم الواصفة</th>
+                        <th>نمط الواصفة</th>
+                        <th>التصنيف</th>
+                        <th>ترتيب العمود</th>
+                        <th class="actions-column no-filter">العمليات</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                    @if (Model != null && Model.Any())
+                    {
+                        foreach (var item in Model)
+                        {
+                            <tr>
+                                <td>
+                                    <span class="record-name-badge">
+                                        <i class="fa fa-tag"></i>
+                                        @Html.DisplayFor(modelItem => item.NAME)
+                                    </span>
+                                </td>
+
+                                <td>
+                                    <span class="user-type-badge">
+                                        <i class="fa fa-sliders"></i>
+                                        @Html.DisplayFor(modelItem => item.TYPE)
+                                    </span>
+                                </td>
+
+                                <td>
+                                    @(item.CategoryFk != null ? item.CategoryFk.NAME : "")
+                                </td>
+
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.COLM_ORDER)
+                                </td>
+
+                                <td class="actions-column">
+                                    <div class="records-actions">
+                                        <a href="@Url.Action("Edit", "DocAttribute", new { id = item.ID })" class="btn-app-secondary">
+                                            <i class="fa fa-pencil"></i>
+                                            تعديل
+                                        </a>
+
+                                        <a href="@Url.Action("Details", "DocAttribute", new { id = item.ID })" class="btn-app-secondary">
+                                            <i class="fa fa-eye"></i>
+                                            تفاصيل
+                                        </a>
+
+                                        <a href="@Url.Action("Delete", "DocAttribute", new { id = item.ID })" class="btn-app-danger">
+                                            <i class="fa fa-trash"></i>
+                                            حذف
+                                        </a>
+                                    </div>
+                                </td>
+                            </tr>
+                        }
+                    }
+                    else
+                    {
+                        <tr>
+                            <td colspan="5">
+                                <div class="empty-state">
+                                    <i class="fa fa-info-circle"></i>
+                                    لا توجد واصفات مضافة حتى الآن.
+                                </div>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</section>
+
+@section addjs{
+    <script src="@Url.Content("~/content/datatables/jquery.dataTables.min.js")"></script>
+    <script src="@Url.Content("~/content/datatables/dataTables.bootstrap.js")"></script>
+    <script src="@Url.Content("~/scripts/rwd-table.min.js")"></script>
+
+    <script src="@Url.Content("~/scripts/dataTables.buttons.min.js")" charset="utf-8"></script>
+    <script src="@Url.Content("~/scripts/jszip.min.js")" charset="utf-8"></script>
+    <script src="@Url.Content("~/scripts/pdfmake.min.js")" charset="utf-8"></script>
+    <script src="@Url.Content("~/scripts/vfs_fonts.js")" charset="utf-8"></script>
+    <script src="@Url.Content("~/scripts/buttons.html5.min.js")" charset="utf-8"></script>
+    <script src="@Url.Content("~/scripts/buttons.print.min.js")" charset="utf-8"></script>
+
+    <script>
+        $(document).ready(function () {
+            $('#datatable thead th').each(function () {
+                var $th = $(this);
+
+                if ($th.hasClass('no-filter')) {
+                    $th.append('<div class="column-filter-spacer"></div>');
+                    return;
+                }
+
+                var title = $.trim($th.clone().children().remove().end().text());
+
+                $th.append(
+                    '<div class="column-filter">' +
+                    '<i class="fa fa-search"></i>' +
+                    '<input class="form-control input-sm column-search" type="search" placeholder="بحث في ' + title + '" />' +
+                    '</div>'
+                );
+            });
+
+            var table = $('#datatable').DataTable({
+                responsive: true,
+                orderCellsTop: true,
+                dom:
+                    '<"dt-top-row"<"dt-length"l><"dt-search"f><"dt-buttons"B>>' +
+                    'rt' +
+                    '<"dt-bottom-row"<"dt-info"i><"dt-pagination"p>>',
+
+                buttons: [
+                    {
+                        extend: 'copyHtml5',
+                        text: '<i class="fa fa-copy"></i> نسخ'
+                    },
+                    {
+                        extend: 'excelHtml5',
+                        text: '<i class="fa fa-file-excel-o"></i> Excel'
+                    },
+                    {
+                        extend: 'pdfHtml5',
+                        text: '<i class="fa fa-file-pdf-o"></i> PDF'
+                    },
+                    {
+                        extend: 'print',
+                        text: '<i class="fa fa-print"></i> طباعة'
+                    }
+                ],
+
+                language: {
+                    search: '',
+                    searchPlaceholder: 'بحث عام...',
+                    lengthMenu: 'عرض _MENU_ سجل',
+                    info: 'عرض _START_ إلى _END_ من أصل _TOTAL_ سجل',
+                    infoEmpty: 'لا توجد سجلات متاحة',
+                    infoFiltered: '(تمت التصفية من أصل _MAX_ سجل)',
+                    zeroRecords: 'لم يتم العثور على نتائج مطابقة',
+                    emptyTable: 'لا توجد بيانات متاحة',
+                    paginate: {
+                        previous: '<i class="fa fa-angle-right"></i> السابق',
+                        next: 'التالي <i class="fa fa-angle-left"></i>'
+                    }
+                }
+            });
+
+            $('#datatable thead').on('click keydown', 'input.column-search', function (e) {
+                e.stopPropagation();
+            });
+
+            table.columns().every(function () {
+                var column = this;
+
+                $('input.column-search', column.header()).on('keyup change clear', function () {
+                    if (column.search() !== this.value) {
+                        column.search(this.value).draw();
+                    }
+                });
+            });
+        });
+    </script>
+}

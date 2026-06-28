@@ -1,0 +1,362 @@
+﻿@model edocs.Models.Documenti
+
+
+@{
+    edocs.Models.Category catInfo = ViewBag.Category as edocs.Models.Category;
+    ViewBag.Title = "إضافة وثيقة جديدة";
+    Layout = "~/Views/shared/_MainLayout.cshtml";
+}
+
+@section addcss{
+    <link href="@Url.Content("~/content/document-forms.css")" rel="stylesheet" type="text/css" />
+
+    <link href="~/content/dropzone/dropzone.css" rel="stylesheet" type="text/css" />
+    <link rel="stylesheet" href="~/content/jquery-ui-master/themes/base/jquery-ui.css" />
+    <link href="~/content/bootstrap-select.min.css" rel="stylesheet" type="text/css" />
+}
+
+@section addtolbar{
+    @{
+        var currentCat = catInfo;
+
+        while (currentCat != null &&
+               currentCat.ParentCategory != null &&
+               currentCat.ParentCategory.PARENT_NAME != 0)
+        {
+            <li class="breadcrumb-item">
+                <a href="@Url.Action("Index", "Document", new { categoryID = currentCat.ID })">
+                    @currentCat.NAME
+                </a>
+            </li>
+
+            currentCat = currentCat.ParentCategory;
+        }
+    }
+
+    @if (catInfo != null)
+    {
+        <li class="breadcrumb-item">
+            <a href="@Url.Action("Index", "Document", new { categoryID = catInfo.ID })">
+                @catInfo.NAME
+            </a>
+        </li>
+    }
+
+    <li class="breadcrumb-item active">@ViewBag.Title</li>
+}
+
+@using (Html.BeginForm("Create", "Documenti", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-horizontal professional-form-card">
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+        @Html.HiddenFor(model => model.DATEIN)
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.NUMBEROF, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+
+                @Html.EditorFor(model => model.NUMBEROF, new
+                {
+                    htmlAttributes = new
+                    {
+                        @class = "form-control",
+                        required = "required"
+                    }
+                })
+                @Html.ValidationMessageFor(model => model.NUMBEROF, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.DATEOFDOC, htmlAttributes: new { @class = "control-label col-md-2" })
+
+            <div class="col-sm-10">
+                <div class="input-group date" id="datetimepicker1">
+                    <span class="input-group-addon">
+                        <span class="glyphicon glyphicon-calendar"></span>
+                    </span>
+
+                    @Html.TextBoxFor(
+                                  model => model.DATEOFDOC,
+                                  "{0:yyyy-MM-dd}",
+                                  new { @class = "form-control datepicker" }
+                              )
+
+                    @Html.ValidationMessageFor(model => model.DATEOFDOC, "", new { @class = "text-danger" })
+                </div>
+            </div>
+        </div>
+
+
+        @Html.HiddenFor(model => model.Category)
+        @Html.HiddenFor(model => model.USERID)
+
+        @{
+
+            List<edocs.Models.DocAttribute> attrs = ViewBag.AttributeNames;
+            if (Model.DOCATTRIBUTEs != null)
+            {
+                for (int i = 0; i < Model.DOCATTRIBUTEs.Count; i++)
+                {
+                    <div class="form-group">
+                        @Html.Label(attrs[i].NAME, htmlAttributes: new { @class = "control-label col-md-2" })
+                        @Html.HiddenFor(model => Model.DOCATTRIBUTEs[i].ID)
+                        @Html.HiddenFor(model => Model.DOCATTRIBUTEs[i].ATTRIBUTEID)
+                        @{
+                            if (attrs[i].TYPE == "تاريخ")
+                            {
+                                <div class="col-md-10">
+                                    <div class='input-group date'>
+                                        <span class="input-group-addon">
+                                            <span class="glyphicon glyphicon-calendar"></span>
+                                        </span>
+                                        @Html.TextBoxFor(
+                                                 model => model.DOCATTRIBUTEs[i].VALUEOF,
+                                                 new
+                                                 {
+                                                     @Value = DateTime.Now.ToString("yyyy-MM-dd"),
+                                                     @class = "form-control datepicker",
+                                                     type = "text"
+                                                 }
+                                                 )
+
+                                    </div>
+                                </div>
+                            }
+                            else if (attrs[i].TYPE == "رقم")
+                            {
+                                <div class="col-md-10">
+                                    @Html.EditorFor(model => model.DOCATTRIBUTEs[i].VALUEOF, new { htmlAttributes = new { @type = "number", @min = "0", @step = "1", @value = "0", @class = "form-control", style = "font-size: large " } })
+                                </div>
+                            }
+                            else if (attrs[i].TYPE == "مساحة")
+                            {
+                                <div class="col-md-10" style="font-size:large">
+                                    @Html.TextAreaFor(model => model.DOCATTRIBUTEs[i].VALUEOF, new { cols = 35, rows = 3, @class = "form-control col-md-10", style = " font-size: large " })
+                                </div>
+                            }
+                            else if (attrs[i].TYPE == "قائمة")
+                            {
+                                {
+                                    List<SelectListItem> listitems = new List<SelectListItem>();
+                                    foreach (var ite in attrs[i].AttributeList.OrderBy(a => a.VALUE))
+                                    {
+                                        listitems.Add(new SelectListItem
+                                        {
+                                            Text = ite.VALUE,
+                                            Value = ite.VALUE
+
+                                        });
+                                    }
+                                    <div class="col-md-10" style="font-size:large">
+                                        @Html.DropDownListFor(model => model.DOCATTRIBUTEs[i].VALUEOF, listitems, "----  اختر من القائمة  ----", htmlAttributes: new { @class = " form-control selectpicker", style = " text-align: inherit; " })
+
+                                    </div>
+                                }
+
+                            }
+                            else
+                            {
+                                <div class="col-md-10">
+                                    @Html.EditorFor(model => model.DOCATTRIBUTEs[i].VALUEOF, new
+                                    {
+                                        htmlAttributes = new { @class = "form-control", style = "font-size: large " }
+                                    })
+                                </div>
+                            }
+                        }
+
+                    </div>
+                }
+            }
+
+        }
+
+
+        @{
+            if (ViewBag.files != null)
+            {
+                <div class="portfolioContainer" style="height:50%;">
+                    @{
+
+                        List<string> tem = new List<string>();
+                        tem = ViewBag.files;
+                        foreach (var item in tem)
+                        {
+                            string a = Session["UserId"] + "/" + item;
+                            string deletpaths = "temp/" + a;
+                            string[] fileType = item.Split('.');
+                            int indexExtenstion = fileType.Length - 1;
+
+                            string[] fileType1 = item.Split('\\');
+                            int indexExtenstion1 = fileType1.Length - 1;
+
+                            <div class="col-sm-6 col-lg-2 col-md-3">
+                                <div class="gal-detail thumb">
+                                    @{
+                                        if (fileType[indexExtenstion].ToUpper() == "PDF")
+                                        {
+                                            <a href="~/temp/@a" class="image-popup" title="@Html.DisplayFor(modelItem => item)" target="_blank">
+                                                <img src="~/content/image/pdf.png" class="thumb-img" height="100" width="75" />
+                                            </a>
+                                            <h4 target="_blank" href="~/temp/@a"><a target="_blank" href="~/temp/@a">@item</a></h4>
+                                        }
+                                        else if (fileType[indexExtenstion].ToUpper() == "TIFF" || fileType[indexExtenstion].ToUpper() == "TIF")
+                                        {
+                                            <a href="~/temp/@a" class="image-popup" title="@Html.DisplayFor(modelItem => item)" target="_blank">
+                                                <img src="~/content/image/tiff.png" href="~/temp/@a" class="thumb-img" height="100" width="75" />
+                                            </a>
+                                            <h4 target="_blank" href="~/temp/@a"><a target="_blank" href="~/temp/@a">@item</a></h4>
+                                        }
+                                        else if (fileType[indexExtenstion].ToUpper() == "DOC" || fileType[indexExtenstion].ToUpper() == "DOCX")
+                                        {
+                                            <a href="~/temp/@a" class="image-popup" title="@Html.DisplayFor(modelItem => item)" target="_blank">
+                                                <img src="~/content/image/Word.png" class="thumb-img" height="100" width="75" />
+                                            </a>
+                                            <h4 target="_blank" href="~/temp/@a"><a target="_blank" href="~/temp/@a">@item</a></h4>
+                                        }
+                                        else
+                                        {
+                                            <a href="~/temp/@a" class="image-popup" title="@Html.DisplayFor(modelItem => item)" target="_blank">
+                                                <img src="~/temp/@a" class="thumb-img" />
+                                            </a>
+                                            <h4>@item</h4>
+                                        }
+
+                                    }
+                                </div>
+                            </div>
+                        }
+                    }
+                </div>
+            }
+            else
+            {
+
+            }
+        }
+
+
+        @Html.Partial("_PartialAddFile")
+
+
+        <div id="images"></div>
+
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <div class="col-md-5">
+                    <button type="submit" value="end" name="submitbutton" class="btn btn-info btn-lg fa-align-center" id="submit-all"> حفظ <i class="fa fa-plus"></i></button>
+                </div>
+            </div>
+
+        </div>
+    </div>
+}
+
+@section addjs{
+    <script src="~/content/dropzone/dropzone.min.js"></script>
+
+    <script type="text/javascript">
+        function b64toBlob(b64Data, contentType, sliceSize) {
+            contentType = contentType || '';
+            sliceSize = sliceSize || 512;
+
+            var byteCharacters = atob(b64Data);
+            var byteArrays = [];
+
+            for (var offset = 0; offset < byteCharacters.length; offset += sliceSize) {
+                var slice = byteCharacters.slice(offset, offset + sliceSize);
+
+                var byteNumbers = new Array(slice.length);
+                for (var i = 0; i < slice.length; i++) {
+                    byteNumbers[i] = slice.charCodeAt(i);
+                }
+
+                var byteArray = new Uint8Array(byteNumbers);
+
+                byteArrays.push(byteArray);
+            }
+
+            var blob = new Blob(byteArrays, { type: contentType });
+            return blob;
+        }
+
+
+        function savebase64AsImageFile(folderpath, filename, content, contentType) {
+            var DataBlob = b64toBlob(content, contentType);
+
+            console.log("Starting to write the file :3");
+
+            window.resolveLocalFileSystemURL(folderpath, function (dir) {
+                console.log("Access to the directory granted succesfully");
+                dir.getFile(filename, { create: true }, function (file) {
+                    console.log("File created succesfully.");
+                    file.createWriter(function (fileWriter) {
+                        console.log("Writing content to file");
+                        fileWriter.write(DataBlob);
+                    }, function () {
+                        alert('Unable to save file in path ' + folderpath);
+                    });
+                });
+            });
+        }
+
+        //File Upload response from the server
+        var c = @Model.Category;
+        Dropzone.options.dropzoneForm = {
+            paramName: "file",
+            maxFiles: 10,
+            maxFilesize: 256,
+
+            url: '@Url.Action("UploadTempFiles", "Documenti")',
+
+            params: {
+                categoryId: @Model.Category
+            },
+
+            addRemoveLinks: true,
+
+            init: function () {
+
+                this.on("success", function (file, response) {
+                    file.serverFileName = response.files.slice(-1)[0];
+                });
+
+                this.on("removedfile", function (file) {
+                    if (!file.serverFileName) return;
+
+                    $.post('@Url.Action("RemoveTempFile", "Documenti")', {
+                        fileName: file.serverFileName
+                    });
+                });
+            }
+        };
+
+    </script>
+    <script src="~/content/bootstrap-select.min.js"></script>
+    <script type="text/javascript" language="javascript">
+        $(document).ready(function () {
+            $('.selectpicker').selectpicker({
+                liveSearch: true,
+                showSubtext: true
+            });
+        });
+    </script>
+    <script src="~/content/jquery-ui-master/ui/jquery-ui.js"></script>
+    <script src="~/content/jquery-ui-master/ui/i18n/datepicker-ar.js"></script>
+
+    <script>
+        $(function () {
+            $(".datepicker").datepicker($.datepicker.regional["ar"]);
+            $(".datepicker").datepicker("option", "dateFormat", "yy-mm-dd");
+            $(".datepicker").datepicker({
+                showButtonPanel: true
+            });
+        });
+    </script>
+}

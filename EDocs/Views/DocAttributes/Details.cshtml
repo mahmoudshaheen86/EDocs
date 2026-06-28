@@ -1,0 +1,47 @@
+﻿@model edocs.Models.DocAttributes
+
+@{
+    ViewBag.Title = "استعراض بيانات واصفة";
+    Layout = "~/Views/shared/_MainLayout.cshtml";
+}
+
+<h2>استعراض بيانات واصفة</h2>
+
+<div>
+    <h4> بيانات واصفة</h4>
+    <hr />
+    <dl class="dl-horizontal">
+
+
+        <dt>
+            @Html.DisplayNameFor(model => model.VALUEOF)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.VALUEOF)
+        </dd>
+
+
+        <dt>
+            @Html.DisplayNameFor(model => model.AttributeFk.NAME)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.AttributeFk.NAME)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.DOCFk.NAME)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DOCFk.NAME)
+        </dd>
+
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("تعديل", "Edit", new { id = Model.ID }) |
+    @Html.ActionLink("العودة إلى صفحة الحقول", "Index")
+</p>

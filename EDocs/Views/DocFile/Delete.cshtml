@@ -1,0 +1,148 @@
+﻿@model edocs.Models.DocFile
+
+@{
+    ViewBag.Title = "حذف ملف";
+    Layout = "~/Views/shared/_MainLayout.cshtml";
+}
+<div class="row">
+    <div class="col-md-6">
+        <h2 class="text-danger">حذف ملف</h2>
+        <div class="alert alert-danger">
+            <strong>تحذير!</strong> هل أنت متأكد من أنك تريد حذف الملف ؟
+        </div>
+        <hr />
+        <dl class="dl-horizontal">
+
+            <dt>
+                @Html.DisplayNameFor(model => model.NAME)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.NAME)
+            </dd>
+
+
+            <dt>
+                @Html.DisplayNameFor(model => model.DATEOF)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.DATEOF)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.STATUS)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.STATUS)
+            </dd>
+
+
+            <dt>
+                @Html.DisplayNameFor(model => model.USERID)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.USERFk.UserName)
+            </dd>
+
+
+        </dl>
+    </div>
+
+        <div class="col-md-4" >
+            <div class="thumb">
+                <div class="portfolioContainer">
+                    @{
+                        string a = Session["UserId"] + "/" + Model.NAME;
+                        //string a = @Model.DOCFk.CategoryFk.FOLDER_NAME.ToString() + "/" + @Convert.ToString(int.Parse(Model.DATEOF.Year.ToString()), 16) + "/" + @Convert.ToString(int.Parse(Model.DATEOF.Month.ToString()), 16) + "/" + @Convert.ToString(int.Parse(Model.DATEOF.Day.ToString()), 16) + "/" + Model.NAME;
+
+                        //string a = @Model.DOCFk.CategoryFk.FOLDER_NAME.ToString() + "/" + @Convert.ToString(int.Parse(Model.DATEOF.Year.ToString()), 16) + "/" + @Convert.ToString(int.Parse(Model.DATEOF.Month.ToString()), 16) + "/" + @Convert.ToString(int.Parse(Model.DATEOF.Day.ToString()), 16) + "/" + Model.NAME;
+                        string[] fileType = Model.NAME.Split('.');
+                        int indexExtenstion = fileType.Length - 1;
+
+
+                        <div class="col-sm-6" onload="UTIF.replaceIMG()">
+                            <div class="gal-detail thumb">
+                                @{
+                                    if (fileType[indexExtenstion].ToUpper() == "PDF")
+                                    { <a href="~/temp/@a" class="image-popup" title="~/temp/@a">
+                                <img src="~/content/image/pdf.png" class="thumb-img" height="100" width="75" />
+                            </a>
+                            <h4 target="_blank" href="~/temp/@a"><a target="_blank" href="~/temp/@a">@Model.NAME</a></h4>
+                                    }
+                                    else if (fileType[indexExtenstion].ToUpper() == "TIF" || fileType[indexExtenstion].ToUpper() == "TIFF")
+                                    {
+                                        <a href="~/temp/@a" class="image-popup" title="~/temp/@a)" target="_blank">
+                                            tiff(pathimg)
+                                        </a>
+                                        <h4 target="_blank" href="~/temp/@a"><a target="_blank" href="~/temp/@a">@Model.NAME</a></h4>
+                                    }
+                                    else if (fileType[indexExtenstion].ToUpper() == "DOC" || fileType[indexExtenstion].ToUpper() == "DOCX")
+                                    {
+                                        <a href="~/temp/@a" class="image-popup" title="~/temp/@a)" target="_blank">
+                                            <img src="~/content/image/Word.png" class="thumb-img" height="100" width="75" />
+                                        </a>
+                                        <h4 target="_blank" href="~/temp/@a"><a target="_blank" href="~/temp/@a">@Model.NAME</a></h4>
+                                    }
+                                    else
+                                    {
+                                        <a href="~/" class="image-popup" title="~/temp/@a" target="_blank">
+                                            <img src="~/temp/@a" class="thumb-img" />
+                                        </a>
+                                        <h4 target="_blank" href="~/temp/@a"><a target="_blank" href="~/temp/@a">@Model.NAME</a></h4>
+                                    }
+
+                                }
+
+
+
+                            </div>
+                        </div>
+                    }
+                </div>
+
+            </div>
+        </div>
+        <div class="col-md-2">
+
+        </div>
+</div>
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-actions no-color">
+        <button type="submit" value="حذف" class="btn btn-danger btn-lg"> حذف <span class="glyphicon glyphicon-trash"></span></button> |
+        @Html.ActionLink("العودة إلى الملفات", "Edit", "Document", new { Id = Model.DOCUMENTID },new { @class = "ui-btn-right", data_icon = "gear" })
+    </div>
+}
+@section addjs{
+    <script src="~/scripts/tiff.js"></script>
+
+    function startscan(){
+            $.ajax({
+                type : 'post',
+                url: '@Url.Action("scanner", "Documenti")',
+                success : function(){}
+                });
+                }
+
+    <script type="text/javascript">
+        function tiff(pathimg)
+        {
+            var xhr = new XMLHttpRequest();
+            xhr.responseType = 'arraybuffer';
+            xhr.open('GET', pathimg);
+            xhr.onload = function (e) {
+                var tiff = new Tiff({ buffer: xhr.response });
+                var canvas = tiff.toCanvas();
+                document.body.append(canvas);
+            };
+            xhr.send();
+        }
+        
+    </script>
+}
+
